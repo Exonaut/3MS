@@ -1,0 +1,14 @@
+.button {
+    min-width: 400px;
+    min-height: 100px;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-size: 64px;
+    color: rgba(255, 255, 255, 255);
+}
+
+.doomcolor {
+    background-color: rgba(137, 28, 34, 255);
+}

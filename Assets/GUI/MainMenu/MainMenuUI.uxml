@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/GUI/MainMenu/MainMenuStylesheet.uss?fileID=7433441132597879392&amp;guid=9c4bd36c1791c75428811745ad770d06&amp;type=3#MainMenuStylesheet" />
+    <ui:VisualElement style="flex-basis: auto; flex-grow: 0; align-items: center; justify-content: flex-start; width: 100%; height: 100%;">
+        <ui:VisualElement style="margin-top: 3%;">
+            <ui:Label text="3MS Doomlike Shooter" name="MainTitle" style="font-size: 66%; -unity-text-align: upper-center; white-space: normal; -unity-font-style: bold; transform-origin: top; color: rgba(255, 0, 0, 255);" />
+        </ui:VisualElement>
+        <ui:VisualElement style="width: 100%; height: 100%; justify-content: center; align-items: center; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 1%; padding-right: 1%; padding-top: 3%; padding-bottom: 3%;">
+            <ui:Button text="Start Game" name="StartGame" class="button doomcolor" />
+            <ui:Button text="Options" tabindex="1" name="Options" class="button doomcolor" />
+            <ui:Button text="End Game" tabindex="2" name="EndGame" class="button doomcolor" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
