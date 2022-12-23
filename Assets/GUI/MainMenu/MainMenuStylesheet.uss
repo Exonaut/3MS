@@ -6,9 +6,14 @@
     margin-top: 1%;
     margin-bottom: 1%;
     font-size: 64px;
-    color: rgba(255, 255, 255, 255);
-}
-
-.doomcolor {
-    background-color: rgba(137, 28, 34, 255);
+    color: rgb(255, 182, 219);
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url('project://database/Assets/GUI%20PRO%20Kit%20-%20Sci-Fi/ResourcesData/Sprite/Component/Button_Demo/Btn_IconTextButton_SlantSquare01_Red.png?fileID=2800000&guid=ba279e584125a4790a0219743520f308&type=3#Btn_IconTextButton_SlantSquare01_Red');
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-font: url('project://database/Assets/GUI%20PRO%20Kit%20-%20Sci-Fi/ResourcesData/Sprite/Component/Fonts/Data%20Control%20by%20Vic%20Fieger/data-latin.ttf?fileID=12800000&guid=6d532a68516819b4180abeab0c210b7d&type=3#data-latin');
+    -unity-font-definition: none;
 }

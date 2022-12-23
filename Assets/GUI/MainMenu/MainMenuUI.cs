@@ -5,27 +5,19 @@ using UnityEngine.UIElements;
 using Exo.Events;
 using Sirenix.OdinInspector;
 
-public class MainMenuUI : MonoBehaviour
+public class MainMenuUI : MenuUI
 {
-    [FoldoutGroup("Dependencies", expanded: true)]
-    [FoldoutGroup("Dependencies")][SerializeField, Required] private Logger logger;
-
-    private void Start()
+    new void OnEnable()
     {
-        logger = logger == null ? Logger.GetDefaultLogger(this) : logger;
-    }
+        base.OnEnable();
 
-    private void OnEnable()
-    {
+        // Setup Menu buttons
         VisualElement root = GetComponent<UIDocument>().rootVisualElement;
 
-        Button btnStartGame = root.Q<Button>("StartGame");
-        Button btnOptions = root.Q<Button>("Options");
-        Button btnEndGame = root.Q<Button>("EndGame");
-
-        btnStartGame.clicked += () => OnStartGame();
-        btnOptions.clicked += () => OnOptions();
-        btnEndGame.clicked += () => OnEndGame();
+        root.Q<Button>("StartGame").clicked += () => OnStartGame();
+        root.Q<Button>("Options").clicked += () => OnOptions();
+        root.Q<Button>("Credits").clicked += () => OnCredits();
+        root.Q<Button>("EndGame").clicked += () => OnEndGame();
     }
 
     public readonly HookableEvent onStartGame = new HookableEvent("onStartGame");
@@ -42,6 +34,15 @@ public class MainMenuUI : MonoBehaviour
     {
         logger.Log("OnOptions clicked");
         onOptions.Invoke(this);
+
+        HideUI(this);
+    }
+
+    public readonly HookableEvent onCredits = new HookableEvent("onOptions");
+    private void OnCredits()
+    {
+        logger.Log("OnCredits clicked");
+        onCredits.Invoke(this);
 
         // TODO
     }

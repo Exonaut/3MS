@@ -83,18 +83,17 @@ namespace Exo.Events
         [Button("Invoke"), ShowIf("eventAction", null)]
         void Invoke()
         {
-            if (eventAction == null) return;
-            eventAction.Invoke(target);
+            eventAction?.Invoke(target);
         }
 
         public void AddListener(Action<MonoBehaviour> b)
         {
-            eventAction.AddListener(b);
+            eventAction?.AddListener(b);
         }
 
         public void RemoveListener(Action<MonoBehaviour> b)
         {
-            eventAction.RemoveListener(b);
+            eventAction?.RemoveListener(b);
         }
 
         public static EventHook operator +(EventHook a, Action<MonoBehaviour> b)
