@@ -72,6 +72,8 @@ public class PlayerMovementController : MonoBehaviour
         // Mouse settings
         Cursor.lockState = CursorLockMode.Locked;
 
+        mouseSensitivity = PlayerPrefs.GetFloat(GameGlobals.key_MouseSensitivity, 0.5f);
+
         logger?.Log("PlayerMovementController enabled", this);
     }
 

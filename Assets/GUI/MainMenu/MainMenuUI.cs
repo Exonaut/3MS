@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Exo.Events;
 using Sirenix.OdinInspector;
+using UnityEngine.SceneManagement;
 
 public class MainMenuUI : MenuUI
 {
+    [FoldoutGroup("Dependencies")][SerializeField, Required] private Object startGameScene;
+
     new void OnEnable()
     {
         base.OnEnable();
@@ -26,7 +29,7 @@ public class MainMenuUI : MenuUI
         logger.Log("OnStartGame clicked");
         onStartGame.Invoke(this);
 
-        // TODO
+        if (startGameScene != null) SceneManager.LoadScene(startGameScene.name);
     }
 
     public readonly HookableEvent onOptions = new HookableEvent("onOptions");

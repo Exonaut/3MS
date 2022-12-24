@@ -41,7 +41,7 @@ public class MenuUI : MonoBehaviour
         VisualElement root = GetComponent<UIDocument>().rootVisualElement;
 
         // Hover effect for buttons
-        root?.Query<Button>(className: ".button").ForEach((button) =>
+        root?.Query<Button>(className: "button").ForEach((button) =>
         {
             button.RegisterCallback<MouseOverEvent>(OnButtonEnter);
             button.RegisterCallback<MouseLeaveEvent>(OnButtonExit);

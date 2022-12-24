@@ -1,6 +1,20 @@
 .unity-base-slider__tracker {
-    background-color: rgba(255, 0, 255, 255);
+    background-color: rgb(255, 0, 255);
 }
 
 .unity-base-slider__dragger {
+}
+
+.unity-text-field__input {
+    color: rgba(255, 255, 255, 255);
+    background-color: rgba(58, 58, 58, 255);
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
+    -unity-font-style: normal;
+    -unity-font: url('project://database/Assets/GUI%20PRO%20Kit%20-%20Sci-Fi/ResourcesData/Sprite/Component/Fonts/Data%20Control%20by%20Vic%20Fieger/data-latin.ttf?fileID=12800000&guid=6d532a68516819b4180abeab0c210b7d&type=3#data-latin');
+    font-size: 14px;
+    -unity-font-definition: none;
+}
+
+.unity-text-field {
+    width: 30px;
 }

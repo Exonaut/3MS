@@ -422,6 +422,7 @@ MonoBehaviour:
   - target: {fileID: 1049553031}
     eventName: onReturn
   hideUIHooks: []
+  startGameScene: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
 --- !u!114 &1516443839
 MonoBehaviour:
   m_ObjectHideFlags: 0
