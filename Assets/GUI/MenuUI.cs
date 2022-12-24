@@ -12,14 +12,19 @@ public class MenuUI : MonoBehaviour
 
     [FoldoutGroup("Settings", expanded: true)]
     [FoldoutGroup("Settings")][SerializeField] bool startEnabled;
+    [FoldoutGroup("Settings")][SerializeField] Color notHoveringColor = Color.white;
+    [FoldoutGroup("Settings")][SerializeField] Color hoveringColor = Color.gray;
 
     [FoldoutGroup("Hooks", expanded: true)]
     [FoldoutGroup("Hooks")][SerializeField] List<EventHook> showUIHooks;
     [FoldoutGroup("Hooks")][SerializeField] List<EventHook> hideUIHooks;
 
+    private UIDocument document;
+
     protected void Start()
     {
         logger = logger == null ? Logger.GetDefaultLogger(this) : logger;
+        document = GetComponent<UIDocument>();
 
         if (!startEnabled) gameObject.SetActive(false);
 
@@ -45,6 +50,20 @@ public class MenuUI : MonoBehaviour
         {
             button.RegisterCallback<MouseOverEvent>(OnButtonEnter);
             button.RegisterCallback<MouseLeaveEvent>(OnButtonExit);
+        });
+    }
+
+    /// <summary>
+    /// This function is called when the behaviour becomes disabled or inactive.
+    /// </summary>
+    private void OnDisable()
+    {
+        VisualElement root = GetComponent<UIDocument>().rootVisualElement;
+
+        root?.Query<Button>(className: "button").ForEach((button) =>
+        {
+            button.UnregisterCallback<MouseOverEvent>(OnButtonEnter);
+            button.UnregisterCallback<MouseLeaveEvent>(OnButtonExit);
         });
     }
 
@@ -77,11 +96,11 @@ public class MenuUI : MonoBehaviour
 
     private void OnButtonEnter(MouseOverEvent e)
     {
-        ((Button)e.target).style.unityBackgroundImageTintColor = Color.gray;
+        ((Button)e.target).style.unityBackgroundImageTintColor = hoveringColor;
     }
 
     private void OnButtonExit(MouseLeaveEvent e)
     {
-        ((Button)e.target).style.unityBackgroundImageTintColor = Color.white;
+        ((Button)e.target).style.unityBackgroundImageTintColor = notHoveringColor;
     }
 }

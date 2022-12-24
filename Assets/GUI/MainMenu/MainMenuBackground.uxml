@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/GUI/MainMenu/MainMenuStylesheet.uss?fileID=7433441132597879392&amp;guid=9c4bd36c1791c75428811745ad770d06&amp;type=3#MainMenuStylesheet" />
+    <ui:VisualElement name="Background" style="flex-basis: auto; flex-grow: 0; align-items: center; justify-content: flex-start; width: 100%; height: 100%; background-image: url(&apos;project://database/Assets/GUI/MainMenu/MainMenuBackgroundHQ.jpg?fileID=2800000&amp;guid=25604e7e3ac585c42abcf2c41730201b&amp;type=3#MainMenuBackgroundHQ&apos;); -unity-background-scale-mode: scale-and-crop;" />
+</ui:UXML>
