@@ -159,7 +159,7 @@ public class OptionsMenuUI : MenuUI
         b_fullscreen = PlayerPrefs.GetInt(GameGlobals.key_Fullscreen, 1);
     }
 
-    [Hookable] public event Action<MonoBehaviour> onReturn;
+    [Hookable] public event Action<OptionsMenuUI> onReturn;
     private void OnReturn()
     {
         logger.Log("OnReturn clicked");

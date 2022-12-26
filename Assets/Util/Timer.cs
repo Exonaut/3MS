@@ -13,10 +13,10 @@ public class Timer : MonoBehaviour
     [FoldoutGroup("EventHooks", true)][SerializeField] List<EventHook<Object>> pauseHooks;
     [FoldoutGroup("EventHooks", true)][SerializeField] List<EventHook<Object>> resetHooks;
 
-    [Hookable] public event Action<Object> OnStart;
-    [Hookable] public event Action<Object> OnEnd;
-    [Hookable] public event Action<Object> OnPause;
-    [Hookable] public event Action<Object> OnReset;
+    [Hookable] public event Action<Timer> OnStart;
+    [Hookable] public event Action<Timer> OnEnd;
+    [Hookable] public event Action<Timer> OnPause;
+    [Hookable] public event Action<Timer> OnReset;
 
     [FoldoutGroup("Settings", true)][SerializeField, Min(0)] float time = 10;
     [FoldoutGroup("Settings", true)][SerializeField] bool loop;

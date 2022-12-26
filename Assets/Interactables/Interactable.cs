@@ -25,8 +25,7 @@ namespace Interaction
             }
         }
 
-        [Hookable] public event Action<Object> onInteract;
-        [Hookable] public event Action<Interactable> onInteractInteractable;
+        [Hookable] public event Action<Interactable> onInteract;
         [Hookable] public event Action<Interactor> onInteractInteractor;
         public virtual void Interact(Interactor interactor)
         {
@@ -34,7 +33,6 @@ namespace Interaction
             {
                 logger.Log("Interacted with by " + interactor.name, this);
                 onInteract?.Invoke(this);
-                onInteractInteractable?.Invoke(this);
                 onInteractInteractor?.Invoke(interactor);
             }
         }

@@ -8,7 +8,7 @@ public class InputHandler : MonoBehaviour
 {
     [SerializeField] private Logger logger;
 
-    public Action<Vector2> moveEvent;
+    [Hookable] public Action<Vector2> moveEvent;
     public void OnMove(InputValue moveValue)
     {
         if (moveEvent != null)
@@ -17,7 +17,7 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    public Action<Vector2> lookEvent;
+    [Hookable] public Action<Vector2> lookEvent;
     public void OnLook(InputValue lookValue)
     {
         if (lookEvent != null && Application.isFocused)
@@ -26,7 +26,7 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    public Action jumpEvent;
+    [Hookable] public Action jumpEvent;
     public void OnJump()
     {
         logger.Log("Jump pressed");
@@ -36,7 +36,7 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    public Action<bool> sprintEvent;
+    [Hookable] public Action<bool> sprintEvent;
     public void OnSprintStart()
     {
         logger.Log("Sprint started pressed");
@@ -55,7 +55,7 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    public Action<bool> crouchEvent;
+    [Hookable] public Action<bool> crouchEvent;
     public void OnCrouchStart()
     {
         logger.Log("Crouch start pressed");
@@ -74,7 +74,7 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    public Action primaryStartEvent;
+    [Hookable] public Action primaryStartEvent;
     public void OnPrimaryStart()
     {
         logger.Log("Primary pressed");
@@ -84,7 +84,7 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    public Action primaryStopEvent;
+    [Hookable] public Action primaryStopEvent;
     public void OnPrimaryStop()
     {
         logger.Log("Primary released");
@@ -94,7 +94,7 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    public Action interactEvent;
+    [Hookable] public Action interactEvent;
     public void OnInteract()
     {
         logger.Log("Interact pressed");
@@ -104,7 +104,7 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    public Action muteEvent;
+    [Hookable] public Action muteEvent;
     public void OnMute()
     {
         logger.Log("Mute pressed");
@@ -114,7 +114,7 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    public Action exitEvent;
+    [Hookable] public Action exitEvent;
     public void OnExit()
     {
         logger.Log("Exit pressed");
@@ -124,7 +124,7 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    public Action volumeUpEvent;
+    [Hookable] public Action volumeUpEvent;
     public void OnVolumeUp()
     {
         logger.Log("Volume up pressed");
@@ -134,7 +134,7 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    public Action volumeDownEvent;
+    [Hookable] public Action volumeDownEvent;
     public void OnVolumeDown()
     {
         logger.Log("Volume down pressed");
@@ -144,7 +144,7 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    public Action restartEvent;
+    [Hookable] public Action restartEvent;
     public void OnRestart()
     {
         logger.Log("Restart pressed");

@@ -23,7 +23,7 @@ public class MainMenuUI : MenuUI
         root.Q<Button>("EndGame").clicked += () => OnEndGame();
     }
 
-    [Hookable] public event Action<MonoBehaviour> onStartGame;
+    [Hookable] public event Action<MainMenuUI> onStartGame;
     private void OnStartGame()
     {
         logger.Log("OnStartGame clicked");
@@ -32,7 +32,7 @@ public class MainMenuUI : MenuUI
         if (startGameScene != null) SceneManager.LoadScene(startGameScene.name);
     }
 
-    [Hookable] public event Action<MonoBehaviour> onOptions;
+    [Hookable] public event Action<MainMenuUI> onOptions;
     private void OnOptions()
     {
         logger.Log("OnOptions clicked");
@@ -41,7 +41,7 @@ public class MainMenuUI : MenuUI
         HideUI(this);
     }
 
-    [Hookable] public event Action<MonoBehaviour> onCredits;
+    [Hookable] public event Action<MainMenuUI> onCredits;
     private void OnCredits()
     {
         logger.Log("OnCredits clicked");
@@ -50,7 +50,7 @@ public class MainMenuUI : MenuUI
         // TODO
     }
 
-    [Hookable] public event Action<MonoBehaviour> onEndGame;
+    [Hookable] public event Action<MainMenuUI> onEndGame;
     private void OnEndGame()
     {
         logger.Log("OnEndGame clicked");

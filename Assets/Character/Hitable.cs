@@ -138,7 +138,7 @@ public class Hitable : MonoBehaviour
         Damage(frostDamage);
     }
 
-    public event Action<MonoBehaviour> onShieldRecharged;
+    public event Action<Hitable> onShieldRecharged;
     private void RechargeShield()
     {
         if (shield < maxShield)
@@ -151,16 +151,16 @@ public class Hitable : MonoBehaviour
         }
     }
 
-    public event Action<MonoBehaviour> onShieldRechargeDelay;
+    public event Action<Hitable> onShieldRechargeDelay;
     private void SuspendShieldRecharge()
     {
         shieldRechargeDelayTimer = shieldRechargeDelay;
         onShieldRechargeDelay?.Invoke(this);
     }
 
-    [Hookable] public event Action<MonoBehaviour> onHit;
-    [Hookable] public event Action<MonoBehaviour> onShieldHit;
-    [Hookable] public event Action<MonoBehaviour> onHealthHit;
+    [Hookable] public event Action<Hitable> onHit;
+    [Hookable] public event Action<Hitable> onShieldHit;
+    [Hookable] public event Action<Hitable> onHealthHit;
     public void Hit(int damage, bool ignoreShield = false, bool ignoreHealth = false, bool ignoreDamageReduction = false)
     {
         logger.Log($"{gameObject.name} was hit for {damage} damage", this);
@@ -186,9 +186,9 @@ public class Hitable : MonoBehaviour
         Hit(attack.damage);
     }
 
-    [Hookable] public event Action<MonoBehaviour> onDamage;
-    [Hookable] public event Action<MonoBehaviour> onHealthDamage;
-    [Hookable] public event Action<MonoBehaviour> onShieldDamage;
+    [Hookable] public event Action<Hitable> onDamage;
+    [Hookable] public event Action<Hitable> onHealthDamage;
+    [Hookable] public event Action<Hitable> onShieldDamage;
     protected void Damage(int damage, bool ignoreShield = false, bool ignoreHealth = false, bool ignoreDamageReduction = false)
     {
         if (invincible) return;
@@ -253,7 +253,7 @@ public class Hitable : MonoBehaviour
         }
     }
 
-    [Hookable] public event Action<MonoBehaviour> onDie;
+    [Hookable] public event Action<Hitable> onDie;
     protected virtual void Die()
     {
         logger.Log($"{gameObject.name} died", this);
