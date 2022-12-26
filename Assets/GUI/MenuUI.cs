@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Exo.Events;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Object = UnityEngine.Object;
 
 public class MenuUI : MonoBehaviour
 {
@@ -16,8 +17,8 @@ public class MenuUI : MonoBehaviour
     [FoldoutGroup("Settings")][SerializeField] Color hoveringColor = Color.gray;
 
     [FoldoutGroup("Hooks", expanded: true)]
-    [FoldoutGroup("Hooks")][SerializeField] List<EventHook> showUIHooks;
-    [FoldoutGroup("Hooks")][SerializeField] List<EventHook> hideUIHooks;
+    [FoldoutGroup("Hooks")][SerializeField] List<EventHook<Object>> showUIHooks;
+    [FoldoutGroup("Hooks")][SerializeField] List<EventHook<Object>> hideUIHooks;
 
     private UIDocument document;
 
@@ -69,27 +70,27 @@ public class MenuUI : MonoBehaviour
 
     void OnDestroy()
     {
-        foreach (EventHook hook in showUIHooks)
+        foreach (var hook in showUIHooks)
         {
             hook.RemoveListener(ShowUI);
         }
 
-        foreach (EventHook hook in hideUIHooks)
+        foreach (var hook in hideUIHooks)
         {
             hook.RemoveListener(HideUI);
         }
     }
 
-    protected void ShowUI(MonoBehaviour caller)
+    protected void ShowUI(Object caller = null)
     {
-        logger?.Log("UI enabled", this);
+        logger?.Log("UI enabled by " + caller?.name, this);
 
         gameObject.SetActive(true);
     }
 
-    protected void HideUI(MonoBehaviour caller)
+    protected void HideUI(Object caller = null)
     {
-        logger?.Log("UI disabled", this);
+        logger?.Log("UI disabled by " + caller?.name, this);
 
         gameObject.SetActive(false);
     }

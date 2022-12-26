@@ -48,6 +48,11 @@ public class Logger : MonoBehaviour
         return DefaultLogger;
     }
 
+    public static Logger GetDefaultLogger()
+    {
+        return DefaultLogger;
+    }
+
     private void OnValidate()
     {
         _hexColor = "#" + ColorUtility.ToHtmlStringRGBA(prefixColor);

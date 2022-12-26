@@ -1,8 +1,7 @@
-using Exo.Events;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System;
+using Object = UnityEngine.Object;
 
 namespace Exo.Sensors
 {
@@ -11,18 +10,22 @@ namespace Exo.Sensors
     {
         [FoldoutGroup("Masks", true)][SerializeField] LayerMask sensorMask;
 
-        public readonly HookableEvent onSensorEnter = new HookableEvent("SensorEnter");
+        [Hookable] public event Action<Object> onSensorEnter;
+        [Hookable] public event Action<Collider> onSensorEnterCollider;
         private void OnTriggerEnter(Collider other)
         {
             if (sensorMask != (sensorMask | ( 1 << other.gameObject.layer))) return;
-            onSensorEnter.Invoke(other.GetComponent<MonoBehaviour>());
+            onSensorEnter?.Invoke(other);
+            onSensorEnterCollider?.Invoke(other);
         }
 
-        public readonly HookableEvent onSensorExit = new HookableEvent("SensorExit");
+        [Hookable] public event Action<Object> onSensorExit;
+        [Hookable] public event Action<Collider> onSensorExitCollider;
         private void OnTriggerExit(Collider other)
         {
             if (sensorMask != (sensorMask | (1 << other.gameObject.layer))) return;
-            onSensorExit.Invoke(other.GetComponent<MonoBehaviour>());
+            onSensorExit?.Invoke(other);
+            onSensorExitCollider?.Invoke(other);
         }
     }
 }

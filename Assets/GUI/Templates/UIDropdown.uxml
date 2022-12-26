@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/GUI/Templates/Dropdown.uss?fileID=7433441132597879392&amp;guid=ce2dd43f542d5994eb36a8bc07535b0f&amp;type=3#Dropdown" />
+    <ui:VisualElement name="Slider" style="align-items: auto; scale: 1 1; width: auto; flex-direction: row; margin-left: 8px; margin-right: 8px; margin-top: 4px; margin-bottom: 32px; min-height: 5%; max-height: 10%; max-width: 100%;">
+        <ui:VisualElement name="LabelContainer" style="width: auto; min-width: 50%; max-width: 50%; min-height: 100%; align-items: center; flex-direction: row-reverse;">
+            <ui:Label text="Slider Label" name="Label" style="-unity-text-align: middle-right; -unity-font: url(&apos;project://database/Assets/GUI%20PRO%20Kit%20-%20Sci-Fi/ResourcesData/Sprite/Component/Fonts/Data%20Control%20by%20Vic%20Fieger/data-latin.ttf?fileID=12800000&amp;guid=6d532a68516819b4180abeab0c210b7d&amp;type=3#data-latin&apos;); -unity-font-definition: none; -unity-font-style: bold; font-size: 100%; color: rgb(255, 255, 255); min-width: 100%; min-height: 100%; align-items: center; flex-direction: row; margin-right: 8px;" />
+        </ui:VisualElement>
+        <ui:DropdownField index="-1" choices="Low, Medium,High" name="Dropdown" style="-unity-font: url(&apos;project://database/Assets/GUI%20PRO%20Kit%20-%20Sci-Fi/ResourcesData/Sprite/Component/Fonts/Data%20Control%20by%20Vic%20Fieger/data-latin.ttf?fileID=12800000&amp;guid=6d532a68516819b4180abeab0c210b7d&amp;type=3#data-latin&apos;); -unity-font-definition: none; width: auto; height: auto; min-width: 5%; max-width: 10%; min-height: 75%; max-height: 100%; align-items: center; justify-content: flex-start; flex-direction: row;" />
+    </ui:VisualElement>
+</ui:UXML>

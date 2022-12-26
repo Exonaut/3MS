@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using Interaction;
-using Exo.Events;
 
 public class PlayerController : MonoBehaviour
 {

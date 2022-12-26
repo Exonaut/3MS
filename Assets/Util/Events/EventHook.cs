@@ -1,118 +1,80 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using System.Linq;
+using System;
 
-namespace Exo.Events
+[System.Serializable]
+public class EventHook<E> where E : UnityEngine.Object
 {
-    [System.Serializable]
-    public class EventHook
+    [SerializeField, InfoBox("Required", InfoMessageType.Error, "ShowRequired"), OnValueChanged("Clear"), SceneObjectsOnly] private MonoBehaviour target;
+    [SerializeField, ValueDropdown("GetEventNames")] private string eventName = "";
+
+    List<System.Reflection.EventInfo> GetEvents()
     {
-        [SerializeField, InfoBox("Required", InfoMessageType.Error, "ShowRequired"), SceneObjectsOnly] private MonoBehaviour target;
-        [SerializeField, ValueDropdown("GetEventNames"), OnValueChanged("SetHook")] private string eventName = "";
+        return target.GetType().GetEvents()
+            .Where(e => e.GetCustomAttributes(typeof(Hookable), inherit: true).Any()
+                && GetType().GetGenericArguments()[0].IsAssignableFrom(e.EventHandlerType.GetGenericArguments()[0]))
+            .ToList();
+    }
 
-        protected HookableEvent eventAction 
-        { 
-        get 
-        {
-            GetEventNames();
-            return SetHook();
-        }}
+    IEnumerable GetEventNames()
+    {
+        var eventNames = new ValueDropdownList<string>();
+        eventNames.Add("");
 
-        List<HookableEvent> hookableEvents;
+        GetEvents().ForEach((e) => eventNames.Add(e.Name));
 
-        /// <summary>
-        /// Returns a list of all the events that can be hooked to.
-        /// </summary>
-        /// <returns></returns>
-        IEnumerable GetEventNames()
-        {
-            // Setup name list
-            var eventNames = new ValueDropdownList<string>();
-            eventNames.Add("");
+        return eventNames;
+    }
 
-            // Setup event list
-            if (hookableEvents == null) hookableEvents = new List<HookableEvent>();
-            hookableEvents.Clear();
+    void Clear()
+    {
+        eventName = "";
+    }
 
-            if (target == null) return null;
+    public void AddListener(Action<E> action)
+    {
+        var events = GetEvents();
+        if (target == null || eventName == "" || events == null) return;
 
-            var type = target.GetType();
+        var e = events.Find(x => x.Name == eventName);
+        e.AddEventHandler(target, action);
+    }
 
-            // Add all public property events
-            var properties = target.GetType().GetProperties();
-            foreach (var property in properties)
-            {
-                if (property.PropertyType == typeof(HookableEvent))
-                {
-                    var _event = property.GetValue(target) as HookableEvent;
-                    hookableEvents.Add(_event);
-                    eventNames.Add(_event.eventName);
-                }
-            }
+    public void RemoveListener(Action<E> action)
+    {
+        var events = GetEvents();
+        if (target == null || eventName == "" || events == null) return;
 
-            // Add all public field events
-            var fields = target.GetType().GetFields();
-            foreach (var field in fields)
-            {
-                if (field.FieldType == typeof(HookableEvent))
-                {
-                    var _event = field.GetValue(target) as HookableEvent;
-                    hookableEvents.Add(_event);
-                    eventNames.Add(_event.eventName);
-                }
-            }
+        var e = events.Find(x => x.Name == eventName);
+        e.RemoveEventHandler(target, action);
+    }
 
-            eventNames.OrderBy(x => x); // Sort alphabetically
-            if (hookableEvents.Find(x => x.eventName == eventName) == null) eventName = "";
+    public static EventHook<E> operator +(EventHook<E> a, Action<E> action)
+    {
+        a.AddListener(action);
+        return a;
+    }
 
-            return eventNames;
-        }
+    public static EventHook<E> operator -(EventHook<E> a, Action<E> action)
+    {
+        a.RemoveListener(action);
+        return a;
+    }
 
-        HookableEvent SetHook()
-        {
-            if (target == null || eventName == "")
-            {
-                return null;
-            }
-            return hookableEvents.Find(x => x.eventName == eventName);
-        }
+    public bool ShowRequired()
+    {
+        if (target == null || eventName == "") return true;
+        return false;
+    }
+}
 
-        [Button("Invoke"), ShowIf("eventAction", null)]
-        void Invoke()
-        {
-            eventAction?.Invoke(target);
-        }
-
-        public void AddListener(Action<MonoBehaviour> b)
-        {
-            eventAction?.AddListener(b);
-        }
-
-        public void RemoveListener(Action<MonoBehaviour> b)
-        {
-            eventAction?.RemoveListener(b);
-        }
-
-        public static EventHook operator +(EventHook a, Action<MonoBehaviour> b)
-        {
-            a.eventAction.AddListener(b);
-            return a;
-        }
-
-        public static EventHook operator -(EventHook a, Action<MonoBehaviour> b)
-        {
-            a.eventAction.RemoveListener(b);
-            return a;
-        }
-
-        public bool ShowRequired()
-        {
-            if (target == null || eventAction == null) return true;
-            return false;
-        }
+public class Hookable : Attribute
+{
+    public Hookable()
+    {
 
     }
 }

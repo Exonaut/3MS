@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using Exo.Events;
+using System;
+using Object = UnityEngine.Object;
 
 public class Timer : MonoBehaviour
 {
     [FoldoutGroup("Dependencies", true)][SerializeField, Required] Logger logger;
 
-    [FoldoutGroup("EventHooks", true)][SerializeField] List<EventHook> startHooks;
-    [FoldoutGroup("EventHooks", true)][SerializeField] List<EventHook> pauseHooks;
-    [FoldoutGroup("EventHooks", true)][SerializeField] List<EventHook> resetHooks;
+    [FoldoutGroup("EventHooks", true)][SerializeField] List<EventHook<Object>> startHooks;
+    [FoldoutGroup("EventHooks", true)][SerializeField] List<EventHook<Object>> pauseHooks;
+    [FoldoutGroup("EventHooks", true)][SerializeField] List<EventHook<Object>> resetHooks;
 
-    [HideInInspector] public HookableEvent OnStart = new HookableEvent("Start");
-    [HideInInspector] public HookableEvent OnEnd = new HookableEvent("End");
-    [HideInInspector] public HookableEvent OnPause = new HookableEvent("Pause");
-    [HideInInspector] public HookableEvent OnReset = new HookableEvent("Reset");
+    [Hookable] public event Action<Object> OnStart;
+    [Hookable] public event Action<Object> OnEnd;
+    [Hookable] public event Action<Object> OnPause;
+    [Hookable] public event Action<Object> OnReset;
 
     [FoldoutGroup("Settings", true)][SerializeField, Min(0)] float time = 10;
     [FoldoutGroup("Settings", true)][SerializeField] bool loop;
@@ -39,17 +40,17 @@ public class Timer : MonoBehaviour
             StartTimer();
         }
 
-        foreach (EventHook hook in startHooks)
+        foreach (var hook in startHooks)
         {
             hook.AddListener(StartTimer);
         }
 
-        foreach (EventHook hook in pauseHooks)
+        foreach (var hook in pauseHooks)
         {
             hook.AddListener(PauseTimer);
         }
 
-        foreach (EventHook hook in resetHooks)
+        foreach (var hook in resetHooks)
         {
             hook.AddListener(ResetTimer);
         }
@@ -96,42 +97,27 @@ public class Timer : MonoBehaviour
 
     [HorizontalGroup("Functions")]
     [Button("Start")]
-    public void StartTimer()
+    public void StartTimer(Object sender = null)
     {
         paused = false;
         OnStart.Invoke(this);
     }
 
-    public void StartTimer(MonoBehaviour sender)
-    {
-        StartTimer();
-    }
-
     [HorizontalGroup("Functions")]
     [Button("Pause")]
-    public void PauseTimer()
+    public void PauseTimer(Object sender = null)
     {
         paused = true;
         OnPause.Invoke(this);
     }
 
-    public void PauseTimer(MonoBehaviour sender)
-    {
-        PauseTimer();
-    }
-
     [HorizontalGroup("Functions")]
     [Button("Reset")]
-    public void ResetTimer()
+    public void ResetTimer(Object sender = null)
     {
         if (inverse) timer = 0;
         else timer = time;
         OnReset.Invoke(this);
-    }
-
-    public void ResetTimer(MonoBehaviour sender)
-    {
-        ResetTimer();
     }
 
 }

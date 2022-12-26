@@ -2,12 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Abilities;
-using Exo.Events;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 
 public class Hitable : MonoBehaviour
 {
@@ -36,9 +33,9 @@ public class Hitable : MonoBehaviour
     [FoldoutGroup("Death Effects")][SerializeField, AssetsOnly, AssetList(Path = "Characters/DeathEffects")] private AudioClip deathSound;
     [FoldoutGroup("Death Effects")][SerializeField] private Transform deathEffectOrigin;
 
-    [FoldoutGroup("Event Hooks", true)][SerializeField, SceneObjectsOnly, Required] List<EventHook> enableHook;
-    [FoldoutGroup("Event Hooks", true)][SerializeField, SceneObjectsOnly, Required] List<EventHook> disableHook;
-    [FoldoutGroup("Event Hooks", true)][SerializeField, SceneObjectsOnly, Required] List<EventHook> restartHook;
+    [FoldoutGroup("Event Hooks", true)][SerializeField, SceneObjectsOnly, Required] List<EventHook<Object>> enableHook;
+    [FoldoutGroup("Event Hooks", true)][SerializeField, SceneObjectsOnly, Required] List<EventHook<Object>> disableHook;
+    [FoldoutGroup("Event Hooks", true)][SerializeField, SceneObjectsOnly, Required] List<EventHook<Object>> restartHook;
 
     private float shieldRechargeDelayTimer = 0;
 
@@ -141,7 +138,7 @@ public class Hitable : MonoBehaviour
         Damage(frostDamage);
     }
 
-    public readonly HookableEvent onShieldRecharged = new HookableEvent("ShieldRecharged");
+    public event Action<MonoBehaviour> onShieldRecharged;
     private void RechargeShield()
     {
         if (shield < maxShield)
@@ -154,16 +151,16 @@ public class Hitable : MonoBehaviour
         }
     }
 
-    public readonly HookableEvent onShieldRechargeDelay = new HookableEvent("ShieldRechargeDelay");
+    public event Action<MonoBehaviour> onShieldRechargeDelay;
     private void SuspendShieldRecharge()
     {
         shieldRechargeDelayTimer = shieldRechargeDelay;
         onShieldRechargeDelay?.Invoke(this);
     }
 
-    public readonly HookableEvent onHit = new HookableEvent("Hit");
-    public readonly HookableEvent onShieldHit = new HookableEvent("ShieldHit");
-    public readonly HookableEvent onHealthHit = new HookableEvent("HealthHit");
+    [Hookable] public event Action<MonoBehaviour> onHit;
+    [Hookable] public event Action<MonoBehaviour> onShieldHit;
+    [Hookable] public event Action<MonoBehaviour> onHealthHit;
     public void Hit(int damage, bool ignoreShield = false, bool ignoreHealth = false, bool ignoreDamageReduction = false)
     {
         logger.Log($"{gameObject.name} was hit for {damage} damage", this);
@@ -189,9 +186,9 @@ public class Hitable : MonoBehaviour
         Hit(attack.damage);
     }
 
-    public readonly HookableEvent onDamage = new HookableEvent("Damage");
-    public readonly HookableEvent onHealthDamage = new HookableEvent("HealthDamage");
-    public readonly HookableEvent onShieldDamage = new HookableEvent("ShieldDamage");
+    [Hookable] public event Action<MonoBehaviour> onDamage;
+    [Hookable] public event Action<MonoBehaviour> onHealthDamage;
+    [Hookable] public event Action<MonoBehaviour> onShieldDamage;
     protected void Damage(int damage, bool ignoreShield = false, bool ignoreHealth = false, bool ignoreDamageReduction = false)
     {
         if (invincible) return;
@@ -256,7 +253,7 @@ public class Hitable : MonoBehaviour
         }
     }
 
-    public readonly HookableEvent onDie = new HookableEvent("Die");
+    [Hookable] public event Action<MonoBehaviour> onDie;
     protected virtual void Die()
     {
         logger.Log($"{gameObject.name} died", this);
@@ -296,7 +293,7 @@ public class Hitable : MonoBehaviour
         }
     }
 
-    public void Restart()
+    public void Restart(Object sender = null)
     {
         health = maxHealth;
         shield = maxShield;
@@ -304,31 +301,16 @@ public class Hitable : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    void Restart(MonoBehaviour sender)
-    {
-        Restart();
-    }
-
-    void Enable()
+    void Enable(Object sender = null)
     {
         logger.Log("{gameObject.name} enabled", this);
         gameObject.SetActive(true);
     }
 
-    void Enable(MonoBehaviour sender)
-    {
-        Enable();
-    }
-
-    void Disable()
+    void Disable(Object sender = null)
     {
         logger.Log($"{gameObject.name} disabled", this);
         gameObject.SetActive(false);
         print("Disable" + gameObject.name);
-    }
-
-    void Disable(MonoBehaviour sender)
-    {
-        Disable();
     }
 }

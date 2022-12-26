@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using Exo.Events;
 
 public class LinearMover : MonoBehaviour
 {
@@ -20,10 +19,10 @@ public class LinearMover : MonoBehaviour
     [FoldoutGroup("Sounds", true)][SerializeField] private AudioSource moveAudioSource;
     [FoldoutGroup("Sounds", true)][SerializeField] private AudioSource rotateAudioSource;
 
-    [FoldoutGroup("Event Hooks", true)][SerializeField] List<EventHook> play;
-    [FoldoutGroup("Event Hooks", true)][SerializeField] List<EventHook> stopAll;
-    [FoldoutGroup("Event Hooks", true)][SerializeField] List<EventHook> stopTranslate;
-    [FoldoutGroup("Event Hooks", true)][SerializeField] List<EventHook> stopRotate;
+    [FoldoutGroup("Event Hooks", true)][SerializeField] List<EventHook<Object>> play;
+    [FoldoutGroup("Event Hooks", true)][SerializeField] List<EventHook<Object>> stopAll;
+    [FoldoutGroup("Event Hooks", true)][SerializeField] List<EventHook<Object>> stopTranslate;
+    [FoldoutGroup("Event Hooks", true)][SerializeField] List<EventHook<Object>> stopRotate;
 
     bool translate;
     bool rotate;
@@ -63,7 +62,7 @@ public class LinearMover : MonoBehaviour
         if (rotate) transform.Rotate(rotateDirection.normalized * rotateSpeed * Time.deltaTime * 360);
     }
 
-    private void StartRotate()
+    private void StartRotate(Object sender = null)
     {
         rotate = true;
         if (rotateAudioSource != null)
@@ -72,12 +71,7 @@ public class LinearMover : MonoBehaviour
         }
     }
 
-    private void StartRotate(MonoBehaviour sender)
-    {
-        StartRotate();
-    }
-
-    private void StartTranslate()
+    private void StartTranslate(Object sender = null)
     {
         translate = true;
         if (moveAudioSource != null)
@@ -86,12 +80,7 @@ public class LinearMover : MonoBehaviour
         }
     }
 
-    private void StartTranslate(MonoBehaviour sender)
-    {
-        StartTranslate();
-    }
-
-    private void StopRotate()
+    private void StopRotate(Object sender = null)
     {
         rotate = false;
         if (rotateAudioSource != null)
@@ -100,12 +89,7 @@ public class LinearMover : MonoBehaviour
         }
     }
 
-    private void StopRotate(MonoBehaviour sender)
-    {
-        StopRotate();
-    }
-
-    private void StopTranslate()
+    private void StopTranslate(Object sender = null)
     {
         translate = false;
         if (moveAudioSource != null)
@@ -114,31 +98,16 @@ public class LinearMover : MonoBehaviour
         }
     }
 
-    private void StopTranslate(MonoBehaviour sender)
-    {
-        StopTranslate();
-    }
-
-    private void StopAll()
+    private void StopAll(Object sender = null)
     {
         StopTranslate();
         StopRotate();
     }
 
-    private void StopAll(MonoBehaviour sender)
-    {
-        StopAll();
-    }
-
-    private void StartAll()
+    private void StartAll(Object sender = null)
     {
         StartTranslate();
         StartRotate();
-    }
-
-    private void StartAll(MonoBehaviour sender)
-    {
-        StartAll();
     }
 
 #if UNITY_EDITOR

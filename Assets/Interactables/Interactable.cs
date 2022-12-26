@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Exo.Events;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Interaction
 {
@@ -24,13 +25,17 @@ namespace Interaction
             }
         }
 
-        public readonly HookableEvent onInteract = new HookableEvent("Interact");
+        [Hookable] public event Action<Object> onInteract;
+        [Hookable] public event Action<Interactable> onInteractInteractable;
+        [Hookable] public event Action<Interactor> onInteractInteractor;
         public virtual void Interact(Interactor interactor)
         {
             if (canInteract && onInteract != null)
             {
                 logger.Log("Interacted with by " + interactor.name, this);
-                onInteract.Invoke(this);
+                onInteract?.Invoke(this);
+                onInteractInteractable?.Invoke(this);
+                onInteractInteractor?.Invoke(interactor);
             }
         }
     }
