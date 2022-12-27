@@ -1,26 +1,30 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <ui:Template name="UISlider" src="project://database/Assets/GUI/Templates/UISlider.uxml?fileID=9197481963319205126&amp;guid=cc01b30428a4313428b11ab7b77b67ed&amp;type=3#UISlider" />
     <ui:Template name="UIDropdown" src="project://database/Assets/GUI/Templates/UIDropdown.uxml?fileID=9197481963319205126&amp;guid=1a2ec6868f6d5e546aaeb5c0511f6200&amp;type=3#UIDropdown" />
+    <ui:Template name="UICheckbox" src="project://database/Assets/GUI/Templates/UICheckbox.uxml?fileID=9197481963319205126&amp;guid=0343b2440f68b0943a73e82db230df16&amp;type=3#UICheckbox" />
     <Style src="project://database/Assets/GUI/MainMenu/MainMenuStylesheet.uss?fileID=7433441132597879392&amp;guid=9c4bd36c1791c75428811745ad770d06&amp;type=3#MainMenuStylesheet" />
-    <ui:VisualElement style="flex-basis: auto; flex-grow: 0; align-items: center; justify-content: flex-start; width: 100%; height: 100%;">
-        <ui:VisualElement name="Darkening" style="width: 100%; height: 100%; align-items: center; background-color: rgba(0, 0, 0, 0.71);">
-            <ui:VisualElement name="Options" style="width: 100%; height: 80%; justify-content: center; align-items: center;">
-                <ui:Instance template="UISlider" name="SoundVolume" style="max-width: 100%;">
+    <ui:VisualElement style="flex-basis: auto; flex-grow: 0; align-items: center; justify-content: space-around; width: 100%; height: 100%;">
+        <ui:VisualElement name="Darkening" style="width: 100%; height: 100%; align-items: stretch; background-color: rgba(0, 0, 0, 0.71); justify-content: space-around;">
+            <ui:VisualElement name="Options" style="margin-top: 2%; margin-bottom: 2%; height: 90%;">
+                <ui:Instance template="UISlider" name="SoundVolume" style="height: 20%; flex-shrink: 0;">
                     <AttributeOverrides element-name="Label" text="Sound Volume" />
                 </ui:Instance>
-                <ui:Instance template="UISlider" name="MouseSensitivity" style="max-width: 100%;">
+                <ui:Instance template="UISlider" name="MouseSensitivity" style="flex-shrink: 0; height: 20%;">
                     <AttributeOverrides element-name="Label" text="Mouse Sesitivity" />
                 </ui:Instance>
-                <ui:Instance template="UIDropdown" name="GraphicsQuality">
+                <ui:Instance template="UIDropdown" name="GraphicsQuality" style="width: auto; height: 20%; flex-shrink: 0; justify-content: center;">
                     <AttributeOverrides element-name="Label" text="Graphics Quality" />
                 </ui:Instance>
-                <ui:Instance template="UIDropdown" name="Resolution">
+                <ui:Instance template="UIDropdown" name="Resolution" style="flex-grow: 0; width: auto; flex-shrink: 0; height: 20%; justify-content: center;">
                     <AttributeOverrides element-name="Label" text="Resolution" />
                     <AttributeOverrides element-name="Dropdown" choices="1280x720,1920x1080" />
                 </ui:Instance>
+                <ui:Instance template="UICheckbox" name="Fullscreen" style="flex-grow: 1; width: 100%; height: 20%;">
+                    <AttributeOverrides element-name="Label" text="Fullscreen" />
+                </ui:Instance>
             </ui:VisualElement>
-            <ui:VisualElement style="flex-grow: 0; flex-shrink: 1; flex-basis: auto;">
-                <ui:Button text="Return" name="Return" class="button doomcolor" style="margin-top: 4%;" />
+            <ui:VisualElement style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; justify-content: center; align-items: center;">
+                <ui:Button text="Return" name="Return" class="button doomcolor" style="justify-content: space-around; margin-bottom: 5%;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

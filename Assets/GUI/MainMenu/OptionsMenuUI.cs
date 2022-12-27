@@ -15,10 +15,12 @@ public class OptionsMenuUI : MenuUI
 
             logger.Log("Sound volume: " + value, this);
             soundVolume = value;
-            soundVolumeSlider.value = value;
+            if (soundVolumeSlider != null) soundVolumeSlider.value = value;
             float volume = ((float)value) / 100;
             PlayerPrefs.SetFloat(GameGlobals.key_SoundVolume, volume);
             AudioListener.volume = volume;
+
+            soundVolumeSlider.MarkDirtyRepaint();
         }
     }
 
@@ -32,8 +34,10 @@ public class OptionsMenuUI : MenuUI
 
             logger.Log("Mouse sensitivity: " + value, this);
             mouseSensitivity = value;
-            mouseSensitivitySlider.value = value;
+            if (mouseSensitivitySlider != null) mouseSensitivitySlider.value = value;
             PlayerPrefs.SetFloat(GameGlobals.key_MouseSensitivity, ((float)value) / 100);
+
+            mouseSensitivitySlider.MarkDirtyRepaint();
         }
     }
 
@@ -43,15 +47,17 @@ public class OptionsMenuUI : MenuUI
         get { return graphicsQuality; }
         set
         {
-            graphicsQualityDropdown.index = value;
+            if (graphicsQualityDropdown != null) graphicsQualityDropdown.index = value;
 
             if (value == graphicsQuality) return;
 
             logger.Log("Graphics quality: " + value, this);
             graphicsQuality = value;
-            graphicsQualityDropdown.index = value;
+            if (graphicsQualityDropdown != null) graphicsQualityDropdown.index = value;
             PlayerPrefs.SetInt(GameGlobals.key_GraphicsQuality, value);
             QualitySettings.SetQualityLevel(value);
+
+            graphicsQualityDropdown.MarkDirtyRepaint();
         }
     }
 
@@ -61,7 +67,7 @@ public class OptionsMenuUI : MenuUI
         get { return resolution; }
         set
         {
-            resolutionDropdown.index = resolutionChoices.IndexOf(string.Format("{0}x{1}", value.width, value.height));
+            if (resolutionDropdown != null) resolutionDropdown.index = resolutionChoices.IndexOf(string.Format("{0}x{1}", value.width, value.height));
 
             if (resolution.width == value.width && resolution.height == value.height) return;
 
@@ -72,6 +78,8 @@ public class OptionsMenuUI : MenuUI
             Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
 
             logger.Log(string.Format("Resolution: {0}x{1}", value.width, value.height), this);
+
+            resolutionDropdown.MarkDirtyRepaint();
         }
     }
 
@@ -81,43 +89,54 @@ public class OptionsMenuUI : MenuUI
         get { return fullscreen; }
         set
         {
-            if (value == fullscreen) return;
+            if (fullscreen == value) return;
+
             fullscreen = value;
-
-            bool fs = value == 0 ? false : true;
-
             PlayerPrefs.SetInt(GameGlobals.key_Fullscreen, value);
+            bool fs = fullscreen == 0 ? false : true;
+            fullscreenToggle.value = fs;
             Screen.fullScreen = fs;
+            Screen.fullScreenMode = FullScreenMode.Windowed;
 
             logger.Log(string.Format("Fullscreen: {0}", fs), this);
+
+            fullscreenToggle.MarkDirtyRepaint();
         }
     }
 
     private SliderInt soundVolumeSlider;
     private SliderInt mouseSensitivitySlider;
-
     private DropdownField graphicsQualityDropdown;
     private DropdownField resolutionDropdown;
+    private Toggle fullscreenToggle;
 
     private Resolution[] resolutions;
     private List<string> resolutionChoices = new List<string>();
 
     private List<string> qualityChoices = new List<string>();
 
+    private bool initialized = false;
+
     private void Update()
     {
         if (soundVolumeSlider != null) b_soundVolume = soundVolumeSlider.value;
         if (mouseSensitivitySlider != null) b_mouseSensitivity = mouseSensitivitySlider.value;
         if (graphicsQualityDropdown != null) b_graphicsQuality = graphicsQualityDropdown.index;
-        if (resolutionDropdown != null)
-        {
-            b_resolution = resolutions[resolutionDropdown.index];
-        }
+        if (resolutionDropdown != null
+            && resolutionDropdown.index < resolutions.Length
+            && resolutionDropdown.index >= 0) b_resolution = resolutions[resolutionDropdown.index];
+        if (fullscreenToggle != null) b_fullscreen = fullscreenToggle.value ? 1 : 0;
     }
 
     new void OnEnable()
     {
         base.OnEnable();
+
+        fullscreen = -1;
+        resolution = new Resolution();
+        soundVolume = -1;
+        mouseSensitivity = -1;
+        graphicsQuality = -1;
 
         // Setup Menu buttons
         VisualElement root = GetComponent<UIDocument>().rootVisualElement;
@@ -135,7 +154,7 @@ public class OptionsMenuUI : MenuUI
         qualityChoices = new List<string>(QualitySettings.names);
         graphicsQualityDropdown.choices = qualityChoices;
 
-        // Resolution setuo
+        // Resolution setup
         resolutionDropdown = root.Q<VisualElement>("Resolution")
             .Q<DropdownField>("Dropdown");
         resolutions = Screen.resolutions;
@@ -145,6 +164,10 @@ public class OptionsMenuUI : MenuUI
             resolutionChoices.Add(string.Format("{0}x{1}", resolution.width, resolution.height));
         }
         resolutionDropdown.choices = resolutionChoices;
+
+        //Fullscreen toggle
+        fullscreenToggle = root.Q<VisualElement>("Fullscreen")
+            .Q<Toggle>("Toggle");
 
         // Apply player prefs
         b_soundVolume = (int)(PlayerPrefs.GetFloat(GameGlobals.key_SoundVolume, 0.5f) * 100);

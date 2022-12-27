@@ -1,0 +1,8 @@
+.unity-toggle__input {
+    height: 100%;
+}
+
+.unity-toggle__checkmark {
+    scale: 2 2;
+    transform-origin: left;
+}

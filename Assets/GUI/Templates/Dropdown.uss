@@ -1,0 +1,5 @@
+.unity-base-field__input {
+    max-width: 50%;
+    max-height: none;
+    height: 100%;
+}
