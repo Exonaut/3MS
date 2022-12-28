@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Abilities;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class PlayerAbilityController : MonoBehaviour
 {
@@ -27,18 +28,18 @@ public class PlayerAbilityController : MonoBehaviour
 
         if (inputHandler)
         {
-            inputHandler.primaryStartEvent += holdAbilityStart;
-            inputHandler.primaryStopEvent += holdAbilityStop;
+            inputHandler.onPrimaryStart += holdAbilityStart;
+            inputHandler.onPrimaryStop += holdAbilityStop;
         }
     }
 
-    void holdAbilityStart()
+    void holdAbilityStart(Object caller)
     {
         isPrimaryWeaponPressed = true;
         logger.Log($"Used {primaryWeapon.weaponName}");
     }
 
-    void holdAbilityStop()
+    void holdAbilityStop(Object caller)
     {
         isPrimaryWeaponPressed = false;
         primaryWeaponHoldingTime = 0f;

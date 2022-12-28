@@ -117,8 +117,10 @@ public class OptionsMenuUI : MenuUI
 
     private bool initialized = false;
 
-    private void Update()
+    protected new void Update()
     {
+        base.Update();
+
         if (soundVolumeSlider != null) b_soundVolume = soundVolumeSlider.value;
         if (mouseSensitivitySlider != null) b_mouseSensitivity = mouseSensitivitySlider.value;
         if (graphicsQualityDropdown != null) b_graphicsQuality = graphicsQualityDropdown.index;

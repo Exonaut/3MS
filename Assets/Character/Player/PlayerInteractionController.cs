@@ -26,7 +26,7 @@ namespace Interaction
             // Subscribe to input events
             if (inputHandler)
             {
-                inputHandler.interactEvent += OnInteract;
+                inputHandler.onInteract += OnInteract;
             }
 
             if (!logger) logger = Logger.GetDefaultLogger(this);
@@ -37,11 +37,11 @@ namespace Interaction
             // Unsubscribe from input events
             if (inputHandler)
             {
-                inputHandler.interactEvent -= OnInteract;
+                inputHandler.onInteract -= OnInteract;
             }
         }
 
-        void OnInteract()
+        void OnInteract(Object caller)
         {
             RaycastHit hit;
             if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, interactionDistance, interactionMask))

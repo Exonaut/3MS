@@ -19,16 +19,19 @@ public class PlayerMovementController : MonoBehaviour
     [FoldoutGroup("Look Settings")][Range(0f, 2f)] public float mouseSensitivity = 0.6f;
     [FoldoutGroup("Look Settings")][MinMaxSlider(-90, 90, true)] public Vector2 verticalLookLimit = new Vector2(-90, 90);
 
-    [FoldoutGroup("Movement Settings", expanded: true)]
-    [FoldoutGroup("Movement Settings")][Range(0f, 50f)] public float moveSpeed = 10f;
-    [FoldoutGroup("Movement Settings")][Range(0f, 50f)] public float sprintSpeed = 15f;
-    [FoldoutGroup("Movement Settings")][Range(0f, 10f)] public float jumpStrength = 5f;
-    [FoldoutGroup("Movement Settings")][Range(0f, 50f)] public float airMoveSpeed = 5f;
-    [FoldoutGroup("Movement Settings")][Range(0f, 4f)] public float jumpAllowedDelay = 0.2f;
-    [FoldoutGroup("Movement Settings")][Range(0f, 4f)] public float jumpBufferTime = 0.2f;
-    [FoldoutGroup("Movement Settings")][Range(0f, 4f)] public float jumpGravityMultiplier = 1.0f;
-    [FoldoutGroup("Movement Settings")][Range(0f, 4f)] public float fallGravityMultiplier = 1.0f;
-    [FoldoutGroup("Movement Settings")][Range(0f, 20f)] public float groundingStrength = 5f;
+    [FoldoutGroup("Ground Settings", expanded: true)]
+    [FoldoutGroup("Ground Settings")][Range(0f, 50f)] public float moveSpeed = 10f;
+    [FoldoutGroup("Ground Settings")][Range(0f, 50f)] public float sprintSpeed = 15f;
+    [FoldoutGroup("Ground Settings")][Range(0f, 20f)] public float groundingStrength = 5f;
+
+    [FoldoutGroup("Jump Settings", expanded: true)]
+    [FoldoutGroup("Jump Settings")][Range(0f, 10f)] public float jumpStrength = 5f;
+    [FoldoutGroup("Jump Settings")][Range(0f, 50f)] public float airMoveSpeed = 5f;
+    [FoldoutGroup("Jump Settings")][Range(0f, 4f)] public float jumpAllowedDelay = 0.5f;
+    [FoldoutGroup("Jump Settings")][Range(0f, 4f)] public float jumpBufferTime = 0.5f;
+    [FoldoutGroup("Jump Settings")][Range(0f, 4f)] public float jumpGravityMultiplier = 1.0f;
+    [FoldoutGroup("Jump Settings")][Range(0f, 4f)] public float fallGravityMultiplier = 1.0f;
+    [FoldoutGroup("Jump Settings")][Range(0f, 5f)] public float airGroundingStrength = 1.0f;
 
     [FoldoutGroup("Crouch Settings", expanded: true)]
     [FoldoutGroup("Crouch Settings")][Min(.5f)] public float standingHeight = 2f;
@@ -44,8 +47,10 @@ public class PlayerMovementController : MonoBehaviour
     bool canJump = true;
     bool sliding = false;
     bool jumpBuffer = false;
+    bool holdJump = false;
 
     Vector3 prevSpeed = Vector3.zero;
+    Vector2 prevLook = Vector2.zero;
 
     private void OnEnable()
     {
@@ -53,16 +58,17 @@ public class PlayerMovementController : MonoBehaviour
         inputHandler = FindObjectOfType<InputHandler>();
         characterController = GetComponent<CharacterController>();
 
-        if (!logger) logger = Logger.GetDefaultLogger(this);
+        logger = logger == null ? Logger.GetDefaultLogger(this) : logger;
 
         // Subscribe to input events
         if (inputHandler)
         {
-            inputHandler.moveEvent += OnMove;
-            inputHandler.lookEvent += OnLook;
-            inputHandler.jumpEvent += OnJump;
-            inputHandler.sprintEvent += OnSprint;
-            inputHandler.crouchEvent += OnCrouch;
+            inputHandler.onMove += OnMove;
+            inputHandler.onLook += OnLook;
+            inputHandler.onJumpStart += OnJumpStart;
+            inputHandler.onJumpStop += OnJumpStop;
+            inputHandler.onSprint += OnSprint;
+            inputHandler.onCrouch += OnCrouch;
         }
         else
         {
@@ -79,6 +85,20 @@ public class PlayerMovementController : MonoBehaviour
 
     private void OnDisable()
     {
+        if (inputHandler)
+        {
+            inputHandler.onMove -= OnMove;
+            inputHandler.onLook -= OnLook;
+            inputHandler.onJumpStart -= OnJumpStart;
+            inputHandler.onJumpStop -= OnJumpStop;
+            inputHandler.onSprint -= OnSprint;
+            inputHandler.onCrouch -= OnCrouch;
+        }
+        else
+        {
+            logger?.LogWarning("InputHandler not found", this);
+        }
+
         logger?.Log("PlayerMovementController disabled", this);
     }
 
@@ -94,12 +114,13 @@ public class PlayerMovementController : MonoBehaviour
             StartCoroutine(JumpDelay());
         }
 
-        if (canJump && jumpBuffer)
+        if (canJump && jumpBuffer || canJump && holdJump)
         {
             dir.y = jumpStrength;
             canJump = false;
         }
 
+        LookPlayer();
         MovePlayer();
         CrouchPlayer();
     }
@@ -121,10 +142,7 @@ public class PlayerMovementController : MonoBehaviour
     /// <param name="delta">The looking delta to apply</param>
     void OnLook(Vector2 delta)
     {
-        cameraAngle -= delta.y * lookSpeed * mouseSensitivity;
-        cameraAngle = Mathf.Clamp(cameraAngle, -verticalLookLimit.y, -verticalLookLimit.x);
-        playerCamera.transform.localRotation = Quaternion.Euler(cameraAngle, 0, 0);
-        transform.rotation *= Quaternion.Euler(0, delta.x * mouseSensitivity, 0);
+        prevLook = delta;
     }
 
     Vector3 dir = Vector3.zero;
@@ -149,6 +167,15 @@ public class PlayerMovementController : MonoBehaviour
 
         prevSpeed = characterController.velocity;
 
+    }
+
+    void LookPlayer()
+    {
+        var delta = prevLook;
+        cameraAngle -= delta.y * lookSpeed * mouseSensitivity;
+        cameraAngle = Mathf.Clamp(cameraAngle, -verticalLookLimit.y, -verticalLookLimit.x);
+        playerCamera.transform.localRotation = Quaternion.Euler(cameraAngle, 0, 0);
+        transform.rotation *= Quaternion.Euler(0, delta.x * mouseSensitivity, 0);
     }
 
     void LimitVerticalSpeed()
@@ -231,14 +258,12 @@ public class PlayerMovementController : MonoBehaviour
 
     private void MoveAir()
     {
-        if (dir.y > 0)
-        {
-            dir.y -= GameGlobals.gravity * jumpGravityMultiplier * Time.deltaTime;
-        }
-        else
-        {
-            dir.y -= GameGlobals.gravity * fallGravityMultiplier * Time.deltaTime;
-        }
+        // Calcualte total gravity
+        float totalGravity = GameGlobals.gravity * Time.deltaTime;
+        totalGravity *= dir.y > 0 ? jumpGravityMultiplier : fallGravityMultiplier;
+        totalGravity *= !holdJump ? airGroundingStrength : 1.0f;
+
+        dir.y -= totalGravity; // Apply gravity
 
         // Enable air movement adjustement
         Vector3 td = characterController.transform.TransformDirection(moveDirection);
@@ -247,11 +272,17 @@ public class PlayerMovementController : MonoBehaviour
         dir = Vector3.MoveTowards(dir, td, airMoveSpeed * Time.deltaTime);
     }
 
-    void OnJump()
+    void OnJumpStart(Object caller)
     {
         jumpBuffer = true;
+        holdJump = true;
         StopCoroutine(JumpBuffer());
         StartCoroutine(JumpBuffer());
+    }
+
+    void OnJumpStop(Object caller)
+    {
+        holdJump = false;
     }
 
     IEnumerator JumpDelay()
@@ -303,16 +334,5 @@ public class PlayerMovementController : MonoBehaviour
     void OnDestroy()
     {
         logger?.Log("PlayerMovementController destroyed", this);
-
-        // Unsubscribe from input events
-        if (inputHandler)
-        {
-            inputHandler.moveEvent -= OnMove;
-            inputHandler.lookEvent -= OnLook;
-            inputHandler.jumpEvent -= OnJump;
-            inputHandler.sprintEvent -= OnSprint;
-            inputHandler.crouchEvent -= OnCrouch;
-        }
-
     }
 }

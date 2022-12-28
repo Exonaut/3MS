@@ -23,6 +23,11 @@ public class MainMenuUI : MenuUI
         root.Q<Button>("EndGame").clicked += () => OnEndGame();
     }
 
+    private new void Update()
+    {
+        base.Update();
+    }
+
     [Hookable] public event Action<MainMenuUI> onStartGame;
     private void OnStartGame()
     {

@@ -476,7 +476,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 220651861}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: -- LOGGERS --
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -805,7 +805,7 @@ GameObject:
   m_Component:
   - component: {fileID: 508204918}
   - component: {fileID: 508204919}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerLogger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1347,6 +1347,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InputController
       objectReference: {fileID: 0}
+    - target: {fileID: 4845527496338035521, guid: cbd065909c393444187111207cbfeba7, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4845527496338035580, guid: cbd065909c393444187111207cbfeba7, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1393,7 +1397,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845527496338035582, guid: cbd065909c393444187111207cbfeba7, type: 3}
       propertyPath: m_DefaultActionMap
-      value: ac8d1f72-1f3e-4e41-bcfb-3ae68acab80e
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845527496338035582, guid: cbd065909c393444187111207cbfeba7, type: 3}
+      propertyPath: m_NeverAutoSwitchControlSchemes
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4845527496338035583, guid: cbd065909c393444187111207cbfeba7, type: 3}
       propertyPath: logger
@@ -1791,7 +1799,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29766
+  m_Name: pb_Mesh27798
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1955,7 +1963,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29746
+  m_Name: pb_Mesh27778
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2630,7 +2638,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1474078769}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: -- CONTROLLERS --
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3178,7 +3186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1776951889}
   - component: {fileID: 1776951890}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: InputLogger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3397,6 +3405,18 @@ PrefabInstance:
       propertyPath: logger
       value: 
       objectReference: {fileID: 508204919}
+    - target: {fileID: 6670438668048202710, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}
+      propertyPath: slopeMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670438668048202710, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}
+      propertyPath: crouchMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670438668048202710, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}
+      propertyPath: airGroundingStrength
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6670438668048202711, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}
       propertyPath: m_Name
       value: Player

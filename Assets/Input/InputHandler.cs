@@ -8,150 +8,108 @@ public class InputHandler : MonoBehaviour
 {
     [SerializeField] private Logger logger;
 
-    [Hookable] public Action<Vector2> moveEvent;
+    [Hookable] public Action<Vector2> onMove;
     public void OnMove(InputValue moveValue)
     {
-        if (moveEvent != null)
-        {
-            moveEvent.Invoke(moveValue.Get<Vector2>());
-        }
+        onMove?.Invoke(moveValue.Get<Vector2>());
     }
 
-    [Hookable] public Action<Vector2> lookEvent;
+    [Hookable] public Action<Vector2> onLook;
     public void OnLook(InputValue lookValue)
     {
-        if (lookEvent != null && Application.isFocused)
-        {
-            lookEvent.Invoke(lookValue.Get<Vector2>());
-        }
+        onLook?.Invoke(lookValue.Get<Vector2>());
     }
 
-    [Hookable] public Action jumpEvent;
-    public void OnJump()
+    [Hookable] public Action<bool> onJump;
+    [Hookable] public Action<InputHandler> onJumpStart;
+    public void OnJumpStart()
     {
-        logger.Log("Jump pressed");
-        if (jumpEvent != null)
-        {
-            jumpEvent.Invoke();
-        }
+        logger.Log("Jump pressed", this);
+
+        onJump?.Invoke(true);
+        onJumpStart?.Invoke(this);
     }
 
-    [Hookable] public Action<bool> sprintEvent;
+    [Hookable] public Action<InputHandler> onJumpStop;
+    public void OnJumpStop()
+    {
+        logger.Log("Jump released", this);
+
+        onJump?.Invoke(false);
+        onJumpStop?.Invoke(this);
+    }
+
+    [Hookable] public Action<bool> onSprint;
+    [Hookable] public Action<InputHandler> onSprintStart;
     public void OnSprintStart()
     {
-        logger.Log("Sprint started pressed");
-        if (sprintEvent != null)
-        {
-            sprintEvent.Invoke(true);
-        }
+        logger.Log("Sprint pressed", this);
+
+        onSprint?.Invoke(true);
+        onSprintStart?.Invoke(this);
     }
 
+    [Hookable] public Action<InputHandler> onSprintStop;
     public void OnSprintStop()
     {
-        logger.Log("Sprint stopped pressed");
-        if (sprintEvent != null)
-        {
-            sprintEvent.Invoke(false);
-        }
+        logger.Log("Sprint released", this);
+
+        onSprint?.Invoke(false);
+        onSprintStop?.Invoke(this);
     }
 
-    [Hookable] public Action<bool> crouchEvent;
+    [Hookable] public Action<bool> onCrouch;
+    [Hookable] public Action<InputHandler> onCrouchStart;
     public void OnCrouchStart()
     {
-        logger.Log("Crouch start pressed");
-        if (crouchEvent != null)
-        {
-            crouchEvent.Invoke(true);
-        }
+        logger.Log("Crouch pressed", this);
+
+        onCrouch?.Invoke(true);
+        onCrouchStart?.Invoke(this);
     }
 
+    [Hookable] public Action<InputHandler> onCrouchStop;
     public void OnCrouchStop()
     {
-        logger.Log("Crouch stop pressed");
-        if (crouchEvent != null)
-        {
-            crouchEvent.Invoke(false);
-        }
+        logger.Log("Crouch released", this);
+
+        onCrouch?.Invoke(false);
+        onCrouchStop?.Invoke(this);
     }
 
-    [Hookable] public Action primaryStartEvent;
+    [Hookable] public Action<bool> onPrimary;
+    [Hookable] public Action<InputHandler> onPrimaryStart;
     public void OnPrimaryStart()
     {
-        logger.Log("Primary pressed");
-        if (primaryStartEvent != null)
-        {
-            primaryStartEvent.Invoke();
-        }
+        logger.Log("Primary pressed", this);
+
+        onPrimary?.Invoke(true);
+        onPrimaryStart?.Invoke(this);
     }
 
-    [Hookable] public Action primaryStopEvent;
+    [Hookable] public Action<InputHandler> onPrimaryStop;
     public void OnPrimaryStop()
     {
-        logger.Log("Primary released");
-        if (primaryStopEvent != null)
-        {
-            primaryStopEvent.Invoke();
-        }
+        logger.Log("Primary released", this);
+
+        onPrimary?.Invoke(false);
+        onPrimaryStop?.Invoke(this);
     }
 
-    [Hookable] public Action interactEvent;
+    [Hookable] public Action<InputHandler> onInteract;
     public void OnInteract()
     {
-        logger.Log("Interact pressed");
-        if (interactEvent != null)
-        {
-            interactEvent.Invoke();
-        }
+        logger.Log("Interact pressed", this);
+
+        onInteract?.Invoke(this);
     }
 
-    [Hookable] public Action muteEvent;
-    public void OnMute()
+    [Hookable] public Action<InputHandler> onPause;
+    public void OnPause()
     {
-        logger.Log("Mute pressed");
-        if (muteEvent != null)
-        {
-            muteEvent.Invoke();
-        }
-    }
+        logger.Log("Pause pressed", this);
 
-    [Hookable] public Action exitEvent;
-    public void OnExit()
-    {
-        logger.Log("Exit pressed");
-        if (exitEvent != null)
-        {
-            exitEvent.Invoke();
-        }
-    }
-
-    [Hookable] public Action volumeUpEvent;
-    public void OnVolumeUp()
-    {
-        logger.Log("Volume up pressed");
-        if (volumeUpEvent != null)
-        {
-            volumeUpEvent.Invoke();
-        }
-    }
-
-    [Hookable] public Action volumeDownEvent;
-    public void OnVolumeDown()
-    {
-        logger.Log("Volume down pressed");
-        if (volumeDownEvent != null)
-        {
-            volumeDownEvent.Invoke();
-        }
-    }
-
-    [Hookable] public Action restartEvent;
-    public void OnRestart()
-    {
-        logger.Log("Restart pressed");
-        if (restartEvent != null)
-        {
-            restartEvent.Invoke();
-        }
+        onPause?.Invoke(this);
     }
 
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 
@@ -20,7 +21,10 @@ public class MenuUI : MonoBehaviour
     [FoldoutGroup("Hooks")][SerializeField] List<EventHook<Object>> showUIHooks;
     [FoldoutGroup("Hooks")][SerializeField] List<EventHook<Object>> hideUIHooks;
 
-    private UIDocument document;
+    protected UIDocument document;
+    protected FocusController focusController;
+    protected VisualElement root;
+    protected VisualElement hovering;
 
     protected void Start()
     {
@@ -41,10 +45,29 @@ public class MenuUI : MonoBehaviour
         });
     }
 
+    protected void Update()
+    {
+        root?.Query<Button>(className: "button").ForEach((button) =>
+        {
+            Tint(button, notHoveringColor);
+        });
+
+        if (focusController.focusedElement is Button)
+        {
+            Button button = (Button)focusController.focusedElement;
+            Tint(button, hoveringColor);
+        }
+
+        if (hovering != null)
+        {
+            hovering.Focus();
+        }
+    }
+
     protected void OnEnable()
     {
         // Setup Menu buttons
-        VisualElement root = GetComponent<UIDocument>().rootVisualElement;
+        root = GetComponent<UIDocument>().rootVisualElement;
 
         // Hover effect for buttons
         root?.Query<Button>(className: "button").ForEach((button) =>
@@ -52,6 +75,8 @@ public class MenuUI : MonoBehaviour
             button.RegisterCallback<MouseOverEvent>(OnButtonEnter);
             button.RegisterCallback<MouseLeaveEvent>(OnButtonExit);
         });
+
+        focusController = root.focusController;
     }
 
     /// <summary>
@@ -97,11 +122,16 @@ public class MenuUI : MonoBehaviour
 
     private void OnButtonEnter(MouseOverEvent e)
     {
-        ((Button)e.target).style.unityBackgroundImageTintColor = hoveringColor;
+        hovering = (VisualElement)e.target;
     }
 
     private void OnButtonExit(MouseLeaveEvent e)
     {
-        ((Button)e.target).style.unityBackgroundImageTintColor = notHoveringColor;
+        if (hovering == (VisualElement)e.target) hovering = null;
+    }
+
+    private void Tint(VisualElement e, Color color)
+    {
+        e.style.unityBackgroundImageTintColor = color;
     }
 }

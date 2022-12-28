@@ -60,9 +60,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Jump",
+                    "name": "JumpStart",
                     "type": "Button",
                     "id": "82b5bedd-e2bb-465f-94ba-cad486be283d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "JumpStop",
+                    "type": "Button",
+                    "id": "0ded74a4-a4c2-4164-8ee4-3fba3fd8c5ca",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -96,45 +105,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Exit",
+                    "name": "Pause",
                     "type": "Button",
                     "id": "3268526c-9f87-42a1-8cd1-4881cf1cec7b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Mute",
-                    "type": "Button",
-                    "id": "272ea0c6-ff72-4cbc-abe3-349a0d7171b2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "VolumeUp",
-                    "type": "Button",
-                    "id": "c72522ca-5eb5-4ed8-a268-3aaaa58e45f1",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "VolumeDown",
-                    "type": "Button",
-                    "id": "5a924210-87d3-4376-a866-7c808edd8550",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Restart",
-                    "type": "Button",
-                    "id": "ce03e06a-2b40-4e99-af64-0f9235d667b9",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -391,7 +364,7 @@
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Jump",
+                    "action": "JumpStart",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -490,51 +463,18 @@
                     "interactions": "Hold",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Exit",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "98711802-31ac-4bb9-967d-085038de633c",
-                    "path": "<Keyboard>/end",
-                    "interactions": "",
+                    "id": "662707de-dd17-4018-991d-6e6d528ab8bc",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Mute",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "66f463ee-af41-4344-8893-32433e1e24fc",
-                    "path": "<Keyboard>/pageUp",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "VolumeUp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2dfdac4b-bb82-4902-82eb-a320fec74c4b",
-                    "path": "<Keyboard>/pageDown",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "VolumeDown",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4176cf32-3c06-413b-87d8-47c75e8b51e0",
-                    "path": "<Keyboard>/r",
-                    "interactions": "Hold",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Restart",
+                    "action": "JumpStop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
