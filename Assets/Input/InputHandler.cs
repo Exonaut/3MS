@@ -1,27 +1,73 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Object = UnityEngine.Object;
 
 public class InputHandler : MonoBehaviour
 {
-    [SerializeField] private Logger logger;
+    [FoldoutGroup("Dependencies", expanded: true)]
+    [FoldoutGroup("Dependencies")][SerializeField, Required] private Logger logger;
 
-    [Hookable] public Action<Vector2> onMove;
+    [FoldoutGroup("Hooks")][SerializeField] List<EventHook<Object>> selectPlayerLayout;
+    [FoldoutGroup("Hooks")][SerializeField] List<EventHook<Object>> selectUILayout;
+
+    PlayerInput playerInput;
+
+    private void Start()
+    {
+        SelectPlayerLayout(this);
+    }
+
+    private void OnEnable()
+    {
+        playerInput = GetComponent<PlayerInput>();
+
+        selectPlayerLayout?.ForEach((hook) => hook.AddListener(SelectPlayerLayout));
+        selectUILayout?.ForEach((hook) => hook.AddListener(SelectUILayout));
+    }
+
+    private void OnDisable()
+    {
+        selectPlayerLayout?.ForEach((hook) => hook.RemoveListener(SelectPlayerLayout));
+        selectUILayout?.ForEach((hook) => hook.RemoveListener(SelectUILayout));
+    }
+
+    public void SelectPlayerLayout(Object caller)
+    {
+        logger.Log("PlayerLayout selected", this);
+
+        playerInput?.SwitchCurrentActionMap("Player");
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1;
+    }
+
+    public void SelectUILayout(Object caller)
+    {
+        logger.Log("UILayout selected", this);
+
+        playerInput?.SwitchCurrentActionMap("UI");
+
+        Cursor.lockState = CursorLockMode.Confined;
+        Time.timeScale = 0;
+    }
+
+    [Hookable] public event Action<Vector2> onMove;
     public void OnMove(InputValue moveValue)
     {
         onMove?.Invoke(moveValue.Get<Vector2>());
     }
 
-    [Hookable] public Action<Vector2> onLook;
+    [Hookable] public event Action<Vector2> onLook;
     public void OnLook(InputValue lookValue)
     {
         onLook?.Invoke(lookValue.Get<Vector2>());
     }
 
-    [Hookable] public Action<bool> onJump;
-    [Hookable] public Action<InputHandler> onJumpStart;
+    [Hookable] public event Action<bool> onJump;
+    [Hookable] public event Action<InputHandler> onJumpStart;
     public void OnJumpStart()
     {
         logger.Log("Jump pressed", this);
@@ -30,7 +76,7 @@ public class InputHandler : MonoBehaviour
         onJumpStart?.Invoke(this);
     }
 
-    [Hookable] public Action<InputHandler> onJumpStop;
+    [Hookable] public event Action<InputHandler> onJumpStop;
     public void OnJumpStop()
     {
         logger.Log("Jump released", this);
@@ -39,8 +85,8 @@ public class InputHandler : MonoBehaviour
         onJumpStop?.Invoke(this);
     }
 
-    [Hookable] public Action<bool> onSprint;
-    [Hookable] public Action<InputHandler> onSprintStart;
+    [Hookable] public event Action<bool> onSprint;
+    [Hookable] public event Action<InputHandler> onSprintStart;
     public void OnSprintStart()
     {
         logger.Log("Sprint pressed", this);
@@ -49,7 +95,7 @@ public class InputHandler : MonoBehaviour
         onSprintStart?.Invoke(this);
     }
 
-    [Hookable] public Action<InputHandler> onSprintStop;
+    [Hookable] public event Action<InputHandler> onSprintStop;
     public void OnSprintStop()
     {
         logger.Log("Sprint released", this);
@@ -58,8 +104,8 @@ public class InputHandler : MonoBehaviour
         onSprintStop?.Invoke(this);
     }
 
-    [Hookable] public Action<bool> onCrouch;
-    [Hookable] public Action<InputHandler> onCrouchStart;
+    [Hookable] public event Action<bool> onCrouch;
+    [Hookable] public event Action<InputHandler> onCrouchStart;
     public void OnCrouchStart()
     {
         logger.Log("Crouch pressed", this);
@@ -68,7 +114,7 @@ public class InputHandler : MonoBehaviour
         onCrouchStart?.Invoke(this);
     }
 
-    [Hookable] public Action<InputHandler> onCrouchStop;
+    [Hookable] public event Action<InputHandler> onCrouchStop;
     public void OnCrouchStop()
     {
         logger.Log("Crouch released", this);
@@ -77,8 +123,8 @@ public class InputHandler : MonoBehaviour
         onCrouchStop?.Invoke(this);
     }
 
-    [Hookable] public Action<bool> onPrimary;
-    [Hookable] public Action<InputHandler> onPrimaryStart;
+    [Hookable] public event Action<bool> onPrimary;
+    [Hookable] public event Action<InputHandler> onPrimaryStart;
     public void OnPrimaryStart()
     {
         logger.Log("Primary pressed", this);
@@ -87,7 +133,7 @@ public class InputHandler : MonoBehaviour
         onPrimaryStart?.Invoke(this);
     }
 
-    [Hookable] public Action<InputHandler> onPrimaryStop;
+    [Hookable] public event Action<InputHandler> onPrimaryStop;
     public void OnPrimaryStop()
     {
         logger.Log("Primary released", this);
@@ -96,7 +142,7 @@ public class InputHandler : MonoBehaviour
         onPrimaryStop?.Invoke(this);
     }
 
-    [Hookable] public Action<InputHandler> onInteract;
+    [Hookable] public event Action<InputHandler> onInteract;
     public void OnInteract()
     {
         logger.Log("Interact pressed", this);
@@ -104,12 +150,21 @@ public class InputHandler : MonoBehaviour
         onInteract?.Invoke(this);
     }
 
-    [Hookable] public Action<InputHandler> onPause;
+    [Hookable] public event Action<InputHandler> onPause;
     public void OnPause()
     {
         logger.Log("Pause pressed", this);
 
         onPause?.Invoke(this);
+        SelectUILayout(this);
+    }
+
+    [Hookable] public event Action<InputHandler> onUICancle;
+    public void OnCancle()
+    {
+        logger.Log("Cancle pressed", this);
+
+        onUICancle?.Invoke(this);
     }
 
 }

@@ -8,14 +8,15 @@ using System;
 [System.Serializable]
 public class EventHook<E> where E : UnityEngine.Object
 {
-    [SerializeField, InfoBox("Required", InfoMessageType.Error, "ShowRequired"), OnValueChanged("Clear"), SceneObjectsOnly] private MonoBehaviour target;
+    // [SerializeField, InfoBox("Required", InfoMessageType.Error, "ShowRequired"), OnValueChanged("Clear"), SceneObjectsOnly] private MonoBehaviour target;
+    [SerializeField, InfoBox("Required", InfoMessageType.Error, "ShowRequired"), SceneObjectsOnly] private MonoBehaviour target;
     [SerializeField, ValueDropdown("GetEventNames")] private string eventName = "";
 
     List<System.Reflection.EventInfo> GetEvents()
     {
-        return target.GetType().GetEvents()
+        return target?.GetType().GetEvents()
             .Where(e => e.GetCustomAttributes(typeof(Hookable), inherit: true).Any()
-                && GetType().GetGenericArguments()[0].IsAssignableFrom(e.EventHandlerType.GetGenericArguments()[0]))
+                && this.GetType().GetGenericArguments()[0].IsAssignableFrom(e.EventHandlerType.GetGenericArguments()[0]))
             .ToList();
     }
 

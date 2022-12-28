@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerMovementController : MonoBehaviour
 {
     [FoldoutGroup("Dependencies", expanded: true)]
-    [FoldoutGroup("Dependencies")][SerializeField, SceneObjectsOnly, Required] Camera playerCamera;
+    [FoldoutGroup("Dependencies")][SerializeField, SceneObjectsOnly, Required] Transform playerCamera;
     [FoldoutGroup("Dependencies")][SerializeField, SceneObjectsOnly, Required] Logger logger;
 
     [FoldoutGroup("Masks", expanded: true)]
@@ -38,6 +38,9 @@ public class PlayerMovementController : MonoBehaviour
     [FoldoutGroup("Crouch Settings")][Min(.5f)] public float crouchingHeight = 1f;
     [FoldoutGroup("Crouch Settings")][Range(0f, 50f)] public float crouchSpeed = 7f;
 
+    [FoldoutGroup("Hooks")][SerializeField] List<EventHook<Object>> enableHooks;
+    [FoldoutGroup("Hooks")][SerializeField] List<EventHook<Object>> disableHooks;
+
     InputHandler inputHandler;
     CharacterController characterController;
 
@@ -51,6 +54,34 @@ public class PlayerMovementController : MonoBehaviour
 
     Vector3 prevSpeed = Vector3.zero;
     Vector2 prevLook = Vector2.zero;
+
+    private void Start()
+    {
+        enableHooks.ForEach((hook) => hook.AddListener(Enable));
+        disableHooks.ForEach((hook) => hook.AddListener(Disable));
+    }
+
+    private void OnDestroy()
+    {
+        logger?.Log("PlayerMovementController destroyed", this);
+
+        enableHooks.ForEach((hook) => hook.RemoveListener(Enable));
+        disableHooks.ForEach((hook) => hook.RemoveListener(Disable));
+    }
+
+    private void Enable(Object caller)
+    {
+        logger?.Log("PlayerMovementController set to enable", this);
+
+        enabled = true;
+    }
+
+    private void Disable(Object caller)
+    {
+        logger?.Log("PlayerMovementController set to disable", this);
+
+        enabled = false;
+    }
 
     private void OnEnable()
     {
@@ -74,9 +105,6 @@ public class PlayerMovementController : MonoBehaviour
         {
             logger?.LogWarning("InputHandler not found", this);
         }
-
-        // Mouse settings
-        Cursor.lockState = CursorLockMode.Locked;
 
         mouseSensitivity = PlayerPrefs.GetFloat(GameGlobals.key_MouseSensitivity, 0.5f);
 
@@ -174,7 +202,7 @@ public class PlayerMovementController : MonoBehaviour
         var delta = prevLook;
         cameraAngle -= delta.y * lookSpeed * mouseSensitivity;
         cameraAngle = Mathf.Clamp(cameraAngle, -verticalLookLimit.y, -verticalLookLimit.x);
-        playerCamera.transform.localRotation = Quaternion.Euler(cameraAngle, 0, 0);
+        playerCamera.localRotation = Quaternion.Euler(cameraAngle, 0, 0);
         transform.rotation *= Quaternion.Euler(0, delta.x * mouseSensitivity, 0);
     }
 
@@ -329,10 +357,5 @@ public class PlayerMovementController : MonoBehaviour
             characterController.height = standingHeight;
             isCrouching = false;
         }
-    }
-
-    void OnDestroy()
-    {
-        logger?.Log("PlayerMovementController destroyed", this);
     }
 }

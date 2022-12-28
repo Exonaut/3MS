@@ -20,6 +20,7 @@ public class MenuUI : MonoBehaviour
     [FoldoutGroup("Hooks", expanded: true)]
     [FoldoutGroup("Hooks")][SerializeField] List<EventHook<Object>> showUIHooks;
     [FoldoutGroup("Hooks")][SerializeField] List<EventHook<Object>> hideUIHooks;
+    [FoldoutGroup("Hooks")][SerializeField] List<EventHook<Object>> toggleUIHooks;
 
     protected UIDocument document;
     protected FocusController focusController;
@@ -34,15 +35,9 @@ public class MenuUI : MonoBehaviour
         if (!startEnabled) gameObject.SetActive(false);
 
         // Connect hooks
-        showUIHooks.ForEach((hook) =>
-        {
-            hook.AddListener(ShowUI);
-        });
-
-        hideUIHooks.ForEach((hook) =>
-        {
-            hook.AddListener(HideUI);
-        });
+        showUIHooks?.ForEach((hook) => hook.AddListener(ShowUI));
+        hideUIHooks?.ForEach((hook) => hook.AddListener(HideUI));
+        toggleUIHooks?.ForEach((hook) => hook.AddListener(ToggleUI));
     }
 
     protected void Update()
@@ -118,6 +113,13 @@ public class MenuUI : MonoBehaviour
         logger?.Log("UI disabled by " + caller?.name, this);
 
         gameObject.SetActive(false);
+    }
+
+    protected void ToggleUI(Object caller = null)
+    {
+        logger?.Log("UI toggled by " + caller?.name + " to " + !gameObject.activeSelf, this);
+
+        gameObject.SetActive(!gameObject.activeSelf);
     }
 
     private void OnButtonEnter(MouseOverEvent e)

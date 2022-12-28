@@ -460,7 +460,7 @@
                     "name": "",
                     "id": "18bfd588-1b1b-41ef-9691-43c3d3d19402",
                     "path": "<Keyboard>/escape",
-                    "interactions": "Hold",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Pause",
