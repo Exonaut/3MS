@@ -6,27 +6,34 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    [SerializeField, AssetsOnly, AssetList(Path = "Abilities/Abilities")]
-    public Ability weaponUseAbility;
-    public string weaponName;
-    public string weaponDescription;
-    public Sprite weaponIcon;
+    [FoldoutGroup("Dependencies", expanded: true)]
+    [FoldoutGroup("Dependencies")][SerializeField, Required] protected Logger logger;
+    [FoldoutGroup("Dependencies")][SerializeField] private List<Transform> aimOrigin;
+    [FoldoutGroup("Dependencies")][SerializeField] private List<Transform> weaponEffectOrigin;
+    [FoldoutGroup("Dependencies")][SerializeField] private LineRenderer lineRenderer;
+    [FoldoutGroup("Dependencies")][SerializeField] private AudioSource audioSource;
 
-    [SerializeField] private List<Transform> aimOrigin;
-    [SerializeField] private List<Transform> weaponEffectOrigin;
-    [SerializeField] private LineRenderer lineRenderer;
+    [FoldoutGroup("Properties", expanded: true)]
+    [FoldoutGroup("Properties")][SerializeField, AssetsOnly] public Ability weaponUseAbility;
+    [FoldoutGroup("Properties")] public string weaponName;
+    [FoldoutGroup("Properties")] public string weaponDescription;
+    [FoldoutGroup("Properties")] public Sprite weaponIcon;
+    [FoldoutGroup("Properties")] public AudioClip weaponEmptySound;
+    [FoldoutGroup("Properties")] public bool infiniteAmmo = false;
+    [FoldoutGroup("Properties")][HideIf("infiniteAmmo"), Min(0)] public int maxAmmo = 16;
+    [FoldoutGroup("Properties")][HideIf("infiniteAmmo"), PropertyRange(0, "maxAmmo")] public int currentAmmo = 16;
 
-    [SerializeField] private Logger logger;
-
-    [SerializeField] private bool canFire = true;
-    [SerializeField] private bool hasFired = false;
-    [SerializeField] private int shotCount = 0;
+    private bool canFire = true;
+    private bool hasFired = false;
+    private int shotCount = 0;
 
     /// <summary>
     /// This function is called when the object becomes enabled and active.
     /// </summary>
     private void OnEnable()
     {
+        if (!logger) logger = Logger.GetDefaultLogger(this);
+
         canFire = true;
         hasFired = false;
         shotCount = 0;
@@ -43,24 +50,30 @@ public class WeaponController : MonoBehaviour
         var canhold = weaponUseAbility.canHold;
         if (canFire && ((canhold && holdTime >= weaponUseAbility.abilityCastTime) || (!canhold && !hasFired && holdTime >= weaponUseAbility.abilityCastTime)))
         {
+
             StartCoroutine(FireCooldown());
             hasFired = true;
+            if (!infiniteAmmo && currentAmmo <= 0)
+            {
+                if (weaponEmptySound && audioSource) audioSource.PlayOneShot(weaponEmptySound);
+                return null;
+            }
             Fire(abilityLayerMask, playerCamera, target);
-            print("fire");
+            if (!infiniteAmmo) currentAmmo--;
         }
         return null;
     }
 
     private void Fire(LayerMask abilityLayerMask, Transform playerCamera = null, Transform target = null)
     {
-        if (logger) logger.Log($"Fired {weaponUseAbility.abilityName}");
+        logger?.Log($"Fired {weaponUseAbility.abilityName}");
         var attackOrigin = (aimOrigin.Count > 0 || playerCamera == null) ? aimOrigin : new List<Transform>() { playerCamera };
 
         var ignores = new List<Collider>(GetComponentsInChildren<Collider>());
 
         var i = (shotCount + 1) % attackOrigin.Count;
         var q = (i + 1) % weaponEffectOrigin.Count;
-        weaponUseAbility.UseAbility(ignores, attackOrigin[i], abilityLayerMask, weaponEffectOrigin[q], logger, target);
+        weaponUseAbility.UseAbility(ignores, attackOrigin[i], abilityLayerMask, weaponEffectOrigin[q], logger, target, audioSource);
 
         shotCount++;
     }

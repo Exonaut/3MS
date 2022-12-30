@@ -501,6 +501,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &241209230 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1302516169796137658, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}
+  m_PrefabInstance: {fileID: 6670438668727144707}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &323716342 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4845527496338035580, guid: cbd065909c393444187111207cbfeba7, type: 3}
@@ -546,7 +551,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 342627151}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
@@ -2500,7 +2505,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415157489}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
@@ -3931,6 +3936,18 @@ PrefabInstance:
     - target: {fileID: 6820673385271490512, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8208856216203603049, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}
+      propertyPath: abilityLayerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9115664149259378721, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 241209230}
+    - target: {fileID: 9115664149259378721, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}
+      propertyPath: infiniteAmmo
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}

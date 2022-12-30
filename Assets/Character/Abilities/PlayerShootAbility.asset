@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51e9a6e0e03565b4fa733b57c31684e8, type: 3}
+  m_Name: PlayerShootAbility
+  m_EditorClassIdentifier: 
+  abilityName: BasicPlayerShot
+  abilityDescription: Basic Player shooting
+  abilityIcon: {fileID: 0}
+  abilityCooldown: 0.3
+  abilityCastTime: 0
+  canHold: 1
+  damage: 10
+  ignoreShield: 0
+  ignoreHealth: 0
+  ignoreDamageReduction: 0
+  onHitEffect: {fileID: 9164938283348864896, guid: 1b94fa8be8a7dfd4a8f7450f75fb90fb, type: 3}
+  onHitEffectScale: {x: 1, y: 1, z: 1}
+  muzzleFlash: {fileID: 9164938283348864896, guid: 1b94fa8be8a7dfd4a8f7450f75fb90fb, type: 3}
+  weaponEffectScale: {x: 0.2, y: 0.2, z: 0.2}
+  castAudio:
+  - {fileID: 8300000, guid: 0d9f85d9ea69a734895afc382b692db2, type: 3}
+  - {fileID: 8300000, guid: fae95b73a7d8253448ab7311a06badf7, type: 3}
+  impactAudio:
+  - {fileID: 8300000, guid: e79dc466f0d28c1469a4cc88291f4ecf, type: 3}
+  abilityRange: 100
+  onHitEffectOffset: 0.05

@@ -31,6 +31,7 @@ public class MenuUI : MonoBehaviour
     {
         logger = logger == null ? Logger.GetDefaultLogger(this) : logger;
         document = GetComponent<UIDocument>();
+        if (document) document.enabled = true;
 
         if (!startEnabled) gameObject.SetActive(false);
 

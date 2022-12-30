@@ -23,7 +23,7 @@ namespace Abilities
 
         [Space]
         [Header("Audio")]
-        [SerializeField] protected AudioClip castAudio;
-        [SerializeField] protected AudioClip impactAudio;
+        [SerializeField] protected List<AudioClip> castAudio;
+        [SerializeField] protected List<AudioClip> impactAudio;
     }
 }

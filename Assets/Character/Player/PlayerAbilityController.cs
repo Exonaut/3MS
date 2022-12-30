@@ -8,9 +8,9 @@ using Object = UnityEngine.Object;
 
 public class PlayerAbilityController : MonoBehaviour
 {
-    [FoldoutGroup("Dependencies")][SerializeField, SceneObjectsOnly, Required] Camera playerCamera;
-    [FoldoutGroup("Dependencies")][SerializeField, SceneObjectsOnly, Required] WeaponController primaryWeapon;
-    [FoldoutGroup("Dependencies")][SerializeField, SceneObjectsOnly, Required] Logger logger;
+    [FoldoutGroup("Dependencies")][SerializeField, Required] Transform playerCamera;
+    [FoldoutGroup("Dependencies")][SerializeField, Required] WeaponController primaryWeapon;
+    [FoldoutGroup("Dependencies")][SerializeField, Required] Logger logger;
 
     [FoldoutGroup("Masks")][SerializeField] LayerMask abilityLayerMask;
 
@@ -22,7 +22,6 @@ public class PlayerAbilityController : MonoBehaviour
     void Start()
     {
         if (!inputHandler) inputHandler = FindObjectOfType<InputHandler>();
-        if (!playerCamera) playerCamera = FindObjectOfType<Camera>();
         if (!primaryWeapon) logger.LogWarning("Primary weapon not set", this);
         if (!logger) logger = Logger.GetDefaultLogger(this);
 
@@ -56,7 +55,7 @@ public class PlayerAbilityController : MonoBehaviour
                 return;
             }
 
-            primaryWeapon.Fire(primaryWeaponHoldingTime, abilityLayerMask, playerCamera.transform);
+            primaryWeapon.Fire(primaryWeaponHoldingTime, abilityLayerMask, playerCamera);
             primaryWeaponHoldingTime += Time.deltaTime;
         }
     }

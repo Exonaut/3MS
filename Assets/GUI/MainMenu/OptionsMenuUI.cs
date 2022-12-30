@@ -115,8 +115,6 @@ public class OptionsMenuUI : MenuUI
 
     private List<string> qualityChoices = new List<string>();
 
-    private bool initialized = false;
-
     protected new void Update()
     {
         base.Update();

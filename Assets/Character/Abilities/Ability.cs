@@ -24,6 +24,6 @@ namespace Abilities
         public bool ignoreHealth;
         public bool ignoreDamageReduction;
 
-        public abstract void UseAbility(List<Collider> ignores, Transform origin, LayerMask abilityLayerMask, Transform effectOrigin, Logger logger = null, Transform target = null);
+        public abstract void UseAbility(List<Collider> ignores, Transform origin, LayerMask abilityLayerMask, Transform effectOrigin, Logger logger = null, Transform target = null, AudioSource originAudioSource = null);
     }
 }

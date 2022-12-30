@@ -12,11 +12,12 @@ namespace Abilities
         [Space]
         [Header("Raycast Settings")]
         [SerializeField] public float abilityRange;
+        [SerializeField] public float onHitEffectOffset = 0.0f;
 
         [SerializeField, AssetsOnly, AssetList(Path = "Abilities/OnHitEffects")]
 
         public event System.Action<RaycastHit> onHit = delegate { };
-        public override void UseAbility(List<Collider> ignores, Transform origin, LayerMask abilityLayerMask, Transform effectOrigin, Logger logger = null, Transform target = null)
+        public override void UseAbility(List<Collider> ignores, Transform origin, LayerMask abilityLayerMask, Transform effectOrigin, Logger logger = null, Transform target = null, AudioSource originAudioSource = null)
         {
             if (muzzleFlash) // Create cast effect
             {
@@ -25,9 +26,9 @@ namespace Abilities
                 effect.transform.localScale = weaponEffectScale;
             }
 
-            if (castAudio) // Play cast audio
+            if (castAudio != null && castAudio.Count > 0 && originAudioSource != null) // Play cast audio
             {
-                AudioSource.PlayClipAtPoint(castAudio, origin.position);
+                originAudioSource.PlayOneShot(castAudio[Random.Range(0, castAudio.Count)]);
             }
 
             // Raycast to find hitable objects
@@ -41,9 +42,10 @@ namespace Abilities
                 if (onHitEffect) // Create hit effect
                 {
                     var effect = Instantiate(onHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                    if (impactAudio) // Play impact audio
+                    effect.transform.position += effect.transform.forward * onHitEffectOffset;
+                    if (impactAudio != null) // Play impact audio
                     {
-                        AudioSource.PlayClipAtPoint(impactAudio, hit.point);
+                        AudioSource.PlayClipAtPoint(impactAudio[Random.Range(0, impactAudio.Count)], hit.point);
                     }
                     effect.transform.localScale = onHitEffectScale;
                 }

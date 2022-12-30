@@ -14,7 +14,7 @@ namespace Abilities
         [SerializeField][Min(0)] public float projectileRange;
         [SerializeField][Min(0)] public float projectileSpeed;
         [SerializeField][Min(0)] public float projectileTracking = 0;
-        public override void UseAbility(List<Collider> ignores, Transform origin, LayerMask abilityLayerMask, Transform effectOrigin, Logger logger = null, Transform target = null)
+        public override void UseAbility(List<Collider> ignores, Transform origin, LayerMask abilityLayerMask, Transform effectOrigin, Logger logger = null, Transform target = null, AudioSource originAudioSource = null)
         {
             var projectile = Instantiate(projectilePrefab, origin.position, origin.rotation);
             projectile.Initialize(this, ignores, logger, abilityLayerMask, target, projectileTracking);
@@ -43,9 +43,9 @@ namespace Abilities
             if (onHitEffect) // Create hit effect
             {
                 var effect = Instantiate(onHitEffect, position, Quaternion.LookRotation(normal));
-                if (impactAudio) // Play impact audio
+                if (impactAudio != null) // Play impact audio
                 {
-                    AudioSource.PlayClipAtPoint(impactAudio, position);
+                    AudioSource.PlayClipAtPoint(impactAudio[Random.Range(0, impactAudio.Count)], position);
                 }
                 effect.transform.localScale = onHitEffectScale;
             }

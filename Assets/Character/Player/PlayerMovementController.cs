@@ -7,8 +7,8 @@ using UnityEngine;
 public class PlayerMovementController : MonoBehaviour
 {
     [FoldoutGroup("Dependencies", expanded: true)]
-    [FoldoutGroup("Dependencies")][SerializeField, SceneObjectsOnly, Required] Transform playerCamera;
-    [FoldoutGroup("Dependencies")][SerializeField, SceneObjectsOnly, Required] Logger logger;
+    [FoldoutGroup("Dependencies")][SerializeField, Required] Transform playerCamera;
+    [FoldoutGroup("Dependencies")][SerializeField, Required] Logger logger;
 
     [FoldoutGroup("Masks", expanded: true)]
     [FoldoutGroup("Masks")] public LayerMask crouchMask;
