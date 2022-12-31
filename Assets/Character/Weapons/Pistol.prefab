@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3708772144845014703}
   - component: {fileID: 7836021381178903101}
   - component: {fileID: 12679966570322086}
+  - component: {fileID: 1431352633234494432}
   m_Layer: 7
   m_Name: Pistol
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3185978917641893944}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3, y: -0.20000005, z: 0.5}
+  m_LocalPosition: {x: 0.3, y: -0.1274, z: 0.3557}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -51,15 +52,17 @@ MonoBehaviour:
   weaponEffectOrigin:
   - {fileID: 554876758744673109}
   lineRenderer: {fileID: 0}
-  audioSource: {fileID: 0}
-  weaponUseAbility: {fileID: 11400000, guid: 3d88f1c73aeb8c74a8d4133f2a914bec, type: 2}
+  audioSource: {fileID: 12679966570322086}
+  animator: {fileID: 1431352633234494432}
   weaponName: Pistol
   weaponDescription: Standard Pistol
   weaponIcon: {fileID: 0}
-  weaponEmptySound: {fileID: 0}
   infiniteAmmo: 0
   maxAmmo: 16
   currentAmmo: 0
+  weaponUseAbility: {fileID: 11400000, guid: 3d88f1c73aeb8c74a8d4133f2a914bec, type: 2}
+  weaponEmptySound: {fileID: 0}
+  shootAnimation: {fileID: 7400000, guid: ab99ad8bd5417864f90980f7e2a538b8, type: 2}
 --- !u!82 &12679966570322086
 AudioSource:
   m_ObjectHideFlags: 0
@@ -156,6 +159,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &1431352633234494432
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3185978917641893944}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 027ee1279d4768f4cbece898636034e9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1577610967209982877
 PrefabInstance:
   m_ObjectHideFlags: 0

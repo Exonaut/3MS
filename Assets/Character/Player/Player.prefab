@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6516435002180994504}
   m_Layer: 7
   m_Name: Logger
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   logToConsole: 1
-  logMessages: 1
+  logMessages: 0
   logWarnings: 1
   logErrors: 1
   prefix: Player
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 8208856216203603049}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -231,10 +231,10 @@ MonoBehaviour:
   logger: {fileID: 6516435002180994504}
   crouchMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   slopeMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   lookSpeed: 1
   mouseSensitivity: 0.6
   verticalLookLimit: {x: -90, y: 90}
@@ -270,7 +270,7 @@ MonoBehaviour:
   logger: {fileID: 6516435002180994504}
   abilityLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 129
 --- !u!1 &6820673385271490512
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 5472769171192643529}
   m_Layer: 7
   m_Name: Player Camera
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -350,9 +350,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6768613138436143128}
     m_Modifications:
+    - target: {fileID: 1812035848972175052, guid: 1cc01d466ccdc6c49acdc62b23398497, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 3185978917641893944, guid: 1cc01d466ccdc6c49acdc62b23398497, type: 3}
       propertyPath: m_Name
       value: Pistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 3185978917641893944, guid: 1cc01d466ccdc6c49acdc62b23398497, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3708772144845014703, guid: 1cc01d466ccdc6c49acdc62b23398497, type: 3}
       propertyPath: m_RootOrder

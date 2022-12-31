@@ -10,26 +10,34 @@ public class WeaponController : MonoBehaviour
     [FoldoutGroup("Dependencies")][SerializeField, Required] protected Logger logger;
     [FoldoutGroup("Dependencies")][SerializeField] private List<Transform> aimOrigin;
     [FoldoutGroup("Dependencies")][SerializeField] private List<Transform> weaponEffectOrigin;
-    [FoldoutGroup("Dependencies")][SerializeField] private LineRenderer lineRenderer;
     [FoldoutGroup("Dependencies")][SerializeField] private AudioSource audioSource;
+    [FoldoutGroup("Dependencies")][SerializeField] private Animator animator;
 
     [FoldoutGroup("Properties", expanded: true)]
-    [FoldoutGroup("Properties")][SerializeField, AssetsOnly] public Ability weaponUseAbility;
     [FoldoutGroup("Properties")] public string weaponName;
     [FoldoutGroup("Properties")] public string weaponDescription;
     [FoldoutGroup("Properties")] public Sprite weaponIcon;
-    [FoldoutGroup("Properties")] public AudioClip weaponEmptySound;
     [FoldoutGroup("Properties")] public bool infiniteAmmo = false;
     [FoldoutGroup("Properties")][HideIf("infiniteAmmo"), Min(0)] public int maxAmmo = 16;
     [FoldoutGroup("Properties")][HideIf("infiniteAmmo"), PropertyRange(0, "maxAmmo")] public int currentAmmo = 16;
+    [FoldoutGroup("Properties")][SerializeField, AssetsOnly] public Ability weaponUseAbility;
+
+    [FoldoutGroup("Sounds", expanded: true)]
+    [FoldoutGroup("Sounds")] public AudioClip weaponEmptySound;
+
+    [FoldoutGroup("Animations", expanded: true)]
+    [FoldoutGroup("Animations")] public AnimationClip shootAnimation;
 
     private bool canFire = true;
     private bool hasFired = false;
     private int shotCount = 0;
 
-    /// <summary>
-    /// This function is called when the object becomes enabled and active.
-    /// </summary>
+    private void Start()
+    {
+        animator = animator == null ? GetComponent<Animator>() : animator;
+        audioSource = audioSource == null ? GetComponent<AudioSource>() : audioSource;
+    }
+
     private void OnEnable()
     {
         if (!logger) logger = Logger.GetDefaultLogger(this);
@@ -59,7 +67,6 @@ public class WeaponController : MonoBehaviour
                 return null;
             }
             Fire(abilityLayerMask, playerCamera, target);
-            if (!infiniteAmmo) currentAmmo--;
         }
         return null;
     }
@@ -76,9 +83,11 @@ public class WeaponController : MonoBehaviour
         weaponUseAbility.UseAbility(ignores, attackOrigin[i], abilityLayerMask, weaponEffectOrigin[q], logger, target, audioSource);
 
         shotCount++;
+        if (!infiniteAmmo) currentAmmo--;
+
+        animator?.Play("Shoot");
     }
 
-    // Create coroutine wich enables firing after cooldown
     public IEnumerator FireCooldown()
     {
         canFire = false;

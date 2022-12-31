@@ -26,8 +26,6 @@ public class Hitable : MonoBehaviour
     [FoldoutGroup("Attributes")][Tooltip("Instance dies when getting hit regardless of damage")] public bool fragile = false;
     [FoldoutGroup("Attributes")][Tooltip("Instance can not die or loose health. Overrules fragile")] public bool invincible = false;
 
-    [FoldoutGroup("Status Settings", expanded: true)]
-
     [FoldoutGroup("Death Effects", expanded: true)]
     [FoldoutGroup("Death Effects")][SerializeField, AssetsOnly, AssetList(Path = "Characters/DeathEffects")] private GameObject deathEffect;
     [FoldoutGroup("Death Effects")][SerializeField, AssetsOnly, AssetList(Path = "Characters/DeathEffects")] private AudioClip deathSound;
@@ -38,14 +36,6 @@ public class Hitable : MonoBehaviour
     [FoldoutGroup("Event Hooks", true)][SerializeField, SceneObjectsOnly, Required] List<EventHook<Object>> restartHook;
 
     private float shieldRechargeDelayTimer = 0;
-
-    private static int frostDamage = 30;
-    private static float bleedDamage = 0.2f;
-    private static int burnDamage = 5;
-    private static int poisonDamage = 1;
-    private static float rotDamage = 0.02f;
-    private static float shockDamage = 0.2f;
-    private static int shockHealthDamage = 2;
 
     public void Start()
     {
@@ -85,9 +75,10 @@ public class Hitable : MonoBehaviour
             shieldRechargeDelayTimer -= Time.deltaTime;
         }
 
-        Kill();
+        checkKill();
     }
 
+    public event Action<Hitable> onTick;
     IEnumerator Tick()
     {
         while (true)
@@ -98,46 +89,9 @@ public class Hitable : MonoBehaviour
                 shieldRechargeDelayTimer = 0;
                 RechargeShield();
             }
+            onTick?.Invoke(this);
         }
     }
-
-    private void Rot()
-    {
-        Damage((int)(maxHealth * rotDamage), true);
-    }
-
-    private void Poison()
-    {
-        Damage(poisonDamage, true);
-    }
-
-    private void Burn()
-    {
-        Damage(burnDamage, true);
-    }
-
-    private void Shock()
-    {
-        if (shield > 0)
-        {
-            Damage((int)(maxShield * shockDamage), false, true);
-        }
-        else
-        {
-            Damage(shockHealthDamage);
-        }
-    }
-
-    private void Bleed()
-    {
-        Damage((int)(bleedDamage * maxHealth), true);
-    }
-
-    private void Frost()
-    {
-        Damage(frostDamage);
-    }
-
     public event Action<Hitable> onShieldRecharged;
     private void RechargeShield()
     {
@@ -151,11 +105,11 @@ public class Hitable : MonoBehaviour
         }
     }
 
-    public event Action<Hitable> onShieldRechargeDelay;
+    public event Action<Hitable> onSuspendShieldRecharge;
     private void SuspendShieldRecharge()
     {
         shieldRechargeDelayTimer = shieldRechargeDelay;
-        onShieldRechargeDelay?.Invoke(this);
+        onSuspendShieldRecharge?.Invoke(this);
     }
 
     [Hookable] public event Action<Hitable> onHit;
@@ -206,7 +160,7 @@ public class Hitable : MonoBehaviour
 
         int remainingDamage = (int)Mathf.Max(damage * damageMultiplier, 0);
 
-        print($"{gameObject.name} took {remainingDamage} damage");
+        logger?.Log($"{gameObject.name} took {remainingDamage} damage", this);
 
         int totalDamage = remainingDamage;
         int totalShieldDamage = 0;
@@ -242,10 +196,10 @@ public class Hitable : MonoBehaviour
             onShieldDamage?.Invoke(this);
         }
 
-        Kill();
+        checkKill();
     }
 
-    public void Kill()
+    public void checkKill()
     {
         if ((!invincible) && (health <= 0))
         {
@@ -257,7 +211,7 @@ public class Hitable : MonoBehaviour
     protected virtual void Die()
     {
         logger.Log($"{gameObject.name} died", this);
-        onDie.Invoke(this);
+        onDie?.Invoke(this);
         if (deathEffect)
         {
             if (!deathEffectOrigin)
@@ -282,23 +236,17 @@ public class Hitable : MonoBehaviour
             logger.LogWarning($"{gameObject.name} has no death sound", this);
         }
 
-        if (!gameObject.CompareTag("Player"))
-        {
-            gameObject.SetActive(false);
-        }
-        else
-        {
-            maxHealth = (int)(maxHealth * 1.1f);
-            health = maxHealth;
-        }
+        gameObject.SetActive(false);
     }
 
+    [Hookable] public event Action<Hitable> onRestart;
     public void Restart(Object sender = null)
     {
         health = maxHealth;
         shield = maxShield;
         enabled = true;
         gameObject.SetActive(true);
+        onRestart?.Invoke(this);
     }
 
     void Enable(Object sender = null)

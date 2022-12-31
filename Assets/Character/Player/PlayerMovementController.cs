@@ -122,10 +122,6 @@ public class PlayerMovementController : MonoBehaviour
             inputHandler.onSprint -= OnSprint;
             inputHandler.onCrouch -= OnCrouch;
         }
-        else
-        {
-            logger?.LogWarning("InputHandler not found", this);
-        }
 
         logger?.Log("PlayerMovementController disabled", this);
     }
