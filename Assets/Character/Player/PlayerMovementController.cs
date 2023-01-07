@@ -52,8 +52,8 @@ public class PlayerMovementController : MonoBehaviour
     bool jumpBuffer = false;
     bool holdJump = false;
 
-    Vector3 prevSpeed = Vector3.zero;
-    Vector2 prevLook = Vector2.zero;
+    public Vector3 prevSpeed { get; private set; } = Vector3.zero;
+    public Vector2 prevLook { get; private set; } = Vector2.zero;
 
     private void Start()
     {

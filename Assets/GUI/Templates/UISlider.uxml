@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/GUI/Templates/Slider.uss?fileID=7433441132597879392&amp;guid=7240d1214ff182b44b2d4c7bf761d7de&amp;type=3#Slider" />
     <ui:VisualElement name="Slider" style="flex-direction: row; justify-content: center; flex-shrink: 0;">
         <ui:VisualElement name="LabelContainer" style="flex-shrink: 0; flex-grow: 1; flex-direction: row; flex-wrap: nowrap; flex-basis: 0;">
-            <ui:Label text="Slider Label" name="Label" style="-unity-text-align: middle-right; -unity-font: url(&apos;project://database/Assets/GUI%20PRO%20Kit%20-%20Sci-Fi/ResourcesData/Sprite/Component/Fonts/Data%20Control%20by%20Vic%20Fieger/data-latin.ttf?fileID=12800000&amp;guid=6d532a68516819b4180abeab0c210b7d&amp;type=3#data-latin&apos;); -unity-font-definition: none; -unity-font-style: bold; font-size: 100%; color: rgb(255, 255, 255); min-width: 100%; min-height: 100%; align-items: center; flex-direction: row; margin-right: 8px;" />
+            <ui:Label text="Slider Label" name="Label" style="-unity-text-align: middle-right; -unity-font: url(&apos;project://database/Assets/GUI/Fonts/Oswald-VariableFont_wght.ttf?fileID=12800000&amp;guid=eb34378bc4321554f8e920a646dd1c9b&amp;type=3#Oswald-VariableFont_wght&apos;); -unity-font-definition: none; -unity-font-style: bold; font-size: 100%; color: rgb(255, 225, 241); min-width: 100%; min-height: 100%; align-items: center; flex-direction: row; margin-right: 8px;" />
         </ui:VisualElement>
         <ui:SliderInt high-value="100" value="50" name="SliderInt" class="slider" style="align-items: center; justify-content: flex-start; flex-grow: 1; flex-shrink: 1;" />
     </ui:VisualElement>

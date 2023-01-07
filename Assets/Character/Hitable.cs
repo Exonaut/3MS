@@ -66,6 +66,11 @@ public class Hitable : MonoBehaviour
         shield = maxShield;
 
         if (!logger) logger = Logger.GetDefaultLogger(this);
+        if (!deathEffectOrigin)
+        {
+            deathEffectOrigin = transform;
+            logger.LogWarning($"{gameObject.name} has no death effect origin", this);
+        }
     }
 
     private void Update()
@@ -214,11 +219,6 @@ public class Hitable : MonoBehaviour
         onDie?.Invoke(this);
         if (deathEffect)
         {
-            if (!deathEffectOrigin)
-            {
-                logger.LogWarning($"{gameObject.name} has no death effect origin", this);
-                deathEffectOrigin = transform;
-            }
             var i = Instantiate(deathEffect, deathEffectOrigin.position, Quaternion.identity);
             i.transform.localScale = deathEffectOrigin.localScale;
         }
@@ -229,7 +229,7 @@ public class Hitable : MonoBehaviour
 
         if (deathSound)
         {
-            AudioSource.PlayClipAtPoint(deathSound, deathEffectOrigin.position);
+            AudioSource.PlayClipAtPoint(deathSound, transform.position);
         }
         else
         {

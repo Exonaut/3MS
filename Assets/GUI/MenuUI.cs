@@ -14,8 +14,8 @@ public class MenuUI : MonoBehaviour
 
     [FoldoutGroup("Settings", expanded: true)]
     [FoldoutGroup("Settings")][SerializeField] bool startEnabled;
-    [FoldoutGroup("Settings")][SerializeField] Color notHoveringColor = Color.white;
-    [FoldoutGroup("Settings")][SerializeField] Color hoveringColor = Color.gray;
+    [FoldoutGroup("Settings")][SerializeField] Color buttonBaseColor = new Color(0xFF, 0x88, 0xD1, 0xFF);
+    [FoldoutGroup("Settings")][SerializeField] Color buttonHoveringColor = new Color(0xFF, 0x00, 0xD3, 0xFF);
 
     [FoldoutGroup("Hooks", expanded: true)]
     [FoldoutGroup("Hooks")][SerializeField] List<EventHook<Object>> showUIHooks;
@@ -45,13 +45,13 @@ public class MenuUI : MonoBehaviour
     {
         root?.Query<Button>(className: "button").ForEach((button) =>
         {
-            Tint(button, notHoveringColor);
+            ColorButton(button, buttonBaseColor);
         });
 
         if (focusController.focusedElement is Button)
         {
             Button button = (Button)focusController.focusedElement;
-            Tint(button, hoveringColor);
+            ColorButton(button, buttonHoveringColor);
         }
 
         if (hovering != null)
@@ -133,7 +133,7 @@ public class MenuUI : MonoBehaviour
         if (hovering == (VisualElement)e.target) hovering = null;
     }
 
-    private void Tint(VisualElement e, Color color)
+    private void ColorButton(VisualElement e, Color color)
     {
         e.style.unityBackgroundImageTintColor = color;
     }

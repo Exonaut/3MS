@@ -568,8 +568,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   logger: {fileID: 569035799}
   startEnabled: 0
-  notHoveringColor: {r: 1, g: 1, b: 1, a: 1}
-  hoveringColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  buttonBaseColor: {r: 1, g: 0.53333336, b: 0.81960785, a: 255}
+  buttonHoveringColor: {r: 1, g: 0.88235295, b: 0.94509804, a: 255}
   showUIHooks:
   - target: {fileID: 1066594768}
     eventName: onPause
@@ -1506,6 +1506,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbd065909c393444187111207cbfeba7, type: 3}
+--- !u!114 &700998562 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5450594746141879180, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}
+  m_PrefabInstance: {fileID: 6670438668727144707}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b59630389527746906a4ac614dcdbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2472,8 +2483,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   logger: {fileID: 569035799}
   startEnabled: 0
-  notHoveringColor: {r: 1, g: 1, b: 1, a: 1}
-  hoveringColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  buttonBaseColor: {r: 1, g: 0.53333336, b: 0.81960785, a: 255}
+  buttonHoveringColor: {r: 1, g: 0.88235295, b: 0.94509804, a: 255}
   showUIHooks:
   - target: {fileID: 342627155}
     eventName: onOptions
@@ -3284,6 +3295,68 @@ MonoBehaviour:
   logErrors: 1
   prefix: Input
   prefixColor: {r: 0.7315706, g: 1, b: 0, a: 1}
+--- !u!1 &1816809518
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1816809519}
+  - component: {fileID: 1816809521}
+  - component: {fileID: 1816809520}
+  m_Layer: 0
+  m_Name: PlayerHUD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1816809519
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816809518}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1953707855}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1816809520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816809518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 78239428b96f9d54cb73dcac00cb1b95, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 5a1c0417c0fc9fe428634da7c4e338c3, type: 3}
+  m_SortingOrder: 0
+--- !u!114 &1816809521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816809518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e251d2adb0cc3804590aa83396e9d77e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHitable: {fileID: 700998562}
 --- !u!1 &1953707854
 GameObject:
   m_ObjectHideFlags: 0
@@ -3294,7 +3367,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1953707855}
   m_Layer: 0
-  m_Name: -- MENU --
+  m_Name: -- UI --
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3314,6 +3387,7 @@ Transform:
   m_Children:
   - {fileID: 342627152}
   - {fileID: 1415157490}
+  - {fileID: 1816809519}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3840,6 +3914,14 @@ PrefabInstance:
     - target: {fileID: 1302516169796137658, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}
       propertyPath: m_Volume
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3756469302058380559, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3756469302058380559, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6670438668048202710, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}
       propertyPath: slopeMask.m_Bits
