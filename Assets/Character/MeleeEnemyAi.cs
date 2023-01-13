@@ -2,6 +2,7 @@ using Sirenix.OdinInspector;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class MeleeEnemyAi : MonoBehaviour
 {
@@ -14,17 +15,17 @@ public class MeleeEnemyAi : MonoBehaviour
         Stunned
     }
 
-    [FoldoutGroup("Pain")][PropertyRange(0, 1)] public float painThreshold;
+    [FoldoutGroup("Pain")][PropertyRange(0, 1)][Tooltip("Liklihood of getting stunned after a hit.")] public float painThreshold;
     [FoldoutGroup("Pain")][MinValue(0)] public float painLength;
     //[MinValue(0)] public float reactionDelay; // implement this
-    [MinValue(0)] public float aggroRange;
-    [MinValue(0)] public float deaggroRange;
-    [MinValue(0)] public float attackRange;
-    [MinValue(0)] public int damage;
-    [MinValue(0)] public float attackCooldown;
-    public bool ignoreShield;
-    public bool ignoreHealth;
-    public bool ignoreDamageReduction;
+    [FoldoutGroup("Aggro")][MinValue(0)] public float aggroRange;
+    [FoldoutGroup("Aggro")][MinValue(0)] public float deaggroRange;
+    [FoldoutGroup("Attack")][MinValue(0)] public float attackRange;
+    [FoldoutGroup("Attack")][MinValue(0)] public int damage;
+    [FoldoutGroup("Attack")][MinValue(0)] public float attackCooldown;
+    [FoldoutGroup("Attack")] public bool ignoreShield;
+    [FoldoutGroup("Attack")] public bool ignoreHealth;
+    [FoldoutGroup("Attack")] public bool ignoreDamageReduction;
 
 
 
@@ -42,11 +43,7 @@ public class MeleeEnemyAi : MonoBehaviour
         currentState = MeleeEnemyState.Idle;
         target = null;
 
-        GetComponent<Hitable>().onDamage += _ =>
-        {
-            Debug.Log("Here");
-            gotHitThisFrame = true;
-        };
+        GetComponent<Hitable>().onDamage += _ => gotHitThisFrame = true;
     }
 
     private void Update()
@@ -54,13 +51,13 @@ public class MeleeEnemyAi : MonoBehaviour
         if (gotHitThisFrame)
         {
             gotHitThisFrame = false;
-            if (Random.Range(0, 1) < painThreshold)
+            if (Random.Range(0f, 1f) < painThreshold)
             {
                 currentState = MeleeEnemyState.Stunned;
                 lastPainTime = Time.time;
+                agent.destination = transform.position;
             }
         }
-
         switch (currentState)
         {
             case MeleeEnemyState.Chasing:
