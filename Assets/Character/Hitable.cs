@@ -27,8 +27,8 @@ public class Hitable : MonoBehaviour
     [FoldoutGroup("Attributes")][Tooltip("Instance can not die or loose health. Overrules fragile")] public bool invincible = false;
 
     [FoldoutGroup("Death Effects", expanded: true)]
-    [FoldoutGroup("Death Effects")][SerializeField, AssetsOnly, AssetList(Path = "Characters/DeathEffects")] private GameObject deathEffect;
-    [FoldoutGroup("Death Effects")][SerializeField, AssetsOnly, AssetList(Path = "Characters/DeathEffects")] private AudioClip deathSound;
+    [FoldoutGroup("Death Effects")][SerializeField, AssetsOnly] private GameObject deathEffect;
+    [FoldoutGroup("Death Effects")][SerializeField, AssetsOnly] private AudioClip deathSound;
     [FoldoutGroup("Death Effects")][SerializeField] private Transform deathEffectOrigin;
 
     [FoldoutGroup("Event Hooks", true)][SerializeField, SceneObjectsOnly, Required] List<EventHook<Object>> enableHook;

@@ -10,7 +10,7 @@
                     <AttributeOverrides element-name="Label" text="Sound Volume" />
                 </ui:Instance>
                 <ui:Instance template="UISlider" name="MouseSensitivity" style="flex-shrink: 0; height: 20%;">
-                    <AttributeOverrides element-name="Label" text="Mouse Sesitivity" />
+                    <AttributeOverrides element-name="Label" text="Sesitivity" />
                 </ui:Instance>
                 <ui:Instance template="UIDropdown" name="GraphicsQuality" style="width: auto; height: 20%; flex-shrink: 0; justify-content: center;">
                     <AttributeOverrides element-name="Label" text="Graphics Quality" />

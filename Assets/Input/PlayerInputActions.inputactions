@@ -47,7 +47,7 @@
                     "id": "64520a05-a944-4a0a-aa6b-844f18e332ab",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": true
                 },
                 {
@@ -56,7 +56,7 @@
                     "id": "29a1e58a-162e-41ce-bd99-3576cd91a214",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press(behavior=1)",
                     "initialStateCheck": false
                 },
                 {
@@ -65,7 +65,7 @@
                     "id": "82b5bedd-e2bb-465f-94ba-cad486be283d",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -74,7 +74,7 @@
                     "id": "0ded74a4-a4c2-4164-8ee4-3fba3fd8c5ca",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press(behavior=1)",
                     "initialStateCheck": false
                 },
                 {
@@ -83,7 +83,7 @@
                     "id": "5e58d31a-85bc-40ed-9b99-185fbb9248d5",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -92,7 +92,7 @@
                     "id": "122702df-3139-4324-b69d-0583b24d0c1a",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press(behavior=1)",
                     "initialStateCheck": false
                 },
                 {
@@ -227,32 +227,10 @@
                 },
                 {
                     "name": "",
-                    "id": "1635d3fe-58b6-4ba9-a4e2-f4b964f6b5c8",
-                    "path": "<XRController>/{Primary2DAxis}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "XR",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3ea4d645-4504-4529-b061-ab81934c3752",
-                    "path": "<Joystick>/stick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "c1f7a91b-d0fd-4a62-997e-7fb9b69bf235",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "ScaleVector2(x=2,y=2)",
                     "groups": ";Gamepad",
                     "action": "Look",
                     "isComposite": false,
@@ -263,19 +241,8 @@
                     "id": "8c8e490b-c610-4785-884f-f04217b23ca4",
                     "path": "<Pointer>/delta",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "ScaleVector2(x=0.5,y=0.5)",
                     "groups": ";Keyboard&Mouse;Touch",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3e5f5442-8668-4b27-a940-df99bad7e831",
-                    "path": "<Joystick>/{Hatswitch}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
                     "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -304,42 +271,9 @@
                 },
                 {
                     "name": "",
-                    "id": "886e731e-7071-4ae4-95c0-e61739dad6fd",
-                    "path": "<Touchscreen>/primaryTouch/tap",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Touch",
-                    "action": "PrimaryStart",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ee3d0cd2-254e-47a7-a8cb-bc94d9658c54",
-                    "path": "<Joystick>/trigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "PrimaryStart",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8255d333-5683-4943-a58a-ccb207ff1dce",
-                    "path": "<XRController>/{PrimaryAction}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "XR",
-                    "action": "PrimaryStart",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "35aa893d-7799-42bd-bcda-7de4e5ede787",
                     "path": "<Keyboard>/shift",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "SprintStart",
@@ -348,9 +282,20 @@
                 },
                 {
                     "name": "",
+                    "id": "65edd7a9-fb49-430c-9d56-898a3acb7f7d",
+                    "path": "<XInputController>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SprintStart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "65f2e6dd-41f1-4e91-b9f2-f43d32959d0d",
                     "path": "<Keyboard>/shift",
-                    "interactions": "Press(behavior=1)",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "SprintStop",
@@ -359,9 +304,20 @@
                 },
                 {
                     "name": "",
+                    "id": "0cc8042f-c1a1-477d-9cf6-46a0a12c2ddc",
+                    "path": "<XInputController>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SprintStop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "41969860-2630-46b0-8663-fc3766a5da1a",
                     "path": "<Keyboard>/space",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "JumpStart",
@@ -370,9 +326,20 @@
                 },
                 {
                     "name": "",
+                    "id": "6e7acbee-5f07-43ae-bbe0-12e7238e300d",
+                    "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "JumpStart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "2b534995-d7c6-42c0-84ad-357e410b2660",
                     "path": "<Keyboard>/ctrl",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "CrouchStart",
@@ -381,9 +348,20 @@
                 },
                 {
                     "name": "",
+                    "id": "ec5fdf67-e9e3-40aa-9d1a-7ad38a6e91de",
+                    "path": "<XInputController>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CrouchStart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "433c38b0-1611-4e0d-b071-1ce9198ca0a1",
                     "path": "<Keyboard>/ctrl",
-                    "interactions": "Press(behavior=1)",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "CrouchStop",
@@ -414,44 +392,22 @@
                 },
                 {
                     "name": "",
-                    "id": "14bd4485-55ce-42f7-ac67-d8e8301d15cd",
-                    "path": "<Touchscreen>/primaryTouch/tap",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Touch",
-                    "action": "PrimaryStop",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ad5a9478-4609-4c08-9e30-35b854a0d248",
-                    "path": "<Joystick>/trigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "PrimaryStop",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d961849d-e561-490c-acf2-a71d91bf2a55",
-                    "path": "<XRController>/{PrimaryAction}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "XR",
-                    "action": "PrimaryStop",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "cf6b10f1-470a-4093-b8a6-ea4c9a11ec9e",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "03a6570b-ca51-4f91-b5e8-a48a9cd1ced0",
+                    "path": "<XInputController>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
                     "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -469,12 +425,45 @@
                 },
                 {
                     "name": "",
+                    "id": "20e8c1b7-6bc7-40f2-bff1-8f0bd21cd81f",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "662707de-dd17-4018-991d-6e6d528ab8bc",
                     "path": "<Keyboard>/space",
-                    "interactions": "Press(behavior=1)",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "JumpStop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "331c098a-1248-4b5d-b097-ee772ad1e4ae",
+                    "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "JumpStop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b22e79f7-9688-404e-8ba6-ddb53d9bb345",
+                    "path": "<XInputController>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CrouchStop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

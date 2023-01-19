@@ -20,6 +20,7 @@ public class PauseMenuUI : MenuUI
         root.Q<Button>("Continue").clicked += () => OnContinue();
         root.Q<Button>("Options").clicked += () => OnOptions();
         root.Q<Button>("End").clicked += () => OnEnd();
+        root.Q<Button>("Controlls").clicked += () => OnControlls();
     }
 
     [Hookable] public event Action<PauseMenuUI> onStartGame;
@@ -37,6 +38,15 @@ public class PauseMenuUI : MenuUI
     {
         logger.Log("OnOptions clicked");
         onOptions?.Invoke(this);
+
+        HideUI(this);
+    }
+
+    [Hookable] public event Action<PauseMenuUI> onControlls;
+    private void OnControlls()
+    {
+        logger.Log("OnControlls clicked");
+        onControlls?.Invoke(this);
 
         HideUI(this);
     }

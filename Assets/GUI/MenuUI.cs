@@ -72,6 +72,9 @@ public class MenuUI : MonoBehaviour
             button.RegisterCallback<MouseLeaveEvent>(OnButtonExit);
         });
 
+        var btnReturn = root.Q<Button>("Return");
+        if (btnReturn != null) btnReturn.clicked += () => OnReturn();
+
         focusController = root.focusController;
     }
 
@@ -136,5 +139,14 @@ public class MenuUI : MonoBehaviour
     private void ColorButton(VisualElement e, Color color)
     {
         e.style.unityBackgroundImageTintColor = color;
+    }
+
+    [Hookable] public event Action<MenuUI> onReturn;
+    protected void OnReturn()
+    {
+        logger.Log("OnReturn clicked");
+        onReturn?.Invoke(this);
+
+        HideUI(this);
     }
 }

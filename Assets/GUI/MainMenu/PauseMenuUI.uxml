@@ -4,6 +4,7 @@
         <ui:VisualElement style="width: 100%; height: 100%; justify-content: center; align-items: center; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 1%; padding-right: 1%; padding-top: 3%; padding-bottom: 3%;">
             <ui:Button text="Continue" name="Continue" class="button doomcolor" />
             <ui:Button text="Options" tabindex="1" name="Options" class="button doomcolor" />
+            <ui:Button text="Controlls" tabindex="1" name="Controlls" class="button doomcolor" />
             <ui:Button text="End Game" tabindex="3" name="End" class="button doomcolor" style="margin-top: 4%;" />
         </ui:VisualElement>
     </ui:VisualElement>

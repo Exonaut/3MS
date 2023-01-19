@@ -19,6 +19,7 @@ public class MainMenuUI : MenuUI
 
         root.Q<Button>("StartGame").clicked += () => OnStartGame();
         root.Q<Button>("Options").clicked += () => OnOptions();
+        root.Q<Button>("Controlls").clicked += () => OnControlls();
         root.Q<Button>("Credits").clicked += () => OnCredits();
         root.Q<Button>("EndGame").clicked += () => OnEndGame();
     }
@@ -46,13 +47,23 @@ public class MainMenuUI : MenuUI
         HideUI(this);
     }
 
+    [Hookable] public event Action<MainMenuUI> onControlls;
+    private void OnControlls()
+    {
+        logger.Log("OnControlls clicked");
+        onControlls?.Invoke(this);
+
+        HideUI(this);
+    }
+
+
     [Hookable] public event Action<MainMenuUI> onCredits;
     private void OnCredits()
     {
         logger.Log("OnCredits clicked");
         onCredits?.Invoke(this);
 
-        // TODO
+        HideUI(this);
     }
 
     [Hookable] public event Action<MainMenuUI> onEndGame;

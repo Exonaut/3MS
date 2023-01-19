@@ -123,6 +123,76 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &265373468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 265373469}
+  - component: {fileID: 265373471}
+  - component: {fileID: 265373470}
+  m_Layer: 0
+  m_Name: ControllsDocument
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &265373469
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265373468}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -16.338314, y: 9.570508, z: 2.8188698}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1463431619}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &265373470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265373468}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 78239428b96f9d54cb73dcac00cb1b95, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: a76e9aa7d82fee5428a86ec88218804f, type: 3}
+  m_SortingOrder: 0
+--- !u!114 &265373471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265373468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61717fb07e587dd468fc9e7f00f6430e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logger: {fileID: 827214295}
+  startEnabled: 0
+  buttonBaseColor: {r: 1, g: 0.53333336, b: 0.81960785, a: 1}
+  buttonHoveringColor: {r: 1, g: 0.88235295, b: 0.94509804, a: 255}
+  showUIHooks:
+  - target: {fileID: 1516443838}
+    eventName: onControlls
+  hideUIHooks: []
+  toggleUIHooks: []
 --- !u!1 &816057996
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,8 +367,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1049553030}
-  - component: {fileID: 1049553029}
   - component: {fileID: 1049553031}
+  - component: {fileID: 1049553029}
   m_Layer: 0
   m_Name: OptionsDocument
   m_TagString: Untagged
@@ -451,9 +521,81 @@ Transform:
   - {fileID: 1590260229}
   - {fileID: 1516443840}
   - {fileID: 1049553030}
+  - {fileID: 265373469}
+  - {fileID: 1494943404}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1494943403
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1494943404}
+  - component: {fileID: 1494943406}
+  - component: {fileID: 1494943405}
+  m_Layer: 0
+  m_Name: CreditsDocument
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1494943404
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494943403}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -16.338314, y: 9.570508, z: 2.8188698}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1463431619}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1494943405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494943403}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 78239428b96f9d54cb73dcac00cb1b95, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 50878a5cc2ae2244aa983f3b3ae1697e, type: 3}
+  m_SortingOrder: 0
+--- !u!114 &1494943406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494943403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61717fb07e587dd468fc9e7f00f6430e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logger: {fileID: 827214295}
+  startEnabled: 0
+  buttonBaseColor: {r: 1, g: 0.53333336, b: 0.81960785, a: 1}
+  buttonHoveringColor: {r: 1, g: 0.88235295, b: 0.94509804, a: 255}
+  showUIHooks:
+  - target: {fileID: 1516443838}
+    eventName: onCredits
+  hideUIHooks: []
+  toggleUIHooks: []
 --- !u!1 &1516443837
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,8 +605,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516443840}
-  - component: {fileID: 1516443839}
   - component: {fileID: 1516443838}
+  - component: {fileID: 1516443839}
   m_Layer: 0
   m_Name: MainMenuDocument
   m_TagString: Untagged
@@ -490,6 +632,10 @@ MonoBehaviour:
   buttonHoveringColor: {r: 1, g: 0.88235295, b: 0.94509804, a: 255}
   showUIHooks:
   - target: {fileID: 1049553031}
+    eventName: onReturn
+  - target: {fileID: 265373471}
+    eventName: onReturn
+  - target: {fileID: 1494943406}
     eventName: onReturn
   hideUIHooks: []
   toggleUIHooks: []
