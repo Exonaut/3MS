@@ -9,7 +9,7 @@ public class HealthPickup : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<Hitable>().Heal(restoredHealth);
+            // other.gameObject.GetComponent<Hitable>().Heal(restoredHealth);
             Destroy(gameObject);
         }
     }

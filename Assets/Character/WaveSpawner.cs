@@ -29,9 +29,11 @@ public class WaveSpawner : MonoBehaviour
     public List<GameObject> EnemyPrefabs;
 
     private List<Wave> waves;
-    private int currentWave;
-    private float waveStartingTime;
-    private bool isActive;
+    public int currentWave { get; private set; }
+    public int waveCount { get { return waves.Count; } }
+    public float currentWaveLength { get { return waves[currentWave].Length; } }
+    public float waveStartingTime { get; private set; }
+    public bool isActive { get; private set; }
     private bool isCurrentWaveSpawned;
     private List<Hitable> currentlySpawnedEntities;
 
@@ -68,6 +70,12 @@ public class WaveSpawner : MonoBehaviour
     {
         if (isActive)
         {
+            if (currentWave >= waveCount)
+            {
+                isActive = false;
+                return;
+            }
+
             if (!isCurrentWaveSpawned)
             {
                 SpawnWave(waves[currentWave].SpawnEntities);
@@ -76,7 +84,7 @@ public class WaveSpawner : MonoBehaviour
             }
             else
             {
-                if (AreAllEnemiesDead() || Time.time - waveStartingTime >= waves[currentWave].Length)
+                if (AreAllEnemiesDead() || Time.time - waveStartingTime >= currentWaveLength)
                 {
                     currentWave++;
                     isCurrentWaveSpawned = false;

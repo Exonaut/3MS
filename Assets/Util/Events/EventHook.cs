@@ -25,7 +25,7 @@ public class EventHook<E> where E : UnityEngine.Object
         var eventNames = new ValueDropdownList<string>();
         eventNames.Add("");
 
-        GetEvents().ForEach((e) => eventNames.Add(e.Name));
+        GetEvents()?.ForEach((e) => eventNames.Add(e.Name));
 
         return eventNames;
     }
@@ -41,7 +41,7 @@ public class EventHook<E> where E : UnityEngine.Object
         if (target == null || eventName == "" || events == null) return;
 
         var e = events.Find(x => x.Name == eventName);
-        e.AddEventHandler(target, action);
+        e?.AddEventHandler(target, action);
     }
 
     public void RemoveListener(Action<E> action)
@@ -50,7 +50,7 @@ public class EventHook<E> where E : UnityEngine.Object
         if (target == null || eventName == "" || events == null) return;
 
         var e = events.Find(x => x.Name == eventName);
-        e.RemoveEventHandler(target, action);
+        e?.RemoveEventHandler(target, action);
     }
 
     public static EventHook<E> operator +(EventHook<E> a, Action<E> action)
