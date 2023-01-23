@@ -6,6 +6,14 @@ using UnityEngine.AI;
 
 public class ChargerEnemyAi : MonoBehaviour
 {
+    private enum ChargerEnemyState
+    {
+        Idle,
+        Chasing,
+        Attacking,
+        Cooldown,
+        Stunned
+    }
 
     [FoldoutGroup("Pain")][PropertyRange(0, 1)][Tooltip("Liklihood of getting stunned after a hit.")] public float painThreshold;
     [FoldoutGroup("Pain")][MinValue(0)] public float painLength;
@@ -21,7 +29,7 @@ public class ChargerEnemyAi : MonoBehaviour
     private bool gotHitThisFrame;
     private float lastPainTime;
     private float lastAttackTime;
-    private MeleeEnemyState currentState;
+    private ChargerEnemyState currentState;
     private Hitable target;
 
     // Start is called before the first frame update

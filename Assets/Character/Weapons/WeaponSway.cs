@@ -14,8 +14,6 @@ public class WeaponSway : MonoBehaviour
     [FoldoutGroup("Settings")][SerializeField] float swingMagnitude = 10f;
     [FoldoutGroup("Settings")][SerializeField] float swingSpeed = 2f;
 
-    float rotateAmount = 0f;
-
     // Update is called once per frame
     void Update()
     {
