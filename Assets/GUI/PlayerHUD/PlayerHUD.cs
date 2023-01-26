@@ -12,6 +12,8 @@ public class PlayerHUD : MonoBehaviour
     [FoldoutGroup("Dependencies")][SerializeField, Required] Hitable playerHitable;
     [FoldoutGroup("Dependencies")][SerializeField, Required] WeaponController playerWeapon;
 
+    [FoldoutGroup("Settings")][SerializeField, Required] AnimationCurve healthCurve;
+
     ProgressBar healthBar;
 
     WaveSpawner waveSpawner;
@@ -64,9 +66,11 @@ public class PlayerHUD : MonoBehaviour
     {
         if (playerHitable == null || healthBar == null) return;
 
+        var fakeHealth = getFakeHealth();
+
         healthBar.highValue = playerHitable.maxHealth;
-        healthBar.value = playerHitable.health;
-        healthBar.title = playerHitable.health + "/" + playerHitable.maxHealth;
+        healthBar.value = fakeHealth;
+        healthBar.title = fakeHealth + "/" + playerHitable.maxHealth;
     }
 
     private void UpdateWaveCounter()
@@ -95,5 +99,11 @@ public class PlayerHUD : MonoBehaviour
         waveTimer.text = timeString;
 
         waveTimer.style.color = time <= 5.99f ? Color.red : new Color(1f, 0.882352948f, 0.945098042f, 255f);
+    }
+
+    private int getFakeHealth()
+    {
+        var healthSample = healthCurve.Evaluate((float)playerHitable.health / (float)playerHitable.maxHealth);
+        return (int)(healthSample * playerHitable.maxHealth);
     }
 }
