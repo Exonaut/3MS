@@ -1,0 +1,25 @@
+.unity-progress-bar__title-container {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-left-color: rgba(0, 0, 0, 0.39);
+    border-right-color: rgba(0, 0, 0, 0.39);
+    border-top-color: rgba(0, 0, 0, 0.39);
+    border-bottom-color: rgba(0, 0, 0, 0.39);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+}
+
+.unity-progress-bar__progress {
+    background-color: rgba(204, 0, 0, 255);
+    border-left-color: rgba(255, 0, 0, 255);
+    border-right-color: rgba(255, 0, 0, 255);
+    border-top-color: rgba(255, 0, 0, 255);
+    border-bottom-color: rgba(255, 0, 0, 255);
+}
+
+.unity-label {
+    color: rgba(255, 225, 241, 255);
+    -unity-text-outline-width: 0.5px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0.61);
+}

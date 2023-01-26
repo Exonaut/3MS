@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/GUI/MainMenu/MainMenuStylesheet.uss?fileID=7433441132597879392&amp;guid=9c4bd36c1791c75428811745ad770d06&amp;type=3#MainMenuStylesheet" />
+    <ui:VisualElement style="flex-basis: auto; flex-grow: 0; align-items: center; justify-content: space-around; width: 100%; height: 100%;">
+        <ui:VisualElement name="Darkening" style="width: 100%; height: 100%; align-items: stretch; background-color: rgba(0, 0, 0, 0.71); justify-content: space-around;">
+            <ui:VisualElement name="Controlls" style="margin-top: 2%; margin-bottom: 2%; height: 90%; flex-direction: column; align-items: center; justify-content: center;">
+                <ui:Label text="You are dead" display-tooltip-when-elided="true" enable-rich-text="false" style="font-size: 64px; -unity-font: url(&apos;project://database/Assets/GUI/Fonts/Oswald-VariableFont_wght.ttf?fileID=12800000&amp;guid=eb34378bc4321554f8e920a646dd1c9b&amp;type=3#Oswald-VariableFont_wght&apos;); -unity-font-style: bold; -unity-text-align: middle-left; color: rgb(255, 225, 241);" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; justify-content: center; align-items: center;">
+                <ui:Button text="Return" name="Return" class="button doomcolor" style="justify-content: space-around; margin-bottom: 5%;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

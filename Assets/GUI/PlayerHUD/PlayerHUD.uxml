@@ -1,15 +1,20 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement style="width: 100%; height: 100px; flex-direction: column; justify-content: flex-start; align-items: center; flex-shrink: 0; flex-wrap: nowrap;">
+    <Style src="project://database/Assets/GUI/PlayerHUD/PlayerHUD.uss?fileID=7433441132597879392&amp;guid=f6b6a7b66dda5104296cf23d438341e0&amp;type=3#PlayerHUD" />
+    <ui:VisualElement style="width: 100%; height: 120px; flex-direction: column; justify-content: flex-start; align-items: center; flex-shrink: 0; flex-wrap: nowrap;">
         <ui:Label text="Wave 0/3" display-tooltip-when-elided="true" name="Wavecounter" style="-unity-font: url(&apos;project://database/Assets/GUI/Fonts/Oswald-VariableFont_wght.ttf?fileID=12800000&amp;guid=eb34378bc4321554f8e920a646dd1c9b&amp;type=3#Oswald-VariableFont_wght&apos;); font-size: 28px; -unity-font-style: bold;" />
         <ui:Label text="00:00" display-tooltip-when-elided="true" name="Wavetimer" style="-unity-font: url(&apos;project://database/Assets/GUI/Fonts/Oswald-VariableFont_wght.ttf?fileID=12800000&amp;guid=eb34378bc4321554f8e920a646dd1c9b&amp;type=3#Oswald-VariableFont_wght&apos;); font-size: 36px; -unity-font-style: bold;" />
     </ui:VisualElement>
     <ui:VisualElement style="flex-grow: 1; justify-content: center; align-items: center;">
         <ui:VisualElement style="flex-shrink: 0; background-image: url(&apos;project://database/Assets/GUI/PlayerHUD/AimPoint.png?fileID=2800000&amp;guid=708b4271365d28c4f9593ac8c3509ca4&amp;type=3#AimPoint&apos;); width: 10px; height: 10px; border-top-left-radius: 1px; border-bottom-left-radius: 1px; border-top-right-radius: 1px; border-bottom-right-radius: 1px;" />
     </ui:VisualElement>
-    <ui:VisualElement style="width: 100%; height: 100px; flex-direction: row; justify-content: flex-start; align-items: center;">
+    <ui:VisualElement style="width: 100%; height: 120px; flex-direction: row; justify-content: flex-start; align-items: center; margin-bottom: 16px;">
         <ui:VisualElement style="width: 70%; flex-grow: 0; height: auto;" />
         <ui:VisualElement style="width: 30%; height: auto; flex-grow: 0; padding-left: 8px; padding-right: 16px; padding-top: 8px; padding-bottom: 8px;">
-            <ui:ProgressBar value="22" name="HealthBar" title="100/100" style="height: 50%; width: 50%; transform-origin: left top; translate: 0 0; scale: 2 2; flex-grow: 1; flex-shrink: 1;" />
+            <ui:VisualElement style="flex-direction: row-reverse;">
+                <ui:VisualElement style="background-image: url(&apos;project://database/Assets/GUI%20PRO%20Kit%20-%20Sci-Fi/ResourcesData/Sprite/Demo/Demo_MenuIcon/Icon_MenuIcon03_Gun_s.png?fileID=2800000&amp;guid=f1bb42d2b230445ec8ebc07978242aa7&amp;type=3#Icon_MenuIcon03_Gun_s&apos;); width: 72px; height: 100%; scale: 1.2 1.5; -unity-background-image-tint-color: rgb(255, 225, 241);" />
+                <ui:Label text="16/16" display-tooltip-when-elided="true" name="Ammocount" style="font-size: 42px; -unity-font-style: bold; -unity-text-align: upper-right;" />
+            </ui:VisualElement>
+            <ui:ProgressBar value="22" name="HealthBar" title="69/100" style="height: 50%; width: 50%; transform-origin: left top; translate: 0 0; scale: 2 2; flex-grow: 1; flex-shrink: 1;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

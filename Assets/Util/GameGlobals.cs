@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameGlobals
 {
     public static float gravity = 10f;
+    public static bool gameWon = false;
 
     #region Keys
 

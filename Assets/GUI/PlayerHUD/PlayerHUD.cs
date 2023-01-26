@@ -10,19 +10,21 @@ public class PlayerHUD : MonoBehaviour
     [FoldoutGroup("Dependencies", expanded: true)]
     [FoldoutGroup("Dependencies")][SerializeField, Required] Logger logger;
     [FoldoutGroup("Dependencies")][SerializeField, Required] Hitable playerHitable;
+    [FoldoutGroup("Dependencies")][SerializeField, Required] WeaponController playerWeapon;
 
     ProgressBar healthBar;
 
     WaveSpawner waveSpawner;
     Label waveCounter;
     Label waveTimer;
-
+    Label ammoCount;
 
     private void Start()
     {
         logger = logger == null ? Logger.GetDefaultLogger() : logger;
 
         if (playerHitable == null) logger.LogWarning("Player hitable not found", this);
+        if (playerWeapon == null) logger.LogWarning("Player weapon not found", this);
 
         var root = GetComponent<UIDocument>().rootVisualElement;
 
@@ -32,6 +34,8 @@ public class PlayerHUD : MonoBehaviour
         if (waveCounter == null) logger.LogWarning("Wavecounter not found", this);
         waveTimer = root?.Q<Label>("Wavetimer");
         if (waveTimer == null) logger.LogWarning("Wavetimer not found", this);
+        ammoCount = root?.Q<Label>("Ammocount");
+        if (ammoCount == null) logger.LogWarning("Ammocount not found", this);
 
         waveSpawner = FindObjectOfType<WaveSpawner>();
         if (waveSpawner == null) logger.LogWarning("Wave spawner not found", this);
@@ -39,9 +43,21 @@ public class PlayerHUD : MonoBehaviour
 
     private void Update()
     {
+        UpdateAmmoCount();
         UpdateHealthbar();
         UpdateWaveCounter();
         UpdateWaveTimer();
+    }
+
+    private void UpdateAmmoCount()
+    {
+        if (playerWeapon == null || ammoCount == null) return;
+
+        var newText = playerWeapon.currentAmmo + "/" + playerWeapon.maxAmmo;
+
+        if (playerWeapon.infiniteAmmo) newText = "∞/∞";
+
+        ammoCount.text = newText;
     }
 
     private void UpdateHealthbar()
@@ -58,6 +74,9 @@ public class PlayerHUD : MonoBehaviour
         if (waveSpawner == null || waveCounter == null) return;
 
         waveCounter.visible = waveSpawner.isActive;
+
+        if (!waveSpawner.isActive) return;
+
         waveCounter.text = "Wave " + (waveSpawner.currentWave + 1) + "/" + waveSpawner.waveCount;
     }
 
@@ -67,12 +86,14 @@ public class PlayerHUD : MonoBehaviour
 
         waveTimer.visible = waveSpawner.isActive;
 
+        if (!waveSpawner.isActive) return;
+
         float time = 1f + waveSpawner.currentWaveLength - (Time.time - waveSpawner.waveStartingTime);
         var timeSpan = TimeSpan.FromSeconds(time);
         string timeString = string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
 
         waveTimer.text = timeString;
 
-        waveTimer.style.color = time <= 5.99f ? Color.red : Color.black;
+        waveTimer.style.color = time <= 5.99f ? Color.red : new Color(1f, 0.882352948f, 0.945098042f, 255f);
     }
 }

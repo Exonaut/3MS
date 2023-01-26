@@ -14,13 +14,14 @@ public class MenuUI : MonoBehaviour
 
     [FoldoutGroup("Settings", expanded: true)]
     [FoldoutGroup("Settings")][SerializeField] bool startEnabled;
-    [FoldoutGroup("Settings")][SerializeField] Color buttonBaseColor = new Color(1f, 0.533f, 0.82f, 1f);
-    [FoldoutGroup("Settings")][SerializeField] Color buttonHoveringColor = new Color(1f, 0.882f, 0.945f, 255f);
 
     [FoldoutGroup("Hooks", expanded: true)]
     [FoldoutGroup("Hooks")][SerializeField] List<EventHook<Object>> showUIHooks;
     [FoldoutGroup("Hooks")][SerializeField] List<EventHook<Object>> hideUIHooks;
     [FoldoutGroup("Hooks")][SerializeField] List<EventHook<Object>> toggleUIHooks;
+
+    Color buttonBaseColor = new Color(1f, 0.533f, 0.82f, 1f);
+    Color buttonHoveringColor = new Color(1f, 0.882f, 0.945f, 255f);
 
     protected UIDocument document;
     protected FocusController focusController;
@@ -48,7 +49,7 @@ public class MenuUI : MonoBehaviour
             ColorButton(button, buttonBaseColor);
         });
 
-        if (focusController.focusedElement is Button)
+        if (focusController != null && focusController.focusedElement is Button)
         {
             Button button = (Button)focusController.focusedElement;
             ColorButton(button, buttonHoveringColor);
@@ -105,21 +106,21 @@ public class MenuUI : MonoBehaviour
         }
     }
 
-    protected void ShowUI(Object caller = null)
+    public void ShowUI(Object caller = null)
     {
         logger?.Log("UI enabled by " + caller?.name, this);
 
         gameObject.SetActive(true);
     }
 
-    protected void HideUI(Object caller = null)
+    public void HideUI(Object caller = null)
     {
         logger?.Log("UI disabled by " + caller?.name, this);
 
         gameObject.SetActive(false);
     }
 
-    protected void ToggleUI(Object caller = null)
+    public void ToggleUI(Object caller = null)
     {
         logger?.Log("UI toggled by " + caller?.name + " to " + !gameObject.activeSelf, this);
 

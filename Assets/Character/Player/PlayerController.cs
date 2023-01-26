@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using Interaction;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     CharacterController characterController;
 
     [FoldoutGroup("Dependencies", true)][SerializeField, Required] Logger logger;
+    [FoldoutGroup("Dependencies", true)][SerializeField, Required] Object endGameScene;
 
     [FoldoutGroup("Info", true)][SerializeField, ReadOnly] Vector3 startPosition;
     [FoldoutGroup("Info", true)][SerializeField, ReadOnly] Quaternion startRotation;
@@ -33,6 +35,14 @@ public class PlayerController : MonoBehaviour
         startRotation = transform.rotation;
 
         initialized = true;
+
+        hitable.onDie += LoadGameLostScene;
+    }
+
+    private void LoadGameLostScene(Hitable obj)
+    {
+        GameGlobals.gameWon = false;
+        SceneManager.LoadScene(endGameScene.name);
     }
 
     public void Restart()
