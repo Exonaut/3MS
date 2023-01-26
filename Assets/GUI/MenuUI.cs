@@ -14,8 +14,8 @@ public class MenuUI : MonoBehaviour
 
     [FoldoutGroup("Settings", expanded: true)]
     [FoldoutGroup("Settings")][SerializeField] bool startEnabled;
-    [FoldoutGroup("Settings")][SerializeField] Color buttonBaseColor = new Color(0xFF, 0x88, 0xD1, 0xFF);
-    [FoldoutGroup("Settings")][SerializeField] Color buttonHoveringColor = new Color(0xFF, 0x00, 0xD3, 0xFF);
+    [FoldoutGroup("Settings")][SerializeField] Color buttonBaseColor = new Color(1f, 0.533f, 0.82f, 1f);
+    [FoldoutGroup("Settings")][SerializeField] Color buttonHoveringColor = new Color(1f, 0.882f, 0.945f, 255f);
 
     [FoldoutGroup("Hooks", expanded: true)]
     [FoldoutGroup("Hooks")][SerializeField] List<EventHook<Object>> showUIHooks;
