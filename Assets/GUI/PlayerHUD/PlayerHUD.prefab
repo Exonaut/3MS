@@ -249,9 +249,11 @@ MonoBehaviour:
   logger: {fileID: 0}
   startEnabled: 0
   showUIHooks:
-  - target: {fileID: 7897467222115145870}
-    eventName: onReturn
+  - target: {fileID: 0}
+    eventName: onPause
   - target: {fileID: 7897467223234164209}
+    eventName: onReturn
+  - target: {fileID: 7897467222115145870}
     eventName: onReturn
   hideUIHooks: []
   toggleUIHooks: []
