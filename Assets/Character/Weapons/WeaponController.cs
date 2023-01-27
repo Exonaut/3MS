@@ -87,7 +87,7 @@ public class WeaponController : MonoBehaviour
         shotCount++;
         if (!infiniteAmmo) currentAmmo--;
 
-        animator?.Play("Shoot");
+        if (animator) animator.Play("Shoot");
     }
 
     public void RestoreAmmo(int amount)
