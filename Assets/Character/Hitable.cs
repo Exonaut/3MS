@@ -35,6 +35,8 @@ public class Hitable : MonoBehaviour
     [FoldoutGroup("Event Hooks", true)][SerializeField, SceneObjectsOnly, Required] List<EventHook<Object>> disableHook;
     [FoldoutGroup("Event Hooks", true)][SerializeField, SceneObjectsOnly, Required] List<EventHook<Object>> restartHook;
 
+    public bool HasFullHealth => health == maxHealth;
+
     private float shieldRechargeDelayTimer = 0;
 
     public void Start()
@@ -237,6 +239,11 @@ public class Hitable : MonoBehaviour
         }
 
         gameObject.SetActive(false);
+    }
+
+    public void Heal(int damage)
+    {
+        health = Math.Min(health + damage, maxHealth);
     }
 
     [Hookable] public event Action<Hitable> onRestart;

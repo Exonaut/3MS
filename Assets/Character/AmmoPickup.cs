@@ -10,8 +10,12 @@ public class AmmoPickup : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            // other.gameObject.GetComponentInChildren<WeaponController>().RestoreAmmo(ammoRestored);
-            Destroy(gameObject);
+            var weaponController = other.gameObject.GetComponentInChildren<WeaponController>();
+            if (!weaponController.HasFullAmmo)
+            {
+                weaponController.RestoreAmmo(ammoRestored);
+                Destroy(gameObject);
+            }
         }
     }
 }

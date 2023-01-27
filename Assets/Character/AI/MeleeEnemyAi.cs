@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,13 +16,12 @@ public class MeleeEnemyAi : MonoBehaviour
         Stunned
     }
 
-    [FoldoutGroup("Pain")][PropertyRange(0, 1)][Tooltip("Liklihood of getting stunned after a hit.")] public float painThreshold;
-    [FoldoutGroup("Pain")][MinValue(0)] public float painLength;
     //[MinValue(0)] public float reactionDelay; // implement this
     [FoldoutGroup("Aggro")][MinValue(0)] public float aggroRange;
     [FoldoutGroup("Aggro")][MinValue(0)] public float deaggroRange;
     [FoldoutGroup("Attack")][MinValue(0)] public float attackRange;
     [FoldoutGroup("Attack")][MinValue(0)] public int damage;
+    [FoldoutGroup("Attack")][MinValue(0)] public float attackLength;
     [FoldoutGroup("Attack")][MinValue(0)] public float attackCooldown;
     [FoldoutGroup("Attack")] public bool ignoreShield;
     [FoldoutGroup("Attack")] public bool ignoreHealth;
@@ -30,61 +30,61 @@ public class MeleeEnemyAi : MonoBehaviour
 
 
     private NavMeshAgent agent;
-    private bool gotHitThisFrame;
-    private float lastPainTime;
+    private Painable painable;
+    private float lastWindupTime;
     private float lastAttackTime;
     private MeleeEnemyState currentState;
     private Hitable target;
+    private Animator animator;
+
+    private bool TargetInDistance => Vector3.Distance(target.transform.position, transform.position) < attackRange;
+    private bool IsFacingTarget => Vector3.Dot(target.transform.position - transform.position, transform.forward) > 0;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        gotHitThisFrame = false;
         currentState = MeleeEnemyState.Idle;
         target = null;
-
-        GetComponent<Hitable>().onDamage += _ => gotHitThisFrame = true;
+        painable = GetComponent<Painable>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        if (gotHitThisFrame)
-        {
-            gotHitThisFrame = false;
-            if (Random.Range(0f, 1f) < painThreshold)
-            {
-                currentState = MeleeEnemyState.Stunned;
-                lastPainTime = Time.time;
-                agent.destination = transform.position;
-            }
-        }
+        if (painable != null && painable.IsInPain)
+            currentState = MeleeEnemyState.Stunned;
+
+        Console.WriteLine(currentState);
         switch (currentState)
         {
             case MeleeEnemyState.Chasing:
                 if (target == null || Vector3.Distance(target.transform.position, transform.position) > deaggroRange)
                     currentState = MeleeEnemyState.Idle;
-                else if (Vector3.Distance(target.transform.position, transform.position) < attackRange)
+                else if (TargetInDistance)
+                {
                     currentState = MeleeEnemyState.Attacking;
+                    animator.SetTrigger("attackTrigger");
+                    lastWindupTime = Time.time;
+                }
                 else
                     agent.destination = target.transform.position + 0.8f * attackRange * (transform.position - target.transform.position).normalized;
                 break;
             case MeleeEnemyState.Attacking:
-                if (Vector3.Distance(target.transform.position, transform.position) < attackRange)
+                if (Time.time - lastWindupTime >= attackLength)
                 {
-                    target.Hit(damage, ignoreShield, ignoreHealth, ignoreDamageReduction);
                     lastAttackTime = Time.time;
+                    if (TargetInDistance && IsFacingTarget)
+                        target.Hit(damage, ignoreShield, ignoreHealth, ignoreDamageReduction);
                     currentState = MeleeEnemyState.Cooldown;
                 }
-                else
-                    currentState = MeleeEnemyState.Chasing;
-
                 break;
             case MeleeEnemyState.Cooldown:
                 if (Time.time - lastAttackTime >= attackCooldown)
-                    currentState = MeleeEnemyState.Attacking;
+                    currentState = MeleeEnemyState.Chasing;
                 break;
             case MeleeEnemyState.Stunned:
-                if (Time.time - lastPainTime >= painLength)
+                agent.destination = transform.position;
+                if (!painable.IsInPain)
                     currentState = MeleeEnemyState.Chasing;
                 break;
             case MeleeEnemyState.Idle:

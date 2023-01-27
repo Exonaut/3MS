@@ -28,6 +28,8 @@ public class WeaponController : MonoBehaviour
     [FoldoutGroup("Animations", expanded: true)]
     [FoldoutGroup("Animations")] public AnimationClip shootAnimation;
 
+    public bool HasFullAmmo => currentAmmo == maxAmmo;
+
     private bool canFire = true;
     private bool hasFired = false;
     private int shotCount = 0;
@@ -86,6 +88,11 @@ public class WeaponController : MonoBehaviour
         if (!infiniteAmmo) currentAmmo--;
 
         animator?.Play("Shoot");
+    }
+
+    public void RestoreAmmo(int amount)
+    {
+        currentAmmo = Mathf.Min(currentAmmo + amount, maxAmmo);
     }
 
     public IEnumerator FireCooldown()

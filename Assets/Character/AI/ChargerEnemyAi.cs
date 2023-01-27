@@ -11,12 +11,9 @@ public class ChargerEnemyAi : MonoBehaviour
         Idle,
         Chasing,
         Attacking,
-        Cooldown,
         Stunned
     }
 
-    [FoldoutGroup("Pain")][PropertyRange(0, 1)][Tooltip("Liklihood of getting stunned after a hit.")] public float painThreshold;
-    [FoldoutGroup("Pain")][MinValue(0)] public float painLength;
     [FoldoutGroup("Aggro")][MinValue(0)] public float aggroRange;
     [FoldoutGroup("Aggro")][MinValue(0)] public float deaggroRange;
     [FoldoutGroup("Attack")][MinValue(0)] public int damage;
@@ -26,8 +23,6 @@ public class ChargerEnemyAi : MonoBehaviour
     [FoldoutGroup("Attack")] public bool ignoreDamageReduction;
 
 
-    private bool gotHitThisFrame;
-    private float lastPainTime;
     private float lastAttackTime;
     private ChargerEnemyState currentState;
     private Hitable target;
