@@ -6,6 +6,7 @@
                 <ui:Label text="You are dead" display-tooltip-when-elided="true" enable-rich-text="false" style="font-size: 64px; -unity-font: url(&apos;project://database/Assets/GUI/Fonts/Oswald-VariableFont_wght.ttf?fileID=12800000&amp;guid=eb34378bc4321554f8e920a646dd1c9b&amp;type=3#Oswald-VariableFont_wght&apos;); -unity-font-style: bold; -unity-text-align: middle-left; color: rgb(255, 225, 241);" />
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; justify-content: center; align-items: center;">
+                <ui:Button text="Retry" name="Retry" class="button doomcolor" style="justify-content: space-around;" />
                 <ui:Button text="Return" name="Return" class="button doomcolor" style="justify-content: space-around; margin-bottom: 5%;" />
             </ui:VisualElement>
         </ui:VisualElement>

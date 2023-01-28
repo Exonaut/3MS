@@ -286,7 +286,7 @@ MonoBehaviour:
   logMessages: 1
   logWarnings: 1
   logErrors: 1
-  prefix: MainMenuUI
+  prefix: EndGameUI
   prefixColor: {r: 0.64290786, g: 0.6509434, b: 0, a: 1}
 --- !u!850595691 &1355144911
 LightingSettings:
@@ -359,7 +359,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1461859801}
-  - component: {fileID: 1461859799}
+  - component: {fileID: 1461859802}
   - component: {fileID: 1461859800}
   m_Layer: 0
   m_Name: LooseDocument
@@ -368,24 +368,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1461859799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1461859798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88127c94bfd71a244a4d06a32dd64ebe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  logger: {fileID: 827214295}
-  startEnabled: 0
-  showUIHooks: []
-  hideUIHooks: []
-  toggleUIHooks: []
-  returnScene: {fileID: 102900000, guid: 05ebd65ae3a3259468d7190116ae884a, type: 3}
 --- !u!114 &1461859800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,6 +399,25 @@ Transform:
   m_Father: {fileID: 1463431619}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1461859802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461859798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78d2bf1fcf6f79b42965a0664d537047, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logger: {fileID: 827214295}
+  startEnabled: 0
+  showUIHooks: []
+  hideUIHooks: []
+  toggleUIHooks: []
+  returnScene: {fileID: 102900000, guid: 05ebd65ae3a3259468d7190116ae884a, type: 3}
+  retryGameScene: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
 --- !u!1 &1463431618
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winUI: {fileID: 1516443841}
-  looseUI: {fileID: 1461859799}
+  looseUI: {fileID: 1461859802}
 --- !u!1 &1516443837
 GameObject:
   m_ObjectHideFlags: 0

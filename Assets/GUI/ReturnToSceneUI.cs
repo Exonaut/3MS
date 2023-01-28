@@ -17,7 +17,7 @@ public class ReturnToSceneUI : MenuUI
         onReturn += ReturnToMenu;
     }
 
-    private void ReturnToMenu(Object caller)
+    private void ReturnToMenu(MenuUI caller)
     {
         if (returnScene != null) SceneManager.LoadScene(returnScene.name);
     }

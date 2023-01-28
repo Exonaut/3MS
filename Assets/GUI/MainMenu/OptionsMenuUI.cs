@@ -13,7 +13,7 @@ public class OptionsMenuUI : MenuUI
         {
             if (value == soundVolume) return;
 
-            logger.Log("Sound volume: " + value, this);
+            if (logger) logger.Log("Sound volume: " + value, this);
             soundVolume = value;
             if (soundVolumeSlider != null) soundVolumeSlider.value = value;
             float volume = ((float)value) / 100;
@@ -32,7 +32,7 @@ public class OptionsMenuUI : MenuUI
         {
             if (value == mouseSensitivity) return;
 
-            logger.Log("Mouse sensitivity: " + value, this);
+            if (logger) logger.Log("Mouse sensitivity: " + value, this);
             mouseSensitivity = value;
             if (mouseSensitivitySlider != null) mouseSensitivitySlider.value = value;
             PlayerPrefs.SetFloat(GameGlobals.key_MouseSensitivity, ((float)value) / 100);
@@ -51,7 +51,7 @@ public class OptionsMenuUI : MenuUI
 
             if (value == graphicsQuality) return;
 
-            logger.Log("Graphics quality: " + value, this);
+            if (logger) logger.Log("Graphics quality: " + value, this);
             graphicsQuality = value;
             if (graphicsQualityDropdown != null) graphicsQualityDropdown.index = value;
             PlayerPrefs.SetInt(GameGlobals.key_GraphicsQuality, value);
@@ -77,7 +77,7 @@ public class OptionsMenuUI : MenuUI
 
             Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
 
-            logger.Log(string.Format("Resolution: {0}x{1}", value.width, value.height), this);
+            if (logger) logger.Log(string.Format("Resolution: {0}x{1}", value.width, value.height), this);
 
             resolutionDropdown.MarkDirtyRepaint();
         }
@@ -98,7 +98,7 @@ public class OptionsMenuUI : MenuUI
             Screen.fullScreen = fs;
             Screen.fullScreenMode = FullScreenMode.Windowed;
 
-            logger.Log(string.Format("Fullscreen: {0}", fs), this);
+            if (logger) logger.Log(string.Format("Fullscreen: {0}", fs), this);
 
             fullscreenToggle.MarkDirtyRepaint();
         }

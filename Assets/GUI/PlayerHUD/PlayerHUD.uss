@@ -1,25 +1,29 @@
-.unity-progress-bar__title-container {
-    background-color: rgba(0, 0, 0, 0.2);
-    border-left-color: rgba(0, 0, 0, 0.39);
-    border-right-color: rgba(0, 0, 0, 0.39);
-    border-top-color: rgba(0, 0, 0, 0.39);
-    border-bottom-color: rgba(0, 0, 0, 0.39);
+.unity-progress-bar__progress {
+    border-left-color: rgb(255, 0, 0);
+    border-right-color: rgb(255, 0, 0);
+    border-top-color: rgb(255, 0, 0);
+    border-bottom-color: rgb(255, 0, 0);
+    background-image: url('project://database/Assets/Effects/SparksMaterial.mat?fileID=-7721246145478023090&guid=703393432e5cd7b4ebfbcd3754ee4f15&type=2#_ColorRampTexGradientTex{"mode":0,"colorKeys":[{"color":{"r":1.0,"g":0.0,"b":0.0,"a":1.0},"time":0.0},{"color":{"r":1.0,"g":0.0,"b":0.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":0.0,"time":0.0},{"alpha":1.0,"time":0.050003815442323688},{"alpha":1.0,"time":0.9499961733818054},{"alpha":0.0,"time":1.0}]}');
+    background-color: rgba(255, 0, 0, 0.57);
+}
+
+.unity-label {
+    color: rgb(255, 225, 241);
+    -unity-text-outline-width: 0.5px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0.61);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 255);
+    letter-spacing: 1px;
+    -unity-font-style: bold;
+}
+
+.unity-progress-bar__background {
+    background-color: rgba(38, 38, 38, 255);
+    border-left-color: rgba(0, 0, 0, 0.41);
+    border-right-color: rgba(0, 0, 0, 0.41);
+    border-top-color: rgba(0, 0, 0, 0.41);
+    border-bottom-color: rgba(0, 0, 0, 0.41);
     border-left-width: 1px;
     border-right-width: 1px;
     border-top-width: 1px;
     border-bottom-width: 1px;
-}
-
-.unity-progress-bar__progress {
-    background-color: rgba(204, 0, 0, 255);
-    border-left-color: rgba(255, 0, 0, 255);
-    border-right-color: rgba(255, 0, 0, 255);
-    border-top-color: rgba(255, 0, 0, 255);
-    border-bottom-color: rgba(255, 0, 0, 255);
-}
-
-.unity-label {
-    color: rgba(255, 225, 241, 255);
-    -unity-text-outline-width: 0.5px;
-    -unity-text-outline-color: rgba(0, 0, 0, 0.61);
 }
