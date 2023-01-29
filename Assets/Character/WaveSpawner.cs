@@ -27,11 +27,18 @@ public struct PickupSpawn
     }
 }
 
+public enum SpawnTriggerType
+{
+    Timer,
+    Button
+}
+
 public struct Wave
 {
     public float Length { get; private set; }
     public List<EnemySpawn> EnemySpawns { get; private set; }
     public List<PickupSpawn> PickupSpawns { get; private set; }
+
     public Wave(float length, List<EnemySpawn> enemySpawns, List<PickupSpawn> pickupSpawns)
     {
         Length = length;
@@ -45,10 +52,14 @@ public class WaveSpawner : MonoBehaviour
     public List<GameObject> EnemyPrefabs;
     public List<GameObject> PickupPrefabs;
 
+    public SpawnTriggerType spawnTriggerType;
+    public SpawnButtonController SpawnButton;
+    public float TimeBeforeFirstWave;
+
     private List<Wave> waves;
     public int CurrentWave { get; private set; }
     public int WaveCount => waves.Count;
-    public float CurrentWaveLength => waves[CurrentWave].Length;
+    public float CurrentWaveLength => IsActive ? waves[CurrentWave].Length : spawnTriggerType == SpawnTriggerType.Timer ? TimeBeforeFirstWave : 0f;
     public float WaveStartingTime { get; private set; }
     public bool IsActive { get; private set; }
 
@@ -82,10 +93,27 @@ public class WaveSpawner : MonoBehaviour
     {
         CleanUp();
         CurrentWave = 0;
-        IsActive = true;
+        IsActive = false;
         isCurrentWaveSpawned = false;
         currentlySpawnedEnemies = new List<Hitable>();
+        switch (spawnTriggerType)
+        {
+            case SpawnTriggerType.Button:
+                SpawnButton.OnPush += () => { StartCoroutine(StartSpawning(0)); };
+                break;
+            case SpawnTriggerType.Timer:
+            default:
+                StartCoroutine(StartSpawning(TimeBeforeFirstWave));
+                break;
+        }
     }
+
+    IEnumerator StartSpawning(float time)
+    {
+        yield return new WaitForSeconds(time);
+        IsActive = true;
+    }
+
 
     public void CleanUp()
     {
