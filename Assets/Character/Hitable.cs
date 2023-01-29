@@ -37,6 +37,7 @@ public class Hitable : MonoBehaviour
 
     public bool HasFullHealth => health == maxHealth;
 
+    private static float DeathPlaneYCoordinate => -50;
     private float shieldRechargeDelayTimer = 0;
 
     public void Start()
@@ -82,7 +83,7 @@ public class Hitable : MonoBehaviour
             shieldRechargeDelayTimer -= Time.deltaTime;
         }
 
-        checkKill();
+        CheckKill();
     }
 
     public event Action<Hitable> onTick;
@@ -203,15 +204,13 @@ public class Hitable : MonoBehaviour
             onShieldDamage?.Invoke(this);
         }
 
-        checkKill();
+        CheckKill();
     }
 
-    public void checkKill()
+    public void CheckKill()
     {
-        if ((!invincible) && (health <= 0))
-        {
+        if (((!invincible) && (health <= 0)) || transform.position.y < DeathPlaneYCoordinate)
             Die();
-        }
     }
 
     [Hookable] public event Action<Hitable> onDie;
