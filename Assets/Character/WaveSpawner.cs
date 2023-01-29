@@ -3,50 +3,77 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public struct SpawnEntity
+public struct EnemySpawn
 {
-    public GameObject Prefab;
-    public Vector3 Position;
-    public SpawnEntity(GameObject prefab, Vector3 position)
+    public GameObject Prefab { get; }
+    public Vector3 Position { get; }
+    public EnemySpawn(GameObject prefab, Vector3 position)
     {
         Prefab = prefab;
         Position = position;
     }
 }
 
+public struct PickupSpawn
+{
+    public GameObject Prefab { get; }
+    public Vector3 Position { get; }
+    public int Amount { get; }
+    public PickupSpawn(GameObject prefab, Vector3 position, int amount)
+    {
+        Prefab = prefab;
+        Position = position;
+        Amount = amount;
+    }
+}
+
 public struct Wave
 {
     public float Length { get; private set; }
-    public List<SpawnEntity> SpawnEntities { get; private set; }
-    public Wave(float length, List<SpawnEntity> spawnEntities)
+    public List<EnemySpawn> EnemySpawns { get; private set; }
+    public List<PickupSpawn> PickupSpawns { get; private set; }
+    public Wave(float length, List<EnemySpawn> enemySpawns, List<PickupSpawn> pickupSpawns)
     {
         Length = length;
-        SpawnEntities = spawnEntities;
+        EnemySpawns = enemySpawns;
+        PickupSpawns = pickupSpawns;
     }
 }
+
 public class WaveSpawner : MonoBehaviour
 {
     public List<GameObject> EnemyPrefabs;
+    public List<GameObject> PickupPrefabs;
 
     private List<Wave> waves;
-    public int currentWave { get; private set; }
-    public int waveCount { get { return waves.Count; } }
-    public float currentWaveLength { get { return waves[currentWave].Length; } }
-    public float waveStartingTime { get; private set; }
-    public bool isActive { get; private set; }
+    public int CurrentWave { get; private set; }
+    public int WaveCount => waves.Count;
+    public float CurrentWaveLength => waves[CurrentWave].Length;
+    public float WaveStartingTime { get; private set; }
+    public bool IsActive { get; private set; }
+
     private bool isCurrentWaveSpawned;
-    private List<Hitable> currentlySpawnedEntities;
+    private List<Hitable> currentlySpawnedEnemies;
 
     private void Start()
     {
-        isActive = false;
+        IsActive = false;
         isCurrentWaveSpawned = false;
-        currentlySpawnedEntities = new List<Hitable>();
+        currentlySpawnedEnemies = new List<Hitable>();
         waves = new List<Wave>
         {
-            new Wave(20, new List<SpawnEntity> { new SpawnEntity(EnemyPrefabs[0], new Vector3(-10, 0, 30)) }),
-            new Wave(20, new List<SpawnEntity> { new SpawnEntity(EnemyPrefabs[0], new Vector3(0, 0, 30)) }),
-            new Wave(20, new List<SpawnEntity> { new SpawnEntity(EnemyPrefabs[0], new Vector3(10, 0, 30)) }),
+            new Wave(20, new List<EnemySpawn> { new EnemySpawn(EnemyPrefabs[0], new Vector3(-10, 0, 30)) },
+            new List<PickupSpawn>{
+                new PickupSpawn(PickupPrefabs[0], new Vector3(0, .5f, -10), 10),
+                new PickupSpawn(PickupPrefabs[1], new Vector3(2, .5f, -10), 10),
+            }),
+            new Wave(25, new List<EnemySpawn> {
+                new EnemySpawn(EnemyPrefabs[0], new Vector3(0, 0, 30)) },
+            new List<PickupSpawn>{
+                new PickupSpawn(PickupPrefabs[0], new Vector3(0, .5f, -12), 20),
+                new PickupSpawn(PickupPrefabs[1], new Vector3(2, .5f, -12), 20),
+            }),
+            new Wave(30, new List<EnemySpawn> { new EnemySpawn(EnemyPrefabs[0], new Vector3(10, 0, 30)) }, new List<PickupSpawn>()),
         };
         Initiate();
     }
@@ -54,53 +81,64 @@ public class WaveSpawner : MonoBehaviour
     public void Initiate()
     {
         CleanUp();
-        currentWave = 0;
-        isActive = true;
+        CurrentWave = 0;
+        IsActive = true;
         isCurrentWaveSpawned = false;
-        currentlySpawnedEntities = new List<Hitable>();
+        currentlySpawnedEnemies = new List<Hitable>();
     }
 
     public void CleanUp()
     {
-        foreach (var entity in currentlySpawnedEntities)
+        foreach (var entity in currentlySpawnedEnemies)
             Destroy(entity);
     }
 
     void Update()
     {
-        if (isActive)
+        if (IsActive)
         {
-            if (currentWave >= waveCount)
+            if (CurrentWave >= WaveCount)
             {
-                isActive = false;
+                IsActive = false;
                 return;
             }
 
             if (!isCurrentWaveSpawned)
             {
-                SpawnWave(waves[currentWave].SpawnEntities);
-                waveStartingTime = Time.time;
+                SpawnWave(waves[CurrentWave].EnemySpawns, waves[CurrentWave].PickupSpawns);
+                WaveStartingTime = Time.time;
                 isCurrentWaveSpawned = true;
             }
             else
             {
-                if (AreAllEnemiesDead() || Time.time - waveStartingTime >= currentWaveLength)
+                if (AreAllEnemiesDead() || Time.time - WaveStartingTime >= CurrentWaveLength)
                 {
-                    currentWave++;
+                    CurrentWave++;
                     isCurrentWaveSpawned = false;
                 }
             }
         }
     }
 
-    private void SpawnWave(List<SpawnEntity> spawnEntities)
+    private void SpawnWave(List<EnemySpawn> enemySpawns, List<PickupSpawn> pickupSpawns)
     {
-        foreach (var entity in spawnEntities)
-            currentlySpawnedEntities.Add(Instantiate(entity.Prefab, entity.Position, Quaternion.identity).GetComponent<Hitable>());
+        foreach (var enemy in enemySpawns)
+        {
+            var gameObject = Instantiate(enemy.Prefab, enemy.Position, Quaternion.identity);
+            var hitable = gameObject.GetComponent<Hitable>();
+            if (hitable)
+                currentlySpawnedEnemies.Add(hitable);
+        }
+        foreach (var spawn in pickupSpawns)
+        {
+            var gameObject = Instantiate(spawn.Prefab, spawn.Position, Quaternion.identity);
+            if (gameObject.TryGetComponent<IPickup>(out var pickup))
+                pickup.Amount = spawn.Amount;
+        }
     }
 
     private bool AreAllEnemiesDead()
     {
-        return currentlySpawnedEntities.All(entity => entity.health <= 0);
+        return currentlySpawnedEnemies.All(entity => entity.health <= 0);
     }
 }

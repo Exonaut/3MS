@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AmmoPickup : MonoBehaviour
+public class AmmoPickup : MonoBehaviour, IPickup
 {
-    public int ammoRestored;
+    public int Amount { get; set; }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -13,7 +13,7 @@ public class AmmoPickup : MonoBehaviour
             var weaponController = other.gameObject.GetComponentInChildren<WeaponController>();
             if (!weaponController.HasFullAmmo)
             {
-                weaponController.RestoreAmmo(ammoRestored);
+                weaponController.RestoreAmmo(Amount);
                 Destroy(gameObject);
             }
         }

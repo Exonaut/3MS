@@ -77,22 +77,22 @@ public class PlayerHUD : MonoBehaviour
     {
         if (waveSpawner == null || waveCounter == null) return;
 
-        waveCounter.visible = waveSpawner.isActive;
+        waveCounter.visible = waveSpawner.IsActive;
 
-        if (!waveSpawner.isActive) return;
+        if (!waveSpawner.IsActive) return;
 
-        waveCounter.text = "Wave " + (waveSpawner.currentWave + 1) + "/" + waveSpawner.waveCount;
+        waveCounter.text = "Wave " + (waveSpawner.CurrentWave + 1) + "/" + waveSpawner.WaveCount;
     }
 
     private void UpdateWaveTimer()
     {
         if (waveSpawner == null || waveTimer == null) return;
 
-        waveTimer.visible = waveSpawner.isActive;
+        waveTimer.visible = waveSpawner.IsActive;
 
-        if (!waveSpawner.isActive) return;
+        if (!waveSpawner.IsActive) return;
 
-        float time = 1f + waveSpawner.currentWaveLength - (Time.time - waveSpawner.waveStartingTime);
+        float time = 1f + waveSpawner.CurrentWaveLength - (Time.time - waveSpawner.WaveStartingTime);
         var timeSpan = TimeSpan.FromSeconds(time);
         string timeString = string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
 

@@ -1,9 +1,9 @@
 using UnityEngine;
 
 
-public class HealthPickup : MonoBehaviour
+public class HealthPickup : MonoBehaviour, IPickup
 {
-    public int restoredHealth;
+    public int Amount { get; set; }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -12,7 +12,7 @@ public class HealthPickup : MonoBehaviour
             var hitable = other.gameObject.GetComponent<Hitable>();
             if (!hitable.HasFullHealth)
             {
-                hitable.Heal(restoredHealth);
+                hitable.Heal(Amount);
                 Destroy(gameObject);
             }
         }
