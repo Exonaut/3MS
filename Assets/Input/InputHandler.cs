@@ -15,9 +15,16 @@ public class InputHandler : MonoBehaviour
 
     PlayerInput playerInput;
 
-    private void Start()
+    private void Update()
     {
-        SelectPlayerLayout(this);
+        if (playerInput.currentActionMap.name == "UI")
+        {
+            Time.timeScale = 0.0f;
+        }
+        else
+        {
+            Time.timeScale = 1.0f;
+        }
     }
 
     private void OnEnable()

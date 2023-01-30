@@ -33,3 +33,12 @@
     max-height: 100%;
     height: 100%;
 }
+
+.unity-label {
+    color: rgb(255, 225, 241);
+    -unity-text-outline-width: 0.5px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0.61);
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+    letter-spacing: 1px;
+    -unity-font-style: bold;
+}

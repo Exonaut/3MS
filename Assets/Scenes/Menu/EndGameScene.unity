@@ -416,8 +416,8 @@ MonoBehaviour:
   showUIHooks: []
   hideUIHooks: []
   toggleUIHooks: []
+  retryGameScene: {fileID: 102900000, guid: 7843ed65d72add149b9a9d73e29107ea, type: 3}
   returnScene: {fileID: 102900000, guid: 05ebd65ae3a3259468d7190116ae884a, type: 3}
-  retryGameScene: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
 --- !u!1 &1463431618
 GameObject:
   m_ObjectHideFlags: 0

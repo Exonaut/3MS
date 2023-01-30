@@ -186,8 +186,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   logger: {fileID: 827214295}
   startEnabled: 0
-  buttonBaseColor: {r: 1, g: 0.53333336, b: 0.81960785, a: 1}
-  buttonHoveringColor: {r: 1, g: 0.88235295, b: 0.94509804, a: 255}
   showUIHooks:
   - target: {fileID: 1516443838}
     eventName: onControlls
@@ -421,8 +419,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   logger: {fileID: 827214295}
   startEnabled: 0
-  buttonBaseColor: {r: 1, g: 0.53333336, b: 0.81960785, a: 1}
-  buttonHoveringColor: {r: 1, g: 0.88235295, b: 0.94509804, a: 255}
   showUIHooks:
   - target: {fileID: 1516443838}
     eventName: onOptions
@@ -589,8 +585,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   logger: {fileID: 827214295}
   startEnabled: 0
-  buttonBaseColor: {r: 1, g: 0.53333336, b: 0.81960785, a: 1}
-  buttonHoveringColor: {r: 1, g: 0.88235295, b: 0.94509804, a: 255}
   showUIHooks:
   - target: {fileID: 1516443838}
     eventName: onCredits
@@ -628,8 +622,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   logger: {fileID: 827214295}
   startEnabled: 1
-  buttonBaseColor: {r: 1, g: 0.53333336, b: 0.81960785, a: 1}
-  buttonHoveringColor: {r: 1, g: 0.88235295, b: 0.94509804, a: 255}
   showUIHooks:
   - target: {fileID: 1049553031}
     eventName: onReturn
@@ -639,7 +631,7 @@ MonoBehaviour:
     eventName: onReturn
   hideUIHooks: []
   toggleUIHooks: []
-  startGameScene: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
+  startGameScene: {fileID: 102900000, guid: 7843ed65d72add149b9a9d73e29107ea, type: 3}
 --- !u!114 &1516443839
 MonoBehaviour:
   m_ObjectHideFlags: 0

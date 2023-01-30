@@ -37,7 +37,7 @@ public class Hitable : MonoBehaviour
 
     public bool HasFullHealth => health == maxHealth;
 
-    private static float DeathPlaneYCoordinate => -50;
+    private static float DeathPlaneYCoordinate => -20;
     private float shieldRechargeDelayTimer = 0;
 
     public void Start()
