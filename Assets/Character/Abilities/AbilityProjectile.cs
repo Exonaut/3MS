@@ -10,7 +10,7 @@ namespace Abilities
     {
         [Space]
         [Header("Projectile Settings")]
-        [SerializeField, AssetsOnly, AssetList(Path = "Abilities/Projectiles")] protected Projectile projectilePrefab;
+        [SerializeField, AssetsOnly] protected Projectile projectilePrefab;
         [SerializeField][Min(0)] public float projectileRange;
         [SerializeField][Min(0)] public float projectileSpeed;
         [SerializeField][Min(0)] public float projectileTracking = 0;

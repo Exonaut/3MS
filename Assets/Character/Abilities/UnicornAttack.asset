@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fc6ea8712ace7847b7685e1f5bf2afe, type: 3}
+  m_Name: UnicornAttack
+  m_EditorClassIdentifier: 
+  abilityName: UnicornAttack
+  abilityDescription: 
+  abilityIcon: {fileID: 0}
+  abilityCooldown: 5
+  abilityCastTime: 0
+  canHold: 0
+  damage: 5
+  ignoreShield: 0
+  ignoreHealth: 0
+  ignoreDamageReduction: 0
+  onHitEffect: {fileID: 0}
+  onHitEffectScale: {x: 1, y: 1, z: 1}
+  muzzleFlash: {fileID: 0}
+  weaponEffectScale: {x: 1, y: 1, z: 1}
+  castAudio: []
+  impactAudio: []
+  projectilePrefab: {fileID: 3198552504452433683, guid: 5281b8567d5444d47acda10d32f5c505, type: 3}
+  projectileRange: 100
+  projectileSpeed: 10
+  projectileTracking: 1
