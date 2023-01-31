@@ -25,7 +25,7 @@ MonoBehaviour:
   onHitEffect: {fileID: 9164938283348864896, guid: 1b94fa8be8a7dfd4a8f7450f75fb90fb, type: 3}
   onHitEffectScale: {x: 1, y: 1, z: 1}
   muzzleFlash: {fileID: 9164938283348864896, guid: 1b94fa8be8a7dfd4a8f7450f75fb90fb, type: 3}
-  weaponEffectScale: {x: 0.2, y: 0.2, z: 0.2}
+  weaponEffectScale: {x: 0.5, y: 0.5, z: 0.5}
   castAudio:
   - {fileID: 8300000, guid: 0d9f85d9ea69a734895afc382b692db2, type: 3}
   - {fileID: 8300000, guid: fae95b73a7d8253448ab7311a06badf7, type: 3}
