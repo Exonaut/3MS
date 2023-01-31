@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 
+[RequireComponent(typeof(AudioSource))]
 public class MenuUI : MonoBehaviour
 {
     [FoldoutGroup("Dependencies", expanded: true)]
@@ -14,6 +15,10 @@ public class MenuUI : MonoBehaviour
 
     [FoldoutGroup("Settings", expanded: true)]
     [FoldoutGroup("Settings")][SerializeField] bool startEnabled;
+
+    [FoldoutGroup("Audio", expanded: true)]
+    [FoldoutGroup("Audio")][SerializeField] AudioClip buttonSelectedClip;
+    [FoldoutGroup("Audio")][SerializeField] AudioClip buttonClickedClip;
 
     [FoldoutGroup("Hooks", expanded: true)]
     [FoldoutGroup("Hooks")][SerializeField] List<EventHook<Object>> showUIHooks;
@@ -26,7 +31,7 @@ public class MenuUI : MonoBehaviour
     protected UIDocument document;
     protected FocusController focusController;
     protected VisualElement root;
-    protected VisualElement hovering;
+    protected AudioSource audioSource;
 
     protected void Start()
     {
@@ -40,6 +45,8 @@ public class MenuUI : MonoBehaviour
         showUIHooks?.ForEach((hook) => hook.AddListener(ShowUI));
         hideUIHooks?.ForEach((hook) => hook.AddListener(HideUI));
         toggleUIHooks?.ForEach((hook) => hook.AddListener(ToggleUI));
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     protected void Update()
@@ -54,11 +61,6 @@ public class MenuUI : MonoBehaviour
             Button button = (Button)focusController.focusedElement;
             ColorButton(button, buttonHoveringColor);
         }
-
-        if (hovering != null)
-        {
-            hovering.Focus();
-        }
     }
 
     protected void OnEnable()
@@ -71,6 +73,7 @@ public class MenuUI : MonoBehaviour
         {
             button.RegisterCallback<MouseOverEvent>(OnButtonEnter);
             button.RegisterCallback<MouseLeaveEvent>(OnButtonExit);
+            button.clicked += () => PlayButtonClickedSound();
         });
 
         var btnReturn = root.Q<Button>("Return");
@@ -129,17 +132,23 @@ public class MenuUI : MonoBehaviour
 
     private void OnButtonEnter(MouseOverEvent e)
     {
-        hovering = (VisualElement)e.target;
+        ((VisualElement)e.target).Focus();
+        audioSource?.PlayOneShot(buttonSelectedClip);
     }
 
     private void OnButtonExit(MouseLeaveEvent e)
     {
-        if (hovering == (VisualElement)e.target) hovering = null;
+        //
     }
 
     private void ColorButton(VisualElement e, Color color)
     {
         e.style.unityBackgroundImageTintColor = color;
+    }
+
+    private void PlayButtonClickedSound()
+    {
+        audioSource.PlayOneShot(buttonClickedClip);
     }
 
     [Hookable] public event Action<MenuUI> onReturn;
