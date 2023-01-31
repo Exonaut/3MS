@@ -15,10 +15,10 @@ MonoBehaviour:
   abilityName: UnicornAttack
   abilityDescription: 
   abilityIcon: {fileID: 0}
-  abilityCooldown: 5
+  abilityCooldown: 3
   abilityCastTime: 0
   canHold: 0
-  damage: 5
+  damage: 10
   ignoreShield: 0
   ignoreHealth: 0
   ignoreDamageReduction: 0
@@ -30,5 +30,5 @@ MonoBehaviour:
   impactAudio: []
   projectilePrefab: {fileID: 3198552504452433683, guid: 5281b8567d5444d47acda10d32f5c505, type: 3}
   projectileRange: 100
-  projectileSpeed: 10
-  projectileTracking: 1
+  projectileSpeed: 20
+  projectileTracking: 0.3
