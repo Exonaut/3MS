@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System;
+using System.Collections;
 
 public class OptionsMenuUI : MenuUI
 {
@@ -128,9 +129,20 @@ public class OptionsMenuUI : MenuUI
         if (fullscreenToggle != null) b_fullscreen = fullscreenToggle.value ? 1 : 0;
     }
 
-    new void OnEnable()
+    private new void OnEnable()
     {
-        base.OnEnable();
+        StartCoroutine(InitializeOnNextFrame());
+    }
+
+    protected new IEnumerator InitializeOnNextFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        this.Initialize();
+    }
+
+    protected new void Initialize()
+    {
+        base.Initialize();
 
         fullscreen = -1;
         resolution = new Resolution();

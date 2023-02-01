@@ -10,12 +10,9 @@ public class MainMenuUI : MenuUI
 {
     [FoldoutGroup("Dependencies")][SerializeField, Required] private UnityEngine.Object startGameScene;
 
-    new void OnEnable()
+    protected new void Initialize()
     {
-        base.OnEnable();
-
-        // Setup Menu buttons
-        VisualElement root = GetComponent<UIDocument>().rootVisualElement;
+        base.Initialize();
 
         root.Q<Button>("StartGame").clicked += () => OnStartGame();
         root.Q<Button>("Options").clicked += () => OnOptions();
@@ -24,9 +21,15 @@ public class MainMenuUI : MenuUI
         root.Q<Button>("EndGame").clicked += () => OnEndGame();
     }
 
-    private new void Update()
+    private new void OnEnable()
     {
-        base.Update();
+        StartCoroutine(InitializeOnNextFrame());
+    }
+
+    protected new IEnumerator InitializeOnNextFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        this.Initialize();
     }
 
     [Hookable] public event Action<MainMenuUI> onStartGame;
@@ -35,7 +38,7 @@ public class MainMenuUI : MenuUI
         logger.Log("OnStartGame clicked");
         onStartGame?.Invoke(this);
 
-        if (startGameScene != null) SceneManager.LoadScene(startGameScene.name);
+        SceneManager.LoadScene("MainLevel");
     }
 
     [Hookable] public event Action<MainMenuUI> onOptions;

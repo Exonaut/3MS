@@ -5,20 +5,32 @@ using System;
 using Sirenix.OdinInspector;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
+using System.Collections;
 
 public class ReturnToSceneUI : MenuUI
 {
     [FoldoutGroup("Dependencies")][SerializeField, Required] private Object returnScene;
 
-    private new void OnEnable()
+    protected new void Initialize()
     {
-        base.OnEnable();
+        base.Initialize();
 
         onReturn += ReturnToMenu;
     }
 
     private void ReturnToMenu(MenuUI caller)
     {
-        if (returnScene != null) SceneManager.LoadScene(returnScene.name);
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    private new void OnEnable()
+    {
+        StartCoroutine(InitializeOnNextFrame());
+    }
+
+    protected new IEnumerator InitializeOnNextFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        this.Initialize();
     }
 }

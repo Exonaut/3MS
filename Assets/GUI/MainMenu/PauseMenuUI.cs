@@ -10,9 +10,9 @@ public class PauseMenuUI : MenuUI
 {
     [FoldoutGroup("Dependencies")][SerializeField, Required] private UnityEngine.Object mainMenuScene;
 
-    new void OnEnable()
+    protected new void Initialize()
     {
-        base.OnEnable();
+        base.Initialize();
 
         // Setup Menu buttons
         VisualElement root = GetComponent<UIDocument>().rootVisualElement;
@@ -21,6 +21,17 @@ public class PauseMenuUI : MenuUI
         root.Q<Button>("Options").clicked += () => OnOptions();
         root.Q<Button>("End").clicked += () => OnEnd();
         root.Q<Button>("Controlls").clicked += () => OnControlls();
+    }
+
+    private new void OnEnable()
+    {
+        StartCoroutine(InitializeOnNextFrame());
+    }
+
+    protected new IEnumerator InitializeOnNextFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        this.Initialize();
     }
 
     [Hookable] public event Action<PauseMenuUI> onStartGame;
@@ -57,6 +68,6 @@ public class PauseMenuUI : MenuUI
         logger.Log("OnEnd clicked");
         onEndGame?.Invoke(this);
 
-        if (mainMenuScene != null) SceneManager.LoadScene(mainMenuScene.name);
+        SceneManager.LoadScene("MainMenu");
     }
 }

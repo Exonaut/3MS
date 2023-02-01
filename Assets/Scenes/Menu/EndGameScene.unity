@@ -359,8 +359,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1461859801}
-  - component: {fileID: 1461859802}
   - component: {fileID: 1461859800}
+  - component: {fileID: 1461859802}
   - component: {fileID: 1461859803}
   m_Layer: 0
   m_Name: LooseDocument
@@ -376,7 +376,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1461859798}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
@@ -575,8 +575,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516443840}
-  - component: {fileID: 1516443841}
   - component: {fileID: 1516443839}
+  - component: {fileID: 1516443841}
   - component: {fileID: 1516443842}
   m_Layer: 0
   m_Name: WinDocument
@@ -592,7 +592,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1516443837}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 

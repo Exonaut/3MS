@@ -5,27 +5,39 @@ using System;
 using Sirenix.OdinInspector;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
+using System.Collections;
 
 public class GameLostUI : MenuUI
 {
     [FoldoutGroup("Dependencies")][SerializeField, Required] private Object retryGameScene;
     [FoldoutGroup("Dependencies")][SerializeField, Required] private Object returnScene;
 
-    private new void OnEnable()
+    protected new void Initialize()
     {
-        base.OnEnable();
+        base.Initialize();
 
         root.Q<Button>("Retry").clicked += OnRetryClicked;
         root.Q<Button>("Return").clicked += ReturnToMenu;
     }
 
+    private new void OnEnable()
+    {
+        StartCoroutine(InitializeOnNextFrame());
+    }
+
+    protected new IEnumerator InitializeOnNextFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        this.Initialize();
+    }
+
     private void OnRetryClicked()
     {
-        if (retryGameScene) SceneManager.LoadScene(retryGameScene.name);
+        SceneManager.LoadScene("MainLevel");
     }
 
     private void ReturnToMenu()
     {
-        if (returnScene) SceneManager.LoadScene(returnScene.name);
+        SceneManager.LoadScene("MainMenu");
     }
 }

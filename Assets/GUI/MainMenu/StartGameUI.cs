@@ -11,11 +11,22 @@ public class StartGameUI : MenuUI
 
     Label text;
 
-    private new void Start()
+    protected new void Initialize()
     {
-        base.Start();
+        base.Initialize();
 
         text = root.Q<Label>("Text");
         text.text = content;
+    }
+
+    private new void OnEnable()
+    {
+        StartCoroutine(InitializeOnNextFrame());
+    }
+
+    protected new IEnumerator InitializeOnNextFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        this.Initialize();
     }
 }

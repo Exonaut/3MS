@@ -33,13 +33,17 @@ public class MenuUI : MonoBehaviour
     protected VisualElement root;
     protected AudioSource audioSource;
 
-    protected void Start()
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
+    /// </summary>
+    private void Start()
     {
+        if (!startEnabled) gameObject.SetActive(false);
+
         logger = logger == null ? Logger.GetDefaultLogger(this) : logger;
         document = GetComponent<UIDocument>();
         if (document) document.enabled = true;
-
-        if (!startEnabled) gameObject.SetActive(false);
 
         // Connect hooks
         showUIHooks?.ForEach((hook) => hook.AddListener(ShowUI));
@@ -47,6 +51,25 @@ public class MenuUI : MonoBehaviour
         toggleUIHooks?.ForEach((hook) => hook.AddListener(ToggleUI));
 
         audioSource = GetComponent<AudioSource>();
+    }
+
+    protected void Initialize()
+    {
+        // Setup Menu buttons
+        root = GetComponent<UIDocument>().rootVisualElement;
+
+        // Hover effect for buttons
+        root.Query<Button>(className: "button").ForEach((button) =>
+        {
+            button.RegisterCallback<MouseOverEvent>(OnButtonEnter);
+            button.RegisterCallback<MouseLeaveEvent>(OnButtonExit);
+            button.clicked += () => PlayButtonClickedSound();
+        });
+
+        var btnReturn = root.Q<Button>("Return");
+        if (btnReturn != null) btnReturn.clicked += () => OnReturn();
+
+        focusController = root.focusController;
     }
 
     protected void Update()
@@ -65,21 +88,7 @@ public class MenuUI : MonoBehaviour
 
     protected void OnEnable()
     {
-        // Setup Menu buttons
-        root = GetComponent<UIDocument>().rootVisualElement;
-
-        // Hover effect for buttons
-        root?.Query<Button>(className: "button").ForEach((button) =>
-        {
-            button.RegisterCallback<MouseOverEvent>(OnButtonEnter);
-            button.RegisterCallback<MouseLeaveEvent>(OnButtonExit);
-            button.clicked += () => PlayButtonClickedSound();
-        });
-
-        var btnReturn = root.Q<Button>("Return");
-        if (btnReturn != null) btnReturn.clicked += () => OnReturn();
-
-        focusController = root.focusController;
+        StartCoroutine(InitializeOnNextFrame());
     }
 
     /// <summary>
@@ -158,5 +167,11 @@ public class MenuUI : MonoBehaviour
         onReturn?.Invoke(this);
 
         HideUI(this);
+    }
+
+    protected IEnumerator InitializeOnNextFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        this.Initialize();
     }
 }

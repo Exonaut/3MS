@@ -72,7 +72,7 @@ public class Hitable : MonoBehaviour
         if (!deathEffectOrigin)
         {
             deathEffectOrigin = transform;
-            logger.LogWarning($"{gameObject.name} has no death effect origin", this);
+            logger?.LogWarning($"{gameObject.name} has no death effect origin", this);
         }
     }
 

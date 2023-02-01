@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     private void LoadGameLostScene(Hitable obj)
     {
         GameGlobals.gameWon = false;
-        SceneManager.LoadScene(endGameScene.name);
+        SceneManager.LoadScene("EndGameScene");
     }
 
     public void Restart()
