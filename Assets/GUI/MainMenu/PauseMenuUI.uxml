@@ -5,7 +5,7 @@
             <ui:Button text="Continue" name="Continue" class="button doomcolor" />
             <ui:Button text="Options" tabindex="1" name="Options" class="button doomcolor" />
             <ui:Button text="Controlls" tabindex="1" name="Controlls" class="button doomcolor" />
-            <ui:Button text="End Game" tabindex="3" name="End" class="button doomcolor" style="margin-top: 4%;" />
+            <ui:Button text="Return to Menu" tabindex="3" name="End" class="button doomcolor" style="margin-top: 4%;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7897467222115145864}
-  - component: {fileID: 7897467222115145870}
   - component: {fileID: 7897467222115145865}
+  - component: {fileID: 7897467222115145870}
   - component: {fileID: 477019604268812113}
   m_Layer: 0
   m_Name: OptionsMenu
@@ -34,6 +34,22 @@ Transform:
   m_Father: {fileID: 7897467222650288437}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7897467222115145865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897467222115145867}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 78239428b96f9d54cb73dcac00cb1b95, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 7917413b4c7fbd94e96375b1d21cc61e, type: 3}
+  m_SortingOrder: 0
 --- !u!114 &7897467222115145870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55,22 +71,6 @@ MonoBehaviour:
     eventName: onOptions
   hideUIHooks: []
   toggleUIHooks: []
---- !u!114 &7897467222115145865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7897467222115145867}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 78239428b96f9d54cb73dcac00cb1b95, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 7917413b4c7fbd94e96375b1d21cc61e, type: 3}
-  m_SortingOrder: 0
 --- !u!82 &477019604268812113
 AudioSource:
   m_ObjectHideFlags: 0
@@ -213,8 +213,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7897467222785072725}
-  - component: {fileID: 7897467222785072715}
   - component: {fileID: 7897467222785072714}
+  - component: {fileID: 7897467222785072715}
   m_Layer: 0
   m_Name: PlayerHUD
   m_TagString: Untagged
@@ -237,6 +237,22 @@ Transform:
   m_Father: {fileID: 7897467222650288437}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7897467222785072714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897467222785072724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 78239428b96f9d54cb73dcac00cb1b95, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 5a1c0417c0fc9fe428634da7c4e338c3, type: 3}
+  m_SortingOrder: -1
 --- !u!114 &7897467222785072715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,6 +267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   logger: {fileID: 0}
   playerHitable: {fileID: 0}
+  bossHitable: {fileID: 0}
   playerWeapon: {fileID: 0}
   healthCurve:
     serializedVersion: 2
@@ -285,22 +302,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7897467222785072714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7897467222785072724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 78239428b96f9d54cb73dcac00cb1b95, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 5a1c0417c0fc9fe428634da7c4e338c3, type: 3}
-  m_SortingOrder: -1
 --- !u!1 &7897467223185513781
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,8 +311,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7897467223185513770}
-  - component: {fileID: 7897467223185513769}
   - component: {fileID: 7897467223185513768}
+  - component: {fileID: 7897467223185513769}
   - component: {fileID: 3145998256814000269}
   m_Layer: 0
   m_Name: PauseMenu
@@ -335,6 +336,22 @@ Transform:
   m_Father: {fileID: 7897467222650288437}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7897467223185513768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897467223185513781}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 78239428b96f9d54cb73dcac00cb1b95, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: b51b3c5aa9925b343b4dbdd9f50cdb71, type: 3}
+  m_SortingOrder: 0
 --- !u!114 &7897467223185513769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,22 +378,6 @@ MonoBehaviour:
   hideUIHooks: []
   toggleUIHooks: []
   mainMenuScene: {fileID: 102900000, guid: 05ebd65ae3a3259468d7190116ae884a, type: 3}
---- !u!114 &7897467223185513768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7897467223185513781}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 78239428b96f9d54cb73dcac00cb1b95, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: b51b3c5aa9925b343b4dbdd9f50cdb71, type: 3}
-  m_SortingOrder: 0
 --- !u!82 &3145998256814000269
 AudioSource:
   m_ObjectHideFlags: 0
@@ -482,8 +483,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7897467223234164215}
-  - component: {fileID: 7897467223234164209}
   - component: {fileID: 7897467223234164214}
+  - component: {fileID: 7897467223234164209}
   - component: {fileID: 2081179273758012062}
   m_Layer: 0
   m_Name: ControllsMenu
@@ -507,6 +508,22 @@ Transform:
   m_Father: {fileID: 7897467222650288437}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7897467223234164214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897467223234164208}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 78239428b96f9d54cb73dcac00cb1b95, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: a76e9aa7d82fee5428a86ec88218804f, type: 3}
+  m_SortingOrder: 0
 --- !u!114 &7897467223234164209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -528,22 +545,6 @@ MonoBehaviour:
     eventName: onControlls
   hideUIHooks: []
   toggleUIHooks: []
---- !u!114 &7897467223234164214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7897467223234164208}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 78239428b96f9d54cb73dcac00cb1b95, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: a76e9aa7d82fee5428a86ec88218804f, type: 3}
-  m_SortingOrder: 0
 --- !u!82 &2081179273758012062
 AudioSource:
   m_ObjectHideFlags: 0
@@ -727,8 +728,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8303749421380624260}
-  - component: {fileID: 5589237802748655015}
   - component: {fileID: 4047433486378202289}
+  - component: {fileID: 5589237802748655015}
   - component: {fileID: 505051518672442210}
   m_Layer: 0
   m_Name: StartScreen
@@ -752,6 +753,22 @@ Transform:
   m_Father: {fileID: 7897467222650288437}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4047433486378202289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8745633800952063582}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 78239428b96f9d54cb73dcac00cb1b95, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: f369e07ae2079d14980ce0096e4ac084, type: 3}
+  m_SortingOrder: 0
 --- !u!114 &5589237802748655015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -772,22 +789,6 @@ MonoBehaviour:
   hideUIHooks: []
   toggleUIHooks: []
   content: 
---- !u!114 &4047433486378202289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8745633800952063582}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 78239428b96f9d54cb73dcac00cb1b95, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: f369e07ae2079d14980ce0096e4ac084, type: 3}
-  m_SortingOrder: 0
 --- !u!82 &505051518672442210
 AudioSource:
   m_ObjectHideFlags: 0

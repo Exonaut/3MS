@@ -132,8 +132,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 265373469}
-  - component: {fileID: 265373471}
   - component: {fileID: 265373470}
+  - component: {fileID: 265373471}
   - component: {fileID: 265373472}
   m_Layer: 0
   m_Name: ControllsDocument
@@ -464,8 +464,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1049553030}
-  - component: {fileID: 1049553031}
   - component: {fileID: 1049553029}
+  - component: {fileID: 1049553031}
   - component: {fileID: 1049553032}
   m_Layer: 0
   m_Name: OptionsDocument
@@ -729,8 +729,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1494943404}
-  - component: {fileID: 1494943406}
   - component: {fileID: 1494943405}
+  - component: {fileID: 1494943406}
   - component: {fileID: 1494943407}
   m_Layer: 0
   m_Name: CreditsDocument
@@ -896,8 +896,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516443840}
-  - component: {fileID: 1516443838}
   - component: {fileID: 1516443839}
+  - component: {fileID: 1516443838}
   - component: {fileID: 1516443841}
   m_Layer: 0
   m_Name: MainMenuDocument
