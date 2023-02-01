@@ -10,11 +10,13 @@ public class PlayerHUD : MonoBehaviour
     [FoldoutGroup("Dependencies", expanded: true)]
     [FoldoutGroup("Dependencies")][SerializeField, Required] Logger logger;
     [FoldoutGroup("Dependencies")][SerializeField, Required] Hitable playerHitable;
+    [FoldoutGroup("Dependencies")][SerializeField] Hitable bossHitable;
     [FoldoutGroup("Dependencies")][SerializeField, Required] WeaponController playerWeapon;
 
     [FoldoutGroup("Settings")][SerializeField, Required] AnimationCurve healthCurve;
 
     ProgressBar healthBar;
+    ProgressBar bossBar;
 
     WaveSpawner waveSpawner;
     Label waveCounter;
@@ -32,6 +34,8 @@ public class PlayerHUD : MonoBehaviour
 
         healthBar = root?.Q<ProgressBar>("HealthBar");
         if (healthBar == null) logger.LogWarning("Healthbar not found", this);
+        bossBar = root?.Q<ProgressBar>("BossBar");
+        if (bossBar == null) logger.LogWarning("BossBar not found", this);
         waveCounter = root?.Q<Label>("Wavecounter");
         if (waveCounter == null) logger.LogWarning("Wavecounter not found", this);
         waveTimer = root?.Q<Label>("Wavetimer");
@@ -47,6 +51,7 @@ public class PlayerHUD : MonoBehaviour
     {
         UpdateAmmoCount();
         UpdateHealthbar();
+        UpdateBossbar();
         UpdateWaveCounter();
         UpdateWaveTimer();
     }
@@ -71,6 +76,25 @@ public class PlayerHUD : MonoBehaviour
         healthBar.highValue = playerHitable.maxHealth;
         healthBar.value = fakeHealth;
         healthBar.title = fakeHealth + "/" + playerHitable.maxHealth;
+    }
+
+    private void UpdateBossbar()
+    {
+        if (bossHitable == null && bossBar != null)
+        {
+            var boss = GameObject.FindGameObjectWithTag("Boss");
+            if (boss) bossHitable = boss.GetComponent<Hitable>();
+        }
+
+        if (bossHitable == null || bossBar == null || bossHitable.health <= 0 || !bossHitable.gameObject.activeInHierarchy)
+        {
+            bossBar.visible = false;
+            return;
+        }
+
+        bossBar.visible = true;
+        bossBar.highValue = bossHitable.maxHealth;
+        bossBar.value = bossHitable.health;
     }
 
     private void UpdateWaveCounter()
