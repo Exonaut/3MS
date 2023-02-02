@@ -22,7 +22,7 @@ public class SpawnButtonController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && !isPushed)
+        if (other.gameObject.   CompareTag("Player") && !isPushed)
         {
             isPushed = true;
             OnPush.Invoke();

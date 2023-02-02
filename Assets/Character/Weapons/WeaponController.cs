@@ -79,7 +79,7 @@ public class WeaponController : MonoBehaviour
         var attackOrigin = (aimOrigin.Count > 0 || playerCamera == null) ? aimOrigin : new List<Transform>() { playerCamera };
 
         var ignores = new List<Collider>(GetComponentsInChildren<Collider>());
-
+            
         var i = (shotCount + 1) % attackOrigin.Count;
         var q = (i + 1) % weaponEffectOrigin.Count;
         weaponUseAbility.UseAbility(ignores, attackOrigin[i], abilityLayerMask, weaponEffectOrigin[q], logger, target, audioSource);

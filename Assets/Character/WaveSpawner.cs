@@ -73,18 +73,61 @@ public class WaveSpawner : MonoBehaviour
         currentlySpawnedEnemies = new List<Hitable>();
         waves = new List<Wave>
         {
-            new Wave(20, new List<EnemySpawn> { new EnemySpawn(EnemyPrefabs[0], new Vector3(-10, 0, 30)) },
+            // 1
+            new Wave(40, new List<EnemySpawn> {
+                new EnemySpawn(EnemyPrefabs[0], new Vector3(4.19999981f,1.40999997f,-11.5f)),
+                new EnemySpawn(EnemyPrefabs[0], new Vector3(-8.80000019f,1.40999997f,3.0999999f)),
+                new EnemySpawn(EnemyPrefabs[0], new Vector3(-6.53000021f,1.40999997f,13.1000004f)),
+                new EnemySpawn(EnemyPrefabs[0], new Vector3(1.85000002f,1.40999997f,19.6100006f)),
+            },
             new List<PickupSpawn>{
-                new PickupSpawn(PickupPrefabs[0], new Vector3(0, .5f, -10), 10),
-                new PickupSpawn(PickupPrefabs[1], new Vector3(2, .5f, -10), 10),
+                new PickupSpawn(PickupPrefabs[0], new Vector3(15f,1.99000001f,-21.2000008f), 10),
+                new PickupSpawn(PickupPrefabs[1], new Vector3(15.2600002f,1.99000001f,25.0300007f), 10),
             }),
-            new Wave(25, new List<EnemySpawn> {
-                new EnemySpawn(EnemyPrefabs[0], new Vector3(0, 0, 30)) },
+            // 2
+            new Wave(30, new List<EnemySpawn> {
+                new EnemySpawn(EnemyPrefabs[0], new Vector3(47.9199982f,7.73000002f,-69.9800034f)),
+                new EnemySpawn(EnemyPrefabs[1], new Vector3(62.3199997f,4.07000017f,-0.50999999f)),
+                new EnemySpawn(EnemyPrefabs[0], new Vector3(70.0899963f,3.1400001f,48.0999985f)),
+                new EnemySpawn(EnemyPrefabs[1], new Vector3(-23.7999992f,0.879999995f,-37.3499985f)),
+            },
             new List<PickupSpawn>{
-                new PickupSpawn(PickupPrefabs[0], new Vector3(0, .5f, -12), 20),
-                new PickupSpawn(PickupPrefabs[1], new Vector3(2, .5f, -12), 20),
+                new PickupSpawn(PickupPrefabs[0], new Vector3(-12.6999998f,0.5f,-2.58999991f), 20),
+                new PickupSpawn(PickupPrefabs[0], new Vector3(-12.6999998f,0.5f,0), 20),
+                new PickupSpawn(PickupPrefabs[0], new Vector3(-12.6999998f,0.5f,2.58999991f), 20),
+                new PickupSpawn(PickupPrefabs[1], new Vector3(26.2099991f,2.5f,-4.46000004f), 20),
+                new PickupSpawn(PickupPrefabs[1], new Vector3(26.2099991f,2.5f,-2.46000004f), 20),
+                new PickupSpawn(PickupPrefabs[1], new Vector3(26.2099991f,2.5f,0), 20),
             }),
-            new Wave(30, new List<EnemySpawn> { new EnemySpawn(EnemyPrefabs[0], new Vector3(10, 0, 30)) }, new List<PickupSpawn>()),
+            // 3
+            new Wave(20, new List<EnemySpawn> {
+                new EnemySpawn(EnemyPrefabs[0], new Vector3(-58.1599998f,6.59000015f,-26.2600002f)),
+                new EnemySpawn(EnemyPrefabs[0], new Vector3(-57.3300018f,19.9899998f,12.1999998f)),
+                new EnemySpawn(EnemyPrefabs[1], new Vector3(-17.7399998f,13.6800003f,-63.5200005f)),
+                new EnemySpawn(EnemyPrefabs[1], new Vector3(4.88000011f,10.8500004f,36.1199989f)),
+                new EnemySpawn(EnemyPrefabs[1], new Vector3(-13.71f,2.18000007f,48.5f)),
+                new EnemySpawn(EnemyPrefabs[1], new Vector3(7.0999999f,1.72000003f,-0.170000002f)),
+            },
+            new List<PickupSpawn>{
+                new PickupSpawn(PickupPrefabs[0], new Vector3(-10.6999998f,0.5f,-2.58999991f), 30),
+                new PickupSpawn(PickupPrefabs[0], new Vector3(-10.6999998f,0.5f,0), 30),
+                new PickupSpawn(PickupPrefabs[0], new Vector3(-10.6999998f,0.5f,2.58999991f), 30),
+                new PickupSpawn(PickupPrefabs[1], new Vector3(24.2099991f,2.5f,-4.46000004f), 30),
+                new PickupSpawn(PickupPrefabs[1], new Vector3(24.2099991f,2.5f,-2.46000004f), 30),
+                new PickupSpawn(PickupPrefabs[1], new Vector3(24.2099991f,2.5f,0), 30),
+            }),
+            // 4
+            new Wave(100, new List<EnemySpawn> {
+                new EnemySpawn(EnemyPrefabs[2], new Vector3(7.0999999f,1.72000003f,-0.170000002f)),
+            },
+            new List<PickupSpawn>{
+                new PickupSpawn(PickupPrefabs[0], new Vector3(-8.6999998f,0.5f,-2.58999991f), 50),
+                new PickupSpawn(PickupPrefabs[0], new Vector3(-8.6999998f,0.5f,0), 50),
+                new PickupSpawn(PickupPrefabs[0], new Vector3(-8.6999998f,0.5f,2.58999991f), 50),
+                new PickupSpawn(PickupPrefabs[1], new Vector3(20.2099991f,2.5f,-4.46000004f), 50),
+                new PickupSpawn(PickupPrefabs[1], new Vector3(20.2099991f,2.5f,-2.46000004f), 50),
+                new PickupSpawn(PickupPrefabs[1], new Vector3(20.2099991f,2.5f,0), 50),
+            }),
         };
         Initiate();
     }

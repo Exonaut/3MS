@@ -64,6 +64,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 776159163020470751, guid: 6d9dbd7811e16a4469aa89d1d6147310, type: 3}
+      propertyPath: maxHealth
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 776159163020470751, guid: 6d9dbd7811e16a4469aa89d1d6147310, type: 3}
       propertyPath: deathSound
       value: 
       objectReference: {fileID: 8300000, guid: 235ca31be51a4bc479fef400c991cfee, type: 3}
@@ -114,6 +118,26 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 776159163020470744, guid: 6d9dbd7811e16a4469aa89d1d6147310, type: 3}
   m_PrefabInstance: {fileID: 2374992392746499444}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1382636101
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3040161036643013804}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7a5b33720f7f32043bc45aa74ee5facf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &1276056219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,10 +169,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 6
+  m_Acceleration: 12
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 300
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -171,23 +195,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   painThreshold: 0.5
   painLength: 0.5
---- !u!95 &1382636101
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3040161036643013804}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7a5b33720f7f32043bc45aa74ee5facf, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
