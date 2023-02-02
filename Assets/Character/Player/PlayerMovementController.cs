@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(CharacterController), typeof(AudioSource))]
 public class PlayerMovementController : MonoBehaviour
 {
     [FoldoutGroup("Dependencies", expanded: true)]
@@ -38,11 +38,16 @@ public class PlayerMovementController : MonoBehaviour
     [FoldoutGroup("Crouch Settings")][Min(.5f)] public float crouchingHeight = 1f;
     [FoldoutGroup("Crouch Settings")][Range(0f, 50f)] public float crouchSpeed = 7f;
 
+    [FoldoutGroup("Sounds", expanded: true)]
+    [FoldoutGroup("Sounds")][Required] public AudioClip walkSound;
+    [FoldoutGroup("Sounds")][Required] public AudioClip jumpSound;
+
     [FoldoutGroup("Hooks")][SerializeField] List<EventHook<Object>> enableHooks;
     [FoldoutGroup("Hooks")][SerializeField] List<EventHook<Object>> disableHooks;
 
     InputHandler inputHandler;
     CharacterController characterController;
+    AudioSource audioSource;
 
     bool isSprinting = false;
     bool crouchButtonPressed = false;
@@ -88,6 +93,7 @@ public class PlayerMovementController : MonoBehaviour
         // Find dependencies
         inputHandler = FindObjectOfType<InputHandler>();
         characterController = GetComponent<CharacterController>();
+        audioSource = GetComponent<AudioSource>();
 
         logger = logger == null ? Logger.GetDefaultLogger(this) : logger;
 
@@ -142,6 +148,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             dir.y = jumpStrength;
             canJump = false;
+            audioSource.PlayOneShot(jumpSound);
         }
 
         LookPlayer();
@@ -184,6 +191,7 @@ public class PlayerMovementController : MonoBehaviour
             MoveGround();
         }
 
+
         characterController.Move(dir * Time.deltaTime); // Apply movement
 
         LimitVerticalSpeed();
@@ -191,6 +199,14 @@ public class PlayerMovementController : MonoBehaviour
 
         prevSpeed = characterController.velocity;
 
+        if (characterController.isGrounded && prevSpeed.magnitude > 0.01 && !audioSource.isPlaying)
+        {
+            audioSource.UnPause();
+        }
+        else
+        {
+            audioSource.Pause();
+        }
     }
 
     void LookPlayer()

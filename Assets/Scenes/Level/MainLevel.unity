@@ -4636,6 +4636,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6600049690206088162, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6600049690206088162, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 61278dac07de1614fb3c8ef33db0076d, type: 3}
+    - target: {fileID: 6600049690206088162, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670438668048202710, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}
+      propertyPath: walkSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 61278dac07de1614fb3c8ef33db0076d, type: 3}
     - target: {fileID: 6670438668048202710, guid: 1e18afcf841894f4ebf8c9927ccada0d, type: 3}
       propertyPath: slopeMask.m_Bits
       value: 1
