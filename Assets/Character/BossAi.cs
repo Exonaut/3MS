@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class BossAi : MonoBehaviour
 {
@@ -26,6 +27,12 @@ public class BossAi : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         target = null;
         animator = GetComponent<Animator>();
+
+        GetComponent<Hitable>().onDie += (caller) =>
+        {
+            GameGlobals.gameWon = true;
+            SceneManager.LoadScene("EndGameScene");
+        };
     }
 
     private void Update()

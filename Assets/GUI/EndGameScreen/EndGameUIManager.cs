@@ -14,6 +14,8 @@ public class EndGameUIManager : MonoBehaviour
 
     private void Update()
     {
+        if (!enabled) return;
+
         Cursor.lockState = CursorLockMode.None;
 
         var audioSource = GetComponent<AudioSource>();
@@ -22,12 +24,13 @@ public class EndGameUIManager : MonoBehaviour
         {
             winUI.ShowUI(this);
             audioSource.PlayOneShot(winSound);
+            Destroy(this);
             return;
         }
 
         looseUI.ShowUI(this);
         audioSource.PlayOneShot(looseSound);
 
-        enabled = false;
+        Destroy(this);
     }
 }

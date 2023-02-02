@@ -35,11 +35,6 @@
                     <AttributeOverrides element-name="RightText" text="X" />
                 </ui:Instance>
                 <ui:Instance template="UISplitLabel" name="UISplitLabel">
-                    <AttributeOverrides element-name="Label" text="Interact" />
-                    <AttributeOverrides element-name="LeftText" text="E" />
-                    <AttributeOverrides element-name="RightText" text="Y" />
-                </ui:Instance>
-                <ui:Instance template="UISplitLabel" name="UISplitLabel">
                     <AttributeOverrides element-name="Label" text="Pause" />
                     <AttributeOverrides element-name="LeftText" text="Escape" />
                     <AttributeOverrides element-name="RightText" text="Start" />

@@ -3,7 +3,7 @@
     <ui:VisualElement style="flex-basis: auto; flex-grow: 0; align-items: center; justify-content: flex-start; width: 100%; height: 100%;">
         <ui:VisualElement style="margin-top: 3%; width: 1000px; height: 200px;">
             <ui:VisualElement style="background-image: url(&apos;project://database/Assets/GUI%20PRO%20Kit%20-%20Sci-Fi/ResourcesData/Sprite/Component/Frame_Demo/Frame_TableFrame05_Demo02_Navy.png?fileID=2800000&amp;guid=5cf7ba7c4b6174703ac25000251117f2&amp;type=3#Frame_TableFrame05_Demo02_Navy&apos;); width: 100%; height: 100%; justify-content: center; align-items: center; -unity-background-scale-mode: stretch-to-fill; -unity-background-image-tint-color: rgb(255, 255, 255);">
-                <ui:VisualElement style="background-image: url(&apos;project://database/Assets/GUI/MainMenu/Title.bmp?fileID=2800000&amp;guid=a2ba1d674d610e24089b71721ac02c25&amp;type=3#Title&apos;); height: 90%; translate: 0 9px; width: 90%; -unity-background-scale-mode: scale-to-fit;" />
+                <ui:VisualElement style="background-image: url(&apos;project://database/Assets/GUI/MainMenu/title.png?fileID=2800000&amp;guid=53a2175618fe0144ebc9d07ca9bf1809&amp;type=3#title&apos;); height: 90%; translate: 0 0; width: 90%; -unity-background-scale-mode: scale-to-fit;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement style="width: 100%; height: 100%; justify-content: center; align-items: center; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 1%; padding-right: 1%; padding-top: 3%; padding-bottom: 3%;">
