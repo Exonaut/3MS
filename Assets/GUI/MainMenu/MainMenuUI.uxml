@@ -10,7 +10,7 @@
             <ui:Button text="Start Game" name="StartGame" class="button doomcolor" />
             <ui:Button text="Options" tabindex="1" name="Options" class="button doomcolor" />
             <ui:Button text="Controlls" tabindex="1" name="Controlls" class="button doomcolor" />
-            <ui:Button text="Credits" tabindex="2" name="Credits" class="button doomcolor" />
+            <ui:Button text="Credits" tabindex="2" name="Credits" class="button doomcolor" style="display: none;" />
             <ui:Button text="End Game" tabindex="3" name="EndGame" class="button doomcolor" style="margin-top: 4%;" />
         </ui:VisualElement>
     </ui:VisualElement>

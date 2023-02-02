@@ -12,16 +12,18 @@ public class OptionsMenuUI : MenuUI
         get { return soundVolume; }
         set
         {
-            if (value == soundVolume) return;
+            if (soundVolume == value) return;
 
-            if (logger) logger.Log("Sound volume: " + value, this);
             soundVolume = value;
-            if (soundVolumeSlider != null) soundVolumeSlider.value = value;
             float volume = ((float)value) / 100;
             PlayerPrefs.SetFloat(GameGlobals.key_SoundVolume, volume);
             AudioListener.volume = volume;
 
+            if (soundVolumeSlider == null) return;
+            soundVolumeSlider.value = value;
             soundVolumeSlider.MarkDirtyRepaint();
+
+            if (logger) logger.Log("Sound volume: " + value, this);
         }
     }
 
@@ -31,14 +33,16 @@ public class OptionsMenuUI : MenuUI
         get { return mouseSensitivity; }
         set
         {
-            if (value == mouseSensitivity) return;
+            if (mouseSensitivity == value) return;
 
-            if (logger) logger.Log("Mouse sensitivity: " + value, this);
             mouseSensitivity = value;
-            if (mouseSensitivitySlider != null) mouseSensitivitySlider.value = value;
             PlayerPrefs.SetFloat(GameGlobals.key_MouseSensitivity, ((float)value) / 100);
 
+            if (mouseSensitivitySlider == null) return;
+            mouseSensitivitySlider.value = value;
             mouseSensitivitySlider.MarkDirtyRepaint();
+
+            if (logger) logger.Log("Mouse sensitivity: " + value, this);
         }
     }
 
@@ -48,17 +52,17 @@ public class OptionsMenuUI : MenuUI
         get { return graphicsQuality; }
         set
         {
-            if (graphicsQualityDropdown != null) graphicsQualityDropdown.index = value;
+            if (graphicsQuality == value) return;
 
-            if (value == graphicsQuality) return;
-
-            if (logger) logger.Log("Graphics quality: " + value, this);
             graphicsQuality = value;
-            if (graphicsQualityDropdown != null) graphicsQualityDropdown.index = value;
             PlayerPrefs.SetInt(GameGlobals.key_GraphicsQuality, value);
             QualitySettings.SetQualityLevel(value);
 
+            if (graphicsQualityDropdown == null) return;
+            graphicsQualityDropdown.index = value;
             graphicsQualityDropdown.MarkDirtyRepaint();
+
+            if (logger) logger.Log("Graphics quality: " + value, this);
         }
     }
 
@@ -68,8 +72,6 @@ public class OptionsMenuUI : MenuUI
         get { return resolution; }
         set
         {
-            if (resolutionDropdown != null) resolutionDropdown.index = resolutionChoices.IndexOf(string.Format("{0}x{1}", value.width, value.height));
-
             if (resolution.width == value.width && resolution.height == value.height) return;
 
             resolution = value;
@@ -78,9 +80,11 @@ public class OptionsMenuUI : MenuUI
 
             Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
 
-            if (logger) logger.Log(string.Format("Resolution: {0}x{1}", value.width, value.height), this);
-
+            if (resolutionDropdown == null) return;
+            resolutionDropdown.index = resolutionChoices.IndexOf(string.Format("{0}x{1}", value.width, value.height));
             resolutionDropdown.MarkDirtyRepaint();
+
+            if (logger) logger.Log(string.Format("Resolution: {0}x{1}", value.width, value.height), this);
         }
     }
 
@@ -95,13 +99,13 @@ public class OptionsMenuUI : MenuUI
             fullscreen = value;
             PlayerPrefs.SetInt(GameGlobals.key_Fullscreen, value);
             bool fs = fullscreen == 0 ? false : true;
-            fullscreenToggle.value = fs;
             Screen.fullScreen = fs;
-            Screen.fullScreenMode = FullScreenMode.Windowed;
+
+            if (fullscreenToggle == null) return;
+            fullscreenToggle.value = fs;
+            fullscreenToggle.MarkDirtyRepaint();
 
             if (logger) logger.Log(string.Format("Fullscreen: {0}", fs), this);
-
-            fullscreenToggle.MarkDirtyRepaint();
         }
     }
 
@@ -131,6 +135,24 @@ public class OptionsMenuUI : MenuUI
 
     private new void OnEnable()
     {
+        fullscreen = -1;
+        resolution = new Resolution();
+        soundVolume = -1;
+        mouseSensitivity = -1;
+        graphicsQuality = -1;
+
+        // Apply player prefs
+        b_soundVolume = (int)(PlayerPrefs.GetFloat(GameGlobals.key_SoundVolume, 0.5f) * 100);
+        b_mouseSensitivity = (int)(PlayerPrefs.GetFloat(GameGlobals.key_MouseSensitivity, 0.5f) * 100);
+        b_graphicsQuality = PlayerPrefs.GetInt(GameGlobals.key_GraphicsQuality, QualitySettings.names.Length - 1);
+
+        var res = new Resolution();
+        res.width = PlayerPrefs.GetInt(GameGlobals.key_Resolution_Width, Screen.currentResolution.width);
+        res.height = PlayerPrefs.GetInt(GameGlobals.key_Resolution_Height, Screen.currentResolution.height);
+        b_resolution = res;
+
+        b_fullscreen = PlayerPrefs.GetInt(GameGlobals.key_Fullscreen, 1);
+
         StartCoroutine(InitializeOnNextFrame());
     }
 
